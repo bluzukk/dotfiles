@@ -1,35 +1,51 @@
+
+
 <div align="center">
     <h1>Home of my Dotfiles :)</h1>
 </div>
 
+I figured [Pywal](https://github.com/dylanaraps/pywal) is better at choosing colorschemes than me.<br>
+This setup is heavily focused on only using `.Xresources` colors defined by Pywal.
 
-<image align="right" width="641" src="awesome/assets/screenshots/fetch.png"/>
-<div align="left">
-    <h4>Includes configs/builds for:</h4>
-</div>
-
-- [AwesomeWM](https://github.com/awesomeWM/awesome)
-- [NeoMutt](https://github.com/neomutt/neomutt)
-- [Neovim](https://github.com/neovim/neovim)
-- [Neofetch](https://github.com/dylanaraps/neofetch)
-- [lf](https://github.com/gokcehan/lf)
-- [st](https://st.suckless.org/)
-- [zsh](https://zsh.sourceforge.io/)
-- ...
-
-<br><br>
-
-## Information
-
-I figured [Pywal](https://github.com/dylanaraps/pywal) is better than me at choosing colors and I like changing my wallpaper frequently. <br>
-Therefore this setup is heavily focused on only using `.Xresources` colors defined by Pywal.
-
-## Gallery
 <image align="center" src="awesome/assets/screenshots/screenshots.gif"/>
 
-## Setup
+## 
+
+<image align="right" width="500" src="awesome/assets/screenshots/fetch.png"/>
+
+Details about my setup:
++ **WM**: [**AwesomeWM**](https://github.com/awesomeWM/awesome/) (👾 config included)
++ **Font**: [**Cascadia-Code**](https://github.com/microsoft/cascadia-code)
++ **Terminal**: [**st**](https://st.suckless.org/) (👾 config included)
++ **Shell**: [**zsh**](https://wiki.archlinux.org/index.php/Zsh) (👾 config included)
++ **File Manager**: [**lf**](https://github.com/gokcehan/lf) (👾 config included)
++ **Editor**: [**Neovim**](https://github.com/neovim/neovim/) (👾 config included)
++ **Mail**: [**NeoMutt**](https://github.com/neomutt/neomutt) (👾 config included)
++ **Browser**: [**Librewolf**](https://librewolf.net/) ([SimpleFox](https://github.com/migueravila/SimpleFox) + [Pywalfox](https://github.com/Frewacom/pywalfox))
++ **Launcher**: AwesomeWM built-in.
+
+## 
+
+## Notable Features
+#### 
+- [x] **Dashboard including**
+    - [x] Greeter + Clock
+    - [x] Volume Control
+    - [x] Microphone Control
+    - [ ] Brightness Control
+    - [x] Weather (Current + 5 Day Forecast)
+    - [x] Calendar
+    - [x] Notes/To-Do List
+    - [x] Powermenu
+    - [x] System Info/Graphs (Temps/Usage/Processes/Clocks/...)
+####
+- [x] **Zenmode**
+- [x] **Wallpaper Selector**
+
+
+## Installation
 ```shell
-yay -S awesome-git # Install Git Version of Awesome
+yay -S awesome-git alsa-utils python-pywal ttf-cascadia-code
 ```
 
 ## Keybinds
