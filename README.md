@@ -99,15 +99,20 @@ Left Click on Weather will Toggle Current and Forecast Mode.
 
    Default Tab             |  System Info Tab
 :-------------------------:|:-------------------------:
-!<image width="400" src="awesome/assets/screenshots/dashboard1.png"/>  |  <image width="400" src="awesome/assets/screenshots/dashboard2.png"/>)
+<image width="400" src="awesome/assets/screenshots/dashboard1.png"/>  |  <image width="400" src="awesome/assets/screenshots/dashboard2.png"/>
 
 ### Theme Changer (Select Wallpaper and call pywal+pyfox etc.)
 <image src="awesome/assets/screenshots/wallpaper-selector.png"/> 
+
+### Volume / Mic / (Brightness) OSD
+<image src="awesome/assets/screenshots/osd.png"/> 
 
 ### Zenmode Panel
 Removes all panels and use very simple taglist similar to [Elenapan's](https://github.com/elenapan/dotfiles) taglist.
 <image src="awesome/assets/screenshots/default.png"/> 
 <image src="awesome/assets/screenshots/zenmode.png"/> 
+
+
 
 
 
