@@ -11,7 +11,7 @@ This setup is heavily focused on only using `.Xresources` colors defined by Pywa
 
 ## 
 
-<image align="right" width="400" src="awesome/assets/screenshots/fetch.png"/>
+<image align="right" width="450" src="awesome/assets/screenshots/fetch.png"/>
 
 Details about my setup:
 + **WM**: [**AwesomeWM**](https://github.com/awesomeWM/awesome/) (👾 config included)
@@ -22,7 +22,6 @@ Details about my setup:
 + **Editor**: [**Neovim**](https://github.com/neovim/neovim/) (👾 config included)
 + **Mail**: [**NeoMutt**](https://github.com/neomutt/neomutt) (👾 config included)
 + **Browser**: [**Librewolf**](https://librewolf.net/) ([SimpleFox](https://github.com/migueravila/SimpleFox) + [Pywalfox](https://github.com/Frewacom/pywalfox))
-+ **Launcher**: AwesomeWM built-in.
 
 ## 
 
