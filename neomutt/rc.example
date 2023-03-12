@@ -1,0 +1,36 @@
+# vim: filetype=muttrc
+unmailboxes *
+#imaps://adress:port/INBOX
+
+source ~/.config/neomutt/pywal-colors
+
+# in/out mail servers
+set realname = ""
+set imap_pass = ""
+#set smtp_url = ""
+#set smtp_pass = ""
+set folder = ""
+set spoolfile = "+INBOX"
+
+set from = ""
+set envelope_from
+set use_from = "yes"
+set record = "+Sent"
+set trash = "+Trash"
+set postponed = "+Drafts"
+set mail_check = 6
+set spoolfile = "+INBOX"
+
+# Allow Mutt to open a new IMAP connection automatically.
+unset imap_passive
+
+# Keep the IMAP connection alive by polling intermittently (time in seconds).
+set imap_keepalive = 180
+
+## Hook -- IMPORTANT!
+account-hook $folder "set imap_pass=your_secret"
+
+# Where to put the stuff
+set header_cache = "~/.mutt/cache/headers"
+set message_cachedir = "~/.mutt/cache/bodies"
+set certificate_file = "~/.mutt/certificates"

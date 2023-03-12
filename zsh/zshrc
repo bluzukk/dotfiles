@@ -1,0 +1,124 @@
+###############################################################
+# ZSHRC
+###############################################################
+export VISUAL=nvim;
+export EDITOR=nvim;
+xdg-settings set default-web-browser librewolf.desktop
+
+xset r rate 222 75 # Thanks Vim Diesel
+setxkbmap -option caps:swapescape # I <3 ESCAPE
+xmodmap $HOME/.Xmodmap
+
+
+###############################################################
+# LF Working Directory and Image preview (ueberzug)
+###############################################################
+lf () {
+    tmp="$(mktemp)"
+    command ~/.config/lf/lfrun -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        if [ -d "$dir" ]; then
+            if [ "$dir" != "$(pwd)" ]; then
+                cd "$dir"
+            fi
+        fi
+    fi
+}
+
+###############################################################
+# BASICS
+################################################################
+alias ..="cd .."
+alias ...="cd ../.."
+
+alias t="st &"
+alias c="clear"
+alias q="exit"
+alias ka="killall"
+
+alias ll="ls -l"
+alias ls="ls --color=always --group-directories-first"
+alias sl="ls --color=always --group-directories-first"
+alias la="ls -A --group-directories-first"
+alias grep="grep --color"
+
+alias p="pacman"
+alias up="sudo pacman -Syu"
+alias orphans="pacman -Qdtq"
+alias installed="pacman -Qi | egrep '^(Name|Installed)' | cut -f2 -d':' | paste - - | column -t | sort -nrk 2 | grep MiB | less "
+
+alias h="htop"
+alias f="librewolf"
+alias r="lf"
+alias sr="sudo . ranger"
+alias m="mupdf"
+alias vim="nvim"
+alias v="nvim"
+
+alias dl="cd ~/Downloads"
+alias dlr="ranger ~/Downloads"
+
+################################################################
+# SHORTCUTS
+################################################################
+alias proj="cd ~/Sync/Projects"
+alias rice="cd ~/Sync/Rice"
+alias setup="neofetch --config ~/.config/neofetch/config-setup.conf"
+
+alias bss="nvim ~/Sync/Rice/zsh/zshrc"
+alias bs="nvim ~/Sync/Rice/_private/linux-aliasrc"
+alias 30min="sudo shutdown -P 30"
+alias 45min="sudo shutdown -P 45"
+
+alias mp3="yt-dlp --extract-audio --audio-format mp3 --add-metadata "
+alias wttr="curl wttr.in"
+
+alias todo="vim ~/Sync/.todo"
+alias todoc="cat ~/Sync/.todo"
+
+################################################################
+# GIT
+################################################################
+alias gstat="git status"
+alias gcheck="git checkout"
+alias gpull="git pull"
+alias pusch="git commit -m 'Here, have code...'; git push origin"
+alias log='git log --format="%C(yellow) %h %C(reset) %d %s %Cblue<%an, %cr>" --graph --all'
+
+################################################################
+# Stuff
+################################################################
+alias mesa_wine="vblank_mode=0 mesa_glthread=true wine"
+
+################################################################
+# OMZ
+################################################################
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.config/oh-my-zsh"
+ZSH_THEME="mh2"
+PS1="hi"
+
+autoload -Uz compinit
+compinit
+_comp_options+=(globdots)
+
+ENABLE_CORRECTION="false"
+
+plugins=(
+  git
+  web-search
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
+
+source $ZSH/oh-my-zsh.sh
+export HSTR_CONFIG=hicolor
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+################################################################
+# Personal aliases I wont share kek
+################################################################
+source ~/Sync/Rice/_private/linux-aliasrc

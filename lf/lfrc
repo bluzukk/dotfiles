@@ -1,0 +1,63 @@
+set previewer ~/.config/lf/preview
+set cleaner ~/.config/lf/cleaner
+
+set ignorecase true
+
+cmd open ${{
+    case $(file --mime-type "$(readlink -f $f)" -b) in
+    text/*) $EDITOR $fx;;
+	image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
+	image/svg+xml) display -- $f ;;
+    application/pdf) librewolf $fx >/dev/null 2>&1 ;;
+	image/*) feh $f ;;
+	audio/*|video/x-ms-asf) mpv --audio-display=no $f ;;
+	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+	application/pdf) librewolf $f ;;
+    esac
+}}
+
+
+# Custom Functions
+cmd mkdir ${{
+  printf "Directory Name: "
+  read ans
+  mkdir $ans
+}}
+
+cmd mkfile ${{
+  printf "File Name: "
+  read ans
+  $EDITOR $ans
+}}
+
+cmd setwallpaper ${{
+    cp "$f" ~/.config/wall.jpg
+    xwallpaper --zoom "$f"
+    betterlockscreen -u "$f" --fx
+}}
+
+# Archive bindings
+cmd unarchive ${{
+  case "$f" in
+      *.zip) unzip "$f" ;;
+      *.tar.gz) tar -xzvf "$f" ;;
+      *.tar.bz2) tar -xjvf "$f" ;;
+      *.tar) tar -xvf "$f" ;;
+      *) echo "Unsupported format" ;;
+  esac
+}}
+
+map z unarchive
+
+map . set hidden!
+map dd delete
+map p paste
+map x cut
+map y copy
+map <enter> open
+map mf mkfile
+map md mkdir
+
+map gr cd ~/Sync/Rice
+map gd cd ~/Downloads/
+map gc cd ~/.config
