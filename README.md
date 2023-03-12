@@ -47,8 +47,8 @@ yay -S awesome-git alsa-utils python-pywal ttf-cascadia-code
     - [x] Powermenu
     - [x] System Info/Graphs (Temps/Usage/Processes/Clocks/...)
 ####
-- [x] **😼 [Zenmode Panel](README.md#zenmode)**
-- [x] **🖼 Theme Changer**
+- [x] **😼 [Zenmode Panel](dotfiles#zenmode-panel)**
+- [x] **🖼 [Theme Changer](dotfiles#theme-changer-select-wallpaper-and-call-pywalpyfox-etc)**
 
 
 ## Keybinds
