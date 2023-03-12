@@ -36,7 +36,7 @@ yay -S awesome-git alsa-utils python-pywal ttf-cascadia-code
 
 ## Notable Features
 #### 
-- [x] 📋 **Dashboard including**
+- [x] 📋 **[Dashboard including](#dashboard)**
     - [x] Clock + Greeter
     - [x] Volume Control
     - [x] Microphone Control
