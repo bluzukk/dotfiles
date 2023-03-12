@@ -1,14 +1,18 @@
 
-local beautiful = require("beautiful")
-local awful     = require("awful")
-local wibox     = require("wibox")
-local gears     = require("gears")
-local naughty   = require("naughty")
+local beautiful  = require("beautiful")
+local awful      = require("awful")
+local wibox      = require("wibox")
+local gears      = require("gears")
+local gfs        = require("gears.filesystem")
+local xresources = require("beautiful.xresources")
+local dpi        = xresources.apply_dpi
 
-local markup    = require("helpers.markup")
-local util      = require("helpers.util")
+local markup     = require("helpers.markup")
+local util       = require("helpers.util")
 
 local WALLPAPER_SCRIPT = os.getenv("HOME") ..  "/.config/awesome/scripts/randombg.sh"
+local SEARCH_ICON = gfs.get_configuration_dir() .. "assets/misc/search.svg"
+local SEARCH_IMG = gears.color.recolor_image(SEARCH_ICON, beautiful.accent_color)
 
 os.execute("rm " .. WALLS_DIR .. ".walls")
 os.execute("ls " .. WALLS_DIR .. " > " .. WALLS_DIR .. ".walls")
@@ -21,17 +25,16 @@ local selected_image = ""
 
 
 local spacer_widget = {
-    color         = beautiful.main_color,
+    color         = beautiful.accent_color,
     shape         = gears.shape.rect,
     widget        = wibox.widget.separator,
     forced_height = 2,
     forced_width  = 20,
-    span_ratio    = 1,
+    span_ratio    = 0.95,
 }
 
 local preview_widget
 local function update_widget()
-    naughty.notify({title = "update"})
     search_result = {}
     if #searchtext > 1 then
         for _,v in pairs(wallpapers) do
@@ -64,7 +67,7 @@ local function update_widget()
                         font = beautiful.font_name .. ' 18',
                         markup = markup(beautiful.accent_color, v),
                         widget = wibox.widget.textbox,
-                        forced_height = 50,
+                        forced_height = dpi(50),
                         align = "center"
                     },
                     bg = beautiful.bg_focus,
@@ -75,7 +78,7 @@ local function update_widget()
                     {
                         text = v,
                         widget = wibox.widget.textbox,
-                        forced_height = 50,
+                        forced_height = dpi(50),
                         align = "center"
                     },
                     bg = beautiful.bg_normal,
@@ -101,19 +104,47 @@ local function update_widget()
         id = 'icon',
         image = WALLS_DIR .. selected_image,
         resize = true,
-        forced_width = 800,
-        forced_height = 450,
+        forced_width = dpi(700),
+        forced_height = dpi(40),
         widget = wibox.widget.imagebox,
         opacity = 1,
         align = "center"
     }
 
+    local spr = wibox.widget.textbox(" ")
     local widget = {
-        preview_widget,
-        searchbox,
-        spacer_widget,
-        item_widgets,
-        layout = wibox.layout.fixed.vertical,
+        {
+            {
+                {
+                    {
+                        image = SEARCH_IMG,
+                        resize = true,
+                        forced_width = 32,
+                        forced_height = 32,
+                        widget = wibox.widget.imagebox,
+                        align = "center"
+                    },
+                    spr,
+                    searchbox,
+                    layout = wibox.layout.fixed.horizontal
+                },
+                widget = wibox.container.margin,
+                top = dpi(10),
+                left = dpi(10),
+            },
+            spacer_widget,
+            item_widgets,
+            layout = wibox.layout.fixed.vertical
+        },
+        wibox.widget.textbox("  "),
+        {
+            preview_widget,
+            widget = wibox.container.margin,
+            top = dpi(10),
+            bottom = dpi(10),
+            right = dpi(10),
+        },
+        layout = wibox.layout.fixed.horizontal,
     }
     return widget
 end
@@ -129,6 +160,13 @@ local wal = awful.popup{
 }
 
 local grabber
+
+local function hide()
+    wal.visible = false
+    awful.keygrabber.stop(grabber)
+    -- wal:setup({layout = wibox.layout.fixed.vertical})
+end
+
 local function get_keypress()
   grabber = awful.keygrabber.run(function(_, key, event)
     if event == "release" then return end
@@ -150,7 +188,7 @@ local function get_keypress()
         awesome.restart()
 
     elseif key == "Escape" then
-        hide()
+        awesome.restart() -- Fix memory leak workaround
 
     elseif key == "BackSpace" then
         selected = 1
@@ -172,13 +210,6 @@ local function show()
     wal:setup(update_widget())
 end
 
-function hide()
-    wal.visible = false
-    awful.keygrabber.stop(grabber)
-    -- wal:setup({layout = wibox.layout.fixed.vertical})
-end
-
 return {
     show = show,
-    hide = hide
 }
