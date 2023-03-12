@@ -27,8 +27,8 @@ Details about my setup:
 
 ## Notable Features
 #### 
-- [x] **Dashboard including**
-    - [x] Greeter + Clock
+- [x] 📋 **Dashboard including**
+    - [x] Clock + Greeter
     - [x] Volume Control
     - [x] Microphone Control
     - [ ] Brightness Control
@@ -38,16 +38,21 @@ Details about my setup:
     - [x] Powermenu
     - [x] System Info/Graphs (Temps/Usage/Processes/Clocks/...)
 ####
-- [x] **Zenmode**
-- [x] **Wallpaper Selector**
+- [x] **😼 Zenmode**
+- [x] **🖼 Wallpaper Selector**
 
 
 ## Installation
+
+1. Install dependencies then move stuff into your `.config/` or use symlinks ;)
 ```shell
 yay -S awesome-git alsa-utils python-pywal ttf-cascadia-code
 ```
+2. Configure Variables. You should adjust the variables in `awesome/rc.lua` to make everything work as expected.
 
 ## Keybinds
+> **Note** <br>
+> I do not cover all keybinds here. You can change them in `awesome/config/keybinds.lua`.
 
 #### Basics
 | Keybind | Action |
@@ -80,7 +85,4 @@ yay -S awesome-git alsa-utils python-pywal ttf-cascadia-code
 | <kbd>super + Escape </kbd> | Swap parent/child Clients |
 | <kbd>super + ^ </kbd> | Focus next Monitor by ID |
 | ... | ... |
-
-> **Note** <br>
-> I do not cover all keybinds here. You can change them in `awesome/config/keybinds.lua`.
 
