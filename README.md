@@ -11,7 +11,7 @@ This setup is heavily focused on only using `.Xresources` colors defined by Pywa
 
 ## 
 
-<image align="right" width="500" src="awesome/assets/screenshots/fetch.png"/>
+<image align="right" width="400" src="awesome/assets/screenshots/fetch.png"/>
 
 Details about my setup:
 + **WM**: [**AwesomeWM**](https://github.com/awesomeWM/awesome/) (👾 config included)
