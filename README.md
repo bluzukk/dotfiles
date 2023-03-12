@@ -3,7 +3,7 @@
 </div>
 
 
-<image align="right" width="641" src="awesome/assets/screenshots/fetch.gif"/>
+<image align="right" width="641" src="awesome/assets/screenshots/fetch.png"/>
 <div align="left">
     <h4>Includes configs/builds for:</h4>
 </div>
