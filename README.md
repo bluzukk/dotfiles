@@ -3,7 +3,7 @@
 </div>
 
 
-<image align="right" width="641" src="awesome/assets/screenshots/fetch/fetch.gif"/>
+<image align="right" width="641" src="awesome/assets/screenshots/fetch.gif"/>
 <div align="left">
     <h4>Includes configs/builds for:</h4>
 </div>
@@ -26,4 +26,5 @@ Therefore this setup is heavily focused on only using `.Xresources` colors defin
 
 
 
-
+## Gallery
+<image align="center" src="awesome/assets/screenshots/screenshots.gif"/>
