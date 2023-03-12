@@ -23,6 +23,17 @@ Details about my setup:
 + **Mail**: [**NeoMutt**](https://github.com/neomutt/neomutt) (👾 config included)
 + **Browser**: [**Librewolf**](https://librewolf.net/) ([SimpleFox](https://github.com/migueravila/SimpleFox) + [Pywalfox](https://github.com/Frewacom/pywalfox))
 
+## 
+
+
+## Installation
+
+1. Install dependencies then move stuff into your `.config/` or use symlinks ;)
+```shell
+yay -S awesome-git alsa-utils python-pywal ttf-cascadia-code
+```
+2. Configure Variables. You should adjust the variables in `awesome/rc.lua` to make everything work as expected.
+
 ## Notable Features
 #### 
 - [x] 📋 **Dashboard including**
@@ -39,14 +50,6 @@ Details about my setup:
 - [x] **😼 Zenmode**
 - [x] **🖼 Wallpaper Selector**
 
-
-## Installation
-
-1. Install dependencies then move stuff into your `.config/` or use symlinks ;)
-```shell
-yay -S awesome-git alsa-utils python-pywal ttf-cascadia-code
-```
-2. Configure Variables. You should adjust the variables in `awesome/rc.lua` to make everything work as expected.
 
 ## Keybinds
 > **Note** <br>
