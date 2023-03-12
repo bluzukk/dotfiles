@@ -47,8 +47,8 @@ yay -S awesome-git alsa-utils python-pywal ttf-cascadia-code
     - [x] Powermenu
     - [x] System Info/Graphs (Temps/Usage/Processes/Clocks/...)
 ####
-- [x] **😼 Zenmode**
-- [x] **🖼 Wallpaper Selector**
+- [x] **😼 [Zenmode Panel](README.md#zenmode)**
+- [x] **🖼 Theme Changer**
 
 
 ## Keybinds
@@ -86,4 +86,28 @@ yay -S awesome-git alsa-utils python-pywal ttf-cascadia-code
 | <kbd>super + Escape </kbd> | Swap parent/child Clients |
 | <kbd>super + ^ </kbd> | Focus next Monitor by ID |
 | ... | ... |
+
+## Gallery
+⚠️ Screenshots might be outdated.
+
+<image align="center" src="awesome/assets/screenshots/screen.png"/>
+
+### Dashboard
+Left Click on Avatar will switch between Tabs.<br>
+Left Click on Weather will Toggle Current and Forecast Mode.
+
+
+   Default Tab             |  System Info Tab
+:-------------------------:|:-------------------------:
+!<image width="400" src="awesome/assets/screenshots/dashboard1.png"/>  |  <image width="400" src="awesome/assets/screenshots/dashboard2.png"/>)
+
+### Theme Changer (Select Wallpaper and call pywal+pyfox etc.)
+<image src="awesome/assets/screenshots/wallpaper-selector.png"/> 
+
+### Zenmode Panel
+Removes all panels and use very simple taglist similar to [Elenapan's](https://github.com/elenapan/dotfiles) taglist.
+<image src="awesome/assets/screenshots/default.png"/> 
+<image src="awesome/assets/screenshots/zenmode.png"/> 
+
+
 
