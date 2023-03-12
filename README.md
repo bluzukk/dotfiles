@@ -11,7 +11,7 @@
 
 ## 
 
-<image align="right" width="460" src="awesome/assets/screenshots/fetch.png"/>
+<image align="right" width="450" src="awesome/assets/screenshots/fetch.png"/>
 
 Details about my setup:
 + **WM**: [**AwesomeWM**](https://github.com/awesomeWM/awesome/) (👾 config included)
