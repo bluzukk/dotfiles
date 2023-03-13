@@ -36,7 +36,7 @@ yay -S awesome-git alsa-utils python-pywal ttf-cascadia-code
 
 ## Notable Features
 #### 
-- [x] 📋 **[Dashboard including](#dashboard)**
+- [x]  **[Dashboard including](#dashboard)**
     - [x] Clock + Greeter
     - [x] Volume Control
     - [x] Microphone Control
@@ -47,9 +47,9 @@ yay -S awesome-git alsa-utils python-pywal ttf-cascadia-code
     - [x] Powermenu
     - [x] System Info/Graphs (Temps/Usage/Processes/Clocks/...)
 ####
-- [x] **😼 [Zenmode Panel](#zenmode-panel)**
-- [x] **🖼 [Theme Changer](#theme-changer-select-wallpaper-and-call-pywalpyfox-etc)**
-
+- [x] **[Zenmode Panel](#zenmode-panel)**
+- [x] **[Theme Changer](#theme-changer-select-wallpaper-and-call-pywalpyfox-etc)**
+- [x] **[Alternative Panel](#theme-changer-select-wallpaper-and-call-pywalpyfox-etc)**
 
 ## Keybinds
 > **Note** <br>
@@ -112,7 +112,7 @@ Removes all panels and use very simple taglist similar to [Elenapan's](https://g
 <image src="awesome/assets/screenshots/default.png"/> 
 <image src="awesome/assets/screenshots/zenmode.png"/> 
 
-
-
+### Alternative (Continuous) Panel
+<image src="awesome/assets/screenshots/default-full.png"/> 
 
 
