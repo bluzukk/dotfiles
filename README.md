@@ -32,7 +32,8 @@ Details about my setup:
 ```shell
 yay -S awesome-git alsa-utils python-pywal ttf-cascadia-code
 ```
-2. Configure Variables. You should adjust the variables in `awesome/rc.lua` to make everything work as expected.
+2. Configure important Variables. You should adjust the variables in `awesome/rc.lua` to make everything work as expected.
+3. Optional: Configure `awesome/config/settings.lua`. (Default Apps, Font, Panels, Gaps, Shapes, ...)
 
 ## Notable Features
 #### 
@@ -49,7 +50,8 @@ yay -S awesome-git alsa-utils python-pywal ttf-cascadia-code
 ####
 - [x] **[Zenmode Panel](#zenmode-panel)**
 - [x] **[Theme Changer](#theme-changer-select-wallpaper-and-call-pywalpyfox-etc)**
-- [x] **[Alternative Panel](#theme-changer-select-wallpaper-and-call-pywalpyfox-etc)**
+- [x] **[Alternative Panel](#alternative-continuous-panel)**
+
 
 ## Keybinds
 > **Note** <br>
