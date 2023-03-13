@@ -24,7 +24,7 @@ end)
 local gpu = wibox.widget.textbox()
 awesome.connect_signal("evil::gpu", function(evil_gpu_util, evil_gpu_temp, _, power)
     local color = beautiful.accent_color
-    if evil_gpu_util > 75 or evil_gpu_temp > 45 or power > 250 then
+    if evil_gpu_temp > 45 or power > 250 then
         color = beautiful.color_critical
     end
 
