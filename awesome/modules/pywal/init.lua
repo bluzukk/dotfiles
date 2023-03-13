@@ -188,7 +188,7 @@ local function get_keypress()
         awesome.restart()
 
     elseif key == "Escape" then
-        awesome.restart() -- Fix memory leak workaround
+        hide()
 
     elseif key == "BackSpace" then
         selected = 1
