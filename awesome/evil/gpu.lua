@@ -33,19 +33,19 @@ gears.timer {
     callback  = function()
         awful.spawn.easy_async(cmd_util,
             function(evil)
-                gpu_util = string.match(split_str(evil), "%d+")
+                gpu_util = tonumber(string.match(split_str(evil), "%d+"))
             end)
         awful.spawn.easy_async(cmd_temp,
             function(evil)
-                gpu_temp = string.match(split_str(evil), "%d+")
+                gpu_temp = tonumber(string.match(split_str(evil), "%d+"))
             end)
         awful.spawn.easy_async(cmd_clock,
             function(evil)
-                gpu_clock = string.match(split_str(evil), "%d+")
+                gpu_clock = tonumber(string.match(split_str(evil), "%d+"))
             end)
         awful.spawn.easy_async(cmd_power,
             function(evil)
-                gpu_power = string.match(split_str(evil), "%d+")
+                gpu_power = tonumber(string.match(split_str(evil), "%d+"))
             end)
         awful.spawn.easy_async("sleep 0.2",
             function()

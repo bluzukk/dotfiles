@@ -29,19 +29,6 @@ local taglist_buttons = gears.table.join(
     awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
 )
 
-local function update_taglist(widget, tag, _, _)
-    if tag == awful.tag.selected() then
-        -- color for currently active tag
-        widget:get_children_by_id('tag_bg')[1].bg = beautiful.accent_color
-        widget:get_children_by_id('tag_element')[1].forced_width = dpi(30)
-    else
-        -- color for other tags
-        -- tag.name = "-"
-        widget:get_children_by_id('tag_bg')[1].bg = beautiful.main_color
-        widget:get_children_by_id('tag_element')[1].forced_width = dpi(10)
-    end
-end
-
 local function create_boxes(s)
     -- Helper function that updates a taglist item
     local update_taglist_blocks = function (item, tag, index)
@@ -105,6 +92,19 @@ local function create_boxes(s)
     return s.taglist_box
 end
 
+local function update_taglist(widget, tag, _, _)
+    if tag == awful.tag.selected() then
+        -- color for currently active tag
+        widget:get_children_by_id('tag_bg')[1].bg = beautiful.accent_color
+        widget:get_children_by_id('tag_element')[1].forced_width = dpi(30)
+    else
+        -- color for other tags
+        -- tag.name = "-"
+        widget:get_children_by_id('tag_bg')[1].bg = beautiful.main_color
+        widget:get_children_by_id('tag_element')[1].forced_width = dpi(10)
+    end
+end
+
 -- Create a taglist for every screen
 local function create(s)
     return awful.widget.taglist {
@@ -123,7 +123,7 @@ local function create(s)
                         widget = wibox.widget.textbox,
                     },
                     id = "tag_bg",
-                    shape  = function(cr,w,h) gears.shape.rounded_rect(cr,w,h,12) end,
+                    shape  = beautiful.corners,
                     widget = wibox.container.background,
                 },
                 left   = dpi(18),

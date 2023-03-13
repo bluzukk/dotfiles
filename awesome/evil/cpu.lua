@@ -27,11 +27,11 @@ gears.timer {
         end)
         awful.spawn.easy_async(cmd_temp_ctl,
             function(evil)
-                cpu_temp_ctl = string.format("%02.f", tonumber(evil/1000))
+                cpu_temp_ctl = tonumber(string.format("%02.f", tonumber(evil/1000)))
         end)
         awful.spawn.easy_async(cmd_temp_ccd,
             function(evil)
-                cpu_temp_ccd = string.format("%02.f", tonumber(evil/1000))
+                cpu_temp_ccd = tonumber(string.format("%02.f", tonumber(evil/1000)))
         end)
         awful.spawn.easy_async("sleep 2",
             function()

@@ -11,6 +11,18 @@ local lama          = require("helpers.lama")
 local theme = {}
 
 ---------------------------------------------------------------------------------
+-- Panel and Dashboard Settings
+---------------------------------------------------------------------------------
+theme.bar_height        = dpi(40)
+theme.panel_right_width = dpi(550)
+theme.dashboard_width   = dpi(500)
+theme.dashboard_margin  = dpi(30)
+theme.dashboard_height  = dpi(1388)
+
+theme.enable_tasklist   = false
+theme.enable_one_bar    = true    -- Toggle continuous/splitted top panel
+
+---------------------------------------------------------------------------------
 -- Theme Variables
 ---------------------------------------------------------------------------------
 theme.font_name = "Cascadia Code"
@@ -53,17 +65,6 @@ theme.shell       = "zsh"
 theme.browser     = "librewolf"
 theme.browser_alt = "firefox"
 theme.editor      = "nvim"
-
----------------------------------------------------------------------------------
--- Panel and Dashboard Settings
----------------------------------------------------------------------------------
-theme.bar_height        = dpi(40)
-theme.panel_right_width = dpi(550)
-theme.dashboard_width   = dpi(500)
-theme.dashboard_margin  = dpi(30)
-theme.dashboard_height  = dpi(1388)
-
-theme.enable_tasklist   = false
 
 ---------------------------------------------------------------------------------
 -- Colors
