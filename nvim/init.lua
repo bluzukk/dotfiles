@@ -2,16 +2,13 @@ require("plugins")
 require("sets")
 require("binds")
 require("lsp")
---require("dashboard-cfg")
+require("dashboard-cfg")
 
 local api = vim.api
 
 vim.cmd [[let g:mkdp_theme = 'dark']]
 vim.cmd [[let g:mkdp_browser = 'librewolf']]
 vim.cmd [[let g:mkdp_auto_start = 1]]
-
-
-
 
 -- Highlight on yank
 local yankGrp = api.nvim_create_augroup("YankHighlight", { clear = true })
@@ -28,17 +25,10 @@ api.nvim_create_autocmd({ "BufWritePre" }, {
     pattern = { "*" },
     command = [[%s/\s\+$//e]],
 })
--- make on save
--- api.nvim_create_autocmd({"BufWritePre"}, {
---     command = [[make]],
--- })
---
---vim.cmd[[let g:vimtex_view_method = 'zathura']]
-vim.cmd [[let g:vimtex_view_method = 'mupdf']]
 
+vim.cmd [[let g:vimtex_view_method = 'mupdf']]
 vim.cmd [[let g:vimtex_view_general_viewer = 'mupdf']]
 vim.cmd [[let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex']]
-
 
 
 local config_group = vim.api.nvim_create_augroup('MyConfigGroup', {}) -- A global group for all your config autocommands
@@ -50,40 +40,6 @@ vim.api.nvim_create_autocmd({ 'User' }, {
     end,
 })
 
-
--- require("tokyonight").setup({
---     -- your configuration comes here
---     -- or leave it empty to use the default settings
---     style = "moon", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
---     light_style = "day", -- The theme is used when the background is set to light
---     transparent = true, -- Enable this to disable setting the background color
---     terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
---     styles = {
---         -- Style to be applied to different syntax groups
---         -- Value is any valid attr-list value for `:help nvim_set_hl`
---         comments = { italic = true },
---         keywords = { italic = false },
---         functions = {},
---         variables = {},
---         -- Background styles. Can be "dark", "transparent" or "normal"
---         sidebars = "transparent", -- style for sidebars, see below
---         floats = "transparent", -- style for floating windows
---     },
---     sidebars = { "qf", "help" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
---     day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
---     hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
---     dim_inactive = false, -- dims inactive windows
---     lualine_bold = true, -- When `true`, section headers in the lualine theme will be bold
---
---     --- You can override specific color groups to use other groups or a hex color
---     --- function will be called with a ColorScheme table
---     -- on_colors = function(colors) end,
---
---     --- You can override specific highlights to use other groups or a hex color
---     --- function will be called with a Highlights and ColorScheme table
---     -- on_highlights = function(highlights, colors) end,
--- })
--- setup must be called before loading
 
 ------------------------------------------------------------
 -- nvim-tree
@@ -104,7 +60,6 @@ vim.g.nvim_tree_show_icons = {
 local nvim_tree = require('nvim-tree')
 
 nvim_tree.setup({
-    open_on_setup = true,
     view = {
         side = "left",
         --adaptive_size = true,
@@ -117,11 +72,6 @@ nvim_tree.setup({
     }
 })
 
--- vim.cmd("NvimTreeOpen")
--- vim.schedule(function()
---     vim.cmd "wincmd p"
--- end)
---vim.cmd("")
 ------------------------------------------------------------
 -- nvim-treesitter
 ------------------------------------------------------------
@@ -130,8 +80,6 @@ require('nvim-treesitter.configs').setup {
         'python',
         'comment',
         'lua',
-        --'latex',
-        --'javascript',
     },
     sync_install = false,
     highlight = {
@@ -143,7 +91,7 @@ require('nvim-treesitter.configs').setup {
 require('lualine').setup {
     options = {
         icons_enabled = true,
-        theme = 'auto',
+        theme = 'pywal-nvim',
         component_separators = { left = '|', right = '|' },
         section_separators = { left = '', right = '' },
         disabled_filetypes = {
@@ -198,10 +146,8 @@ require("scrollbar").setup({
     }
 })
 
-
 local yellow = vim.g.terminal_color_3
 local get_hex = require('cokeline/utils').get_hex
-
 require('cokeline').setup({
     default_hl = {
         fg = function(buffer)
@@ -263,7 +209,6 @@ require("noice").setup({
     },
 })
 
-
 require("notify").setup({
     -- Animation style (see below for details)
     stages = "static",
@@ -291,20 +236,15 @@ vim.cmd [[let g:signify_sign_add = '+']]
 vim.cmd [[let g:signify_sign_delete = '-']]
 vim.cmd [[let g:signify_sign_change = '?']]
 
--- vim.cmd [[let g:indentLine_setColors = 0]]
 vim.cmd [[let g:indentLine_setConceal = 1]]
--- vim.cmd [[let g:indentLine_char = '│']]
--- vim.cmd [[let g:indentLine_bgcolor_term = 200]]
--- vim.cmd [[let g:indentLine_bgcolor_gui = '#FFFFFF']]
--- vim.cmd [[let g:indentLine_defaultGroup = 'Comment']]
--- vim.cmd [[let g:indentLine_color_gui = '#000000']]
 
 vim.cmd [[set completeopt=menu,menuone]]
 vim.cmd [[let g:cursorhold_updatetime = 100]]
 
+vim.cmd [[colorscheme xresources]]
 
 -- color tweaking
--- vim.cmd [[highlight WinSeparator gui=NONE guibg=NONE guifg=#0C0C14 cterm=NONE ctermbg=NONE ctermfg=gray]]
+-- vim.cmd [[highlight WinSeparator gui=NONE guibg=NONE guifg=#0C0C14 cterm=NONE ctermbg=NONE ctermfg=None]]
 -- vim.cmd [[highlight VertSplit gui=NONE guibg=NONE guifg=None cterm=NONE ctermbg=NONE ctermfg=gray]]
 -- vim.cmd [[highlight link TelescopeBorder Constant]]
 -- vim.cmd [[hi Normal guibg=NONE ctermbg=NONE]]
@@ -351,7 +291,3 @@ vim.cmd [[let g:cursorhold_updatetime = 100]]
 -- hi SpecialKey guibg=none ctermbg=none
 -- hi VertSplit guibg=none ctermbg=none
 -- hi SignColumn guibg=none ctermbg=none]]
---
---
-
-vim.cmd [[colorscheme xresources]]
