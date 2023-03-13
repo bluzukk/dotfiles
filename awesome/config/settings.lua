@@ -7,7 +7,7 @@ local xrdb          = xresources.get_current_theme()
 local dpi           = xresources.apply_dpi
 local rnotification = require("ruled.notification")
 local lama          = require("helpers.lama")
-
+local theme_assets  = require("beautiful.theme_assets")
 local theme = {}
 
 ---------------------------------------------------------------------------------
@@ -139,12 +139,16 @@ theme.notification_border_color = theme.accent_color
 ---------------------------------------------------------------------------------
 -- Taglist Squares
 ---------------------------------------------------------------------------------
--- local taglist_square_size = dpi(20)
+-- local taglist_square_size = dpi(10)
 -- theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
 --     taglist_square_size, theme.accent_color
 -- )
 -- theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 --     taglist_square_size, theme.accent_color
+-- )
+--
+-- theme.awesome_icon = theme_assets.awesome_icon(
+--     100, theme.bg_focus, theme.fg_focus
 -- )
 
 -- Set different colors for urgent notifications.

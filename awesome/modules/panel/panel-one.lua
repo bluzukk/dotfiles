@@ -127,6 +127,25 @@ local tasklist_buttons = gears.table.join(
     end)
 )
 
+
+-- local myawesomemenu = {
+--    { "restart", awesome.restart },
+--    { "quit", function() awesome.quit() end },
+-- }
+--
+-- local dashboard = require("modules.dashboard.init")
+-- local panels = require("modules.panel.init")
+-- local mymainmenu = awful.menu({ items = {
+--         { "awesome", myawesomemenu, beautiful.awesome_icon },
+--         { "open terminal", beautiful.terminal },
+--         { "Dashboard",  dashboard.toggle},
+--         { "Zenmode",  panels.toggle_zenmode}
+--     }
+--  })
+
+-- local mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
+--                                      menu = mymainmenu })
+
 local function create(s)
     local panel = awful.wibar({
         position = "top",
@@ -143,6 +162,7 @@ local function create(s)
         layout = wibox.layout.align.horizontal,
         {
             layout = wibox.layout.fixed.horizontal,
+            -- mylauncher,
             {
                 taglist,
                 left   = dpi(18),
