@@ -6,6 +6,7 @@ local wibox     = require("wibox")
 local dpi       = require("beautiful").xresources.apply_dpi
 local markup    = require("helpers.markup")
 
+
 -- Widgets
 local spr = wibox.widget.textbox(" ")
 local bar = wibox.widget.textbox("|")
@@ -99,6 +100,24 @@ awesome.connect_signal("evil::net_now", function(evil)
     end
 end)
 
+local net_ssid = wibox.widget.textbox()
+awesome.connect_signal("evil::net_ssid", function(evil)
+    net_ssid:set_markup(markup(beautiful.accent_color, evil))
+end)
+
+local net_total = wibox.widget.textbox()
+awesome.connect_signal("evil::net_total", function(evil)
+    net_total:set_markup(markup(beautiful.main_color, evil .. "mb"))
+end)
+
+local net_now = wibox.widget.textbox()
+awesome.connect_signal("evil::net_now", function(evil)
+    if evil then
+        evil = string.format("%04.0f", evil/1024)
+        net_now:set_markup(markup(beautiful.accent_alt_color, evil .. "kb/s"))
+    end
+end)
+
 local systray = wibox.widget{
     {
         wibox.widget.systray(),
@@ -113,7 +132,7 @@ local systray = wibox.widget{
 
 local textclock = awful.widget.watch("date +'%R'", 10, function(widget, stdout)
 	widget:set_markup(
-        markup.fontfg(beautiful.font, beautiful.accent_alt_color, markup.bold(stdout)))
+        markup.fontfg(beautiful.font_name .. " 17", beautiful.accent_alt_color, markup.bold(stdout)))
 end)
 
 local tasklist_buttons = gears.table.join(
@@ -129,25 +148,6 @@ local tasklist_buttons = gears.table.join(
         end
     end)
 )
-
-
--- local myawesomemenu = {
---    { "restart", awesome.restart },
---    { "quit", function() awesome.quit() end },
--- }
---
--- local dashboard = require("modules.dashboard.init")
--- local panels = require("modules.panel.init")
--- local mymainmenu = awful.menu({ items = {
---         { "awesome", myawesomemenu, beautiful.awesome_icon },
---         { "open terminal", beautiful.terminal },
---         { "Dashboard",  dashboard.toggle},
---         { "Zenmode",  panels.toggle_zenmode}
---     }
---  })
-
--- local mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
---                                      menu = mymainmenu })
 
 local mail_main = wibox.widget.textbox()
 awesome.connect_signal("evil::mail_main", function(evil)
@@ -175,7 +175,7 @@ local function create(s)
         layout = wibox.layout.align.horizontal,
         {
             layout = wibox.layout.fixed.horizontal,
-            -- mylauncher,
+            -- startbutton,
             {
                 taglist,
                 left   = dpi(18),
@@ -193,11 +193,12 @@ local function create(s)
         },
         {
             layout = wibox.layout.fixed.horizontal,
-            cpu, spr, bar, spr,
+            bar, spr, cpu, spr, bar, spr,
             gpu, spr, bar, spr,
             ram_used, spr, bar, spr,
             disk_free, spr, bar, spr,
-            weather, spr, bar,
+            weather, spr, bar, spr,
+            net_now,
             systray,
             textclock, spr, spr,
         },

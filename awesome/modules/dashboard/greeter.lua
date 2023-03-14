@@ -33,8 +33,8 @@ local function create()
     local user = {
         {
             markup =
-                markup.fontfg(font_name .. " 18", beautiful.accent_color, "" .. USERNAME) ..
-                markup.fontfg(font_name .. " 15", beautiful.accent_color_dark, " @" .. HOSTNAME),
+                markup.fontfg(font_name .. " 16", beautiful.accent_color, "" .. USERNAME) ..
+                markup.fontfg(font_name .. " 14", beautiful.accent_color_dark, " @" .. HOSTNAME),
             widget = wibox.widget.textbox,
         },
         widget = wibox.container.margin,
@@ -60,8 +60,8 @@ local function create()
         {
             id = "clock",
             markup =
-                markup.bold(markup.fontfg(font_name .. " 24", beautiful.accent_alt_color, markup.bold(day) .. "\n"))..
-                markup.fontfg(font_name .. " 24", beautiful.main_color, markup.bold(hour .. ":" .. minutes)),
+                markup.bold(markup.fontfg(font_name .. " 22", beautiful.accent_alt_color, markup.bold(day) .. "\n"))..
+                markup.fontfg(font_name .. " 22", beautiful.main_color, markup.bold(hour .. ":" .. minutes)),
             align  = 'center',
             valign = 'center',
             widget = wibox.widget.textbox,
@@ -95,10 +95,11 @@ local function create()
         },
         widget = wibox.container.margin,
         margins = {
-            left = beautiful.dashboard_margin,
-            right = beautiful.dashboard_margin,
+            left = beautiful.dashboard_margin/2,
+            right = beautiful.dashboard_margin/2,
             bottom = beautiful.dashboard_margin/6,
             top = beautiful.dashboard_margin/2,
+            -- top = beautiful.dashboard_margin/4,
         },
     }
 

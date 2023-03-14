@@ -33,14 +33,18 @@ local dashboard = awful.popup {
     widget       = {},
     border_color = beautiful.border_focus,
     border_width = 0 or beautiful.border_width,
-    placement    = function(self) awful.placement.top_left(self, { offset = { y = dpi(62), x = dpi(20) } }) end,
-    -- placement    = awful.placement.center_left,
+    placement    = awful.placement.stretch_down,
     shape        = beautiful.corners,
     ontop        = true,
     visible      = false,
-    opacity      = beautiful.opacity+0.15,
+    opacity      = beautiful.opacity,
 }
 
+local stretcher = {
+    wibox.widget.textbox,
+    widget = wibox.container.place,
+    content_fill_vertical = true
+}
 
 local function update()
     dashboard.screen = awful.screen.focused()
@@ -60,6 +64,8 @@ local function update()
             },
             widget = wibox.container.place
         }
+        dashboard.placement = nil
+        awful.placement.top_left(dashboard, { offset = { y = dpi(35)} })
     elseif tab then
         dashboard.widget = wibox.widget {
             {
@@ -71,17 +77,17 @@ local function update()
                     cal,
                     todo,
                 },
-                wibox.widget.textbox(""), -- sep
+                stretcher,
                 {
                     layout = wibox.layout.flex.vertical,
                     powrmenu,
                 },
                 layout = wibox.layout.align.vertical,
                 forced_width = beautiful.dashboard_width,
-                forced_height = beautiful.dashboard_height,
             },
             widget = wibox.container.place
         }
+        dashboard.placement = awful.placement.stretch_down
     else
         dashboard.widget = wibox.widget {
             {
@@ -90,17 +96,17 @@ local function update()
                     greet,
                     htop
                 },
-                wibox.widget.textbox(""), -- sep
+                stretcher,
                 {
                     layout = wibox.layout.fixed.vertical,
                     powrmenu,
                 },
                 layout = wibox.layout.align.vertical,
                 forced_width = beautiful.dashboard_width,
-                forced_height = beautiful.dashboard_height,
             },
             widget = wibox.container.place,
         }
+        dashboard.placement = awful.placement.stretch_down
     end
 end
 
@@ -170,15 +176,24 @@ end)
 dashboard:connect_signal("mouse::leave", function() hide() end)
 
 
-local sidebar_activator = wibox({y = 10, width = 1, visible = true, ontop = false, opacity = 0, below = true, screen = screen.primary})
-sidebar_activator.height = dpi(1000)
+local sidebar_activator = wibox({
+    width = 20,
+    visible = true,
+    ontop = true,
+    opacity = 0,
+    below = true,
+    screen = screen.primary,
+    bg = beautiful.accent_color,
+    placement = awful.placement.top,
+})
+
+sidebar_activator.height = dpi(35)
 sidebar_activator:connect_signal("mouse::enter", function ()
     if dashboard.visible == false then
         show()
     end
 end)
 
-awful.placement.left(sidebar_activator)
 sidebar_activator:buttons(
 gears.table.join(
     awful.button({ }, 1, function ()

@@ -13,7 +13,7 @@ local volume_widget = wibox.widget {
     {
         {
             widget = wibox.widget.textbox,
-            markup = markup.fontfg(beautiful.font_name .. " 13", beautiful.accent_alt_color_dark,
+            markup = markup.fontfg(beautiful.font_name .. " 12", beautiful.accent_alt_color_dark,
                 markup.bold("vol "))
         },
         {
@@ -48,7 +48,7 @@ local mic_widget = wibox.widget {
     {
         {
             widget = wibox.widget.textbox,
-            markup = markup.fontfg(beautiful.font_name .. " 13", beautiful.accent_color_dark,
+            markup = markup.fontfg(beautiful.font_name .. " 12", beautiful.accent_color_dark,
                 markup.bold("mic "))
         },
         {
@@ -114,10 +114,10 @@ local function create()
         },
         widget = wibox.container.margin,
         margins = {
-            left = beautiful.dashboard_margin,
-            right = beautiful.dashboard_margin,
+            left = beautiful.dashboard_margin/2,
+            right = beautiful.dashboard_margin/2,
             bottom = 0,
-            top = beautiful.dashboard_margin/3,
+            top = beautiful.dashboard_margin/6,
         },
     }
     return container

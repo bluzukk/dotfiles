@@ -46,7 +46,7 @@ theme.inner_corners = gears.shape.rect
 --     gears.shape.rounded_rect(cr,w,h,8)
 -- end
 
-theme.opacity      = 0.8
+theme.opacity      = 1
 theme.useless_gap  = dpi(10)
 theme.border_width = dpi(4)
 
@@ -147,10 +147,10 @@ theme.notification_border_color = theme.accent_color
 -- theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 --     taglist_square_size, theme.accent_color
 -- )
---
--- theme.awesome_icon = theme_assets.awesome_icon(
---     100, theme.bg_focus, theme.fg_focus
--- )
+
+theme.awesome_icon = theme_assets.awesome_icon(
+    100, theme.bg_focus, theme.fg_focus
+)
 
 -- Set different colors for urgent notifications.
 rnotification.connect_signal('request::rules', function()

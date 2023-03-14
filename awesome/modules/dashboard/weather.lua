@@ -160,7 +160,7 @@ local function worker(user_args)
                     {
                         markup = markup(beautiful.accent_alt_color, os.date('%a', tonumber(day.dt) + tonumber(timezone_offset))),
                         align = 'center',
-                        font = font_name .. ' 14',
+                        font = font_name .. ' 13',
                         widget = wibox.widget.textbox
                     },
                     {
@@ -218,7 +218,7 @@ local function worker(user_args)
                     forced_height = dpi(68)
                 },
                 {
-                    font = beautiful.font_name .. " 16",
+                    font = beautiful.font_name .. " 14",
                     id = "temp",
                     align = 'left',
                     widget = wibox.widget.textbox,
@@ -239,6 +239,7 @@ local function worker(user_args)
                 {
                     id = "description",
                     align = 'left',
+                    font = beautiful.font_name .. " 14",
                     widget = wibox.widget.textbox,
                 },
                 {
@@ -260,8 +261,8 @@ local function worker(user_args)
         },
         layout = wibox.layout.flex.horizontal,
         update = function(self, weather)
-            self:get_children_by_id('temp')[1]:set_markup(markup.fontfg(beautiful.font_name .. " 18",
-            beautiful.accent_color, "<b> " .. gen_temperature_str(weather.temp, '%.0f', false, units) .. "</b>"))
+            self:get_children_by_id('temp')[1]:set_markup(markup.fontfg(beautiful.font_name .. " 16",
+            beautiful.accent_color, "<b>  " .. gen_temperature_str(weather.temp, '%.0f', false, units) .. "</b>"))
             self:get_children_by_id('feels_like_temp')[1]:set_markup(markup(beautiful.accent_color_dark,
             LCLE.feels_like .. gen_temperature_str(weather.feels_like, '%.0f', false, units)))
             self:get_children_by_id('description')[1]:set_markup(markup(beautiful.accent_color,
@@ -324,8 +325,8 @@ local function worker(user_args)
             forced_height = dpi(145),
             widget = wibox.container.margin,
             margins = {
-                left = config.dashboard_margin,
-                right = config.dashboard_margin,
+                left = config.dashboard_margin/2,
+                right = config.dashboard_margin/2,
                 bottom = 0,
                 top = config.dashboard_margin/3,
             },

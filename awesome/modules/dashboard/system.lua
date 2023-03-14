@@ -34,7 +34,6 @@ local mem_graph = create_graph(100)
 local gpu_graph = create_graph(100)
 local net_graph = create_graph(5000)
 
-
 local separator_vertical = wibox.widget {
     widget = wibox.widget.separator,
     orientation = "vertical",
@@ -106,10 +105,10 @@ local function create_widget_container(header, graph)
         },
         widget = wibox.container.margin,
         margins = {
-            left = config.dashboard_margin,
-            right = config.dashboard_margin,
+            left = config.dashboard_margin/2,
+            right = config.dashboard_margin/2,
             bottom = 0,
-            top = config.dashboard_margin/3,
+            top = config.dashboard_margin/6,
         },
     }
 end
