@@ -42,8 +42,8 @@ globalkeys = gears.table.join(
               {description = "checkmail", group = "launcher"}),
     awful.key({ modkey }, "F2", function () awful.spawn(mail_st) end,
               {description = "checkmail", group = "launcher"}),
-    -- awful.key({ modkey }, "F3", function () app_launcher:toggle() end,
-    --           {description = "run a game", group = "launcher"}),
+    awful.key({ modkey }, "F3", function () app_launcher:toggle() end,
+              {description = "run a game", group = "launcher"}),
     awful.key({ modkey }, "F4", function () panel.toggle_zenmode() end,
               {description = "run a game", group = "launcher"}),
     -- Prompt

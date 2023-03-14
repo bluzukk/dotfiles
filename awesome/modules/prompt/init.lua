@@ -39,10 +39,10 @@ local function add_note(note)
     notify.show("Added Note", note, 2)
 end
 
-
+local HISTORY
 local selected = 0
 local function update()
-    local HISTORY = util.read_lines(HISTORY_PATH)
+    HISTORY = util.read_lines(HISTORY_PATH)
     rev           = {}
     for i = #HISTORY, 1, -1 do
         rev[#rev + 1] = HISTORY[i]
@@ -54,8 +54,14 @@ local function update()
         forced_height = 350,
         align = "centered"
     }
+
+    local lower = selected - 3
+    local upper = selected + 3
+    if lower < 1 then upper = upper - lower end
+    if upper > #HISTORY then lower = lower - (upper-#HISTORY) end
+
     for k, v in pairs(HISTORY) do
-        if k < 4 then
+        if k < upper and k > lower then
             local item
             if k == selected then
                 item = wibox.widget {
@@ -115,16 +121,20 @@ local function launch()
             done_callback        = function() uwuprompt.visible = false end,
             keyreleased_callback = function(mod, key, cmd)
                 if key == "Up" then
-                    selected = selected + 1
-                    update()
-                end
-                if key == "Down" then
+                    if selected < #HISTORY then
+                        selected = selected + 1
+                        update()
+                    end
+                elseif key == "Down" then
                     if selected > 0 then
                         selected = selected - 1
                         update()
                     end
+                else
+                    Print(cmd)
+                    -- update()
+                    -- selected = 0
                 end
-                Print(cmd)
             end,
             completion_callback  = awful.completion.shell,
             hooks                = {
@@ -135,7 +145,9 @@ local function launch()
                         awful.spawn(beautiful.terminal .. " -e zsh -c '" .. cmd .. ";zsh'")
                         -- Add something to todo list
                     elseif cmd:sub(1, 2) == ":n" then
-                        add_note(cmd)
+                        add_note(cmd:sub(3,#cmd))
+                     elseif cmd:sub(1, 1) == "/" then
+                        awful.spawn(beautiful.browser .. " https://www.google.com/search?q='" .. cmd:sub(2,#cmd) .. "'")
                     elseif cmd == "rice" then
                         awful.spawn(beautiful.terminal .. " -e zsh -c 'cd /home/bluzuk/Sync/Rice/;nvim .'")
                         -- Start Program
