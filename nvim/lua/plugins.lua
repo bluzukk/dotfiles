@@ -5,10 +5,10 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
     -- Telescope
-    use {'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    use { 'nvim-telescope/telescope.nvim', tag = '0.1.0',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
-    use {"folke/zen-mode.nvim",
+    use { "folke/zen-mode.nvim",
         config = function()
             require("zen-mode").setup {
                 options = {
@@ -18,7 +18,7 @@ return require('packer').startup(function(use)
         end
     }
 
-    use {"folke/which-key.nvim",
+    use { "folke/which-key.nvim",
         config = function()
             vim.o.timeout = true
             vim.o.timeoutlen = 300
@@ -26,6 +26,12 @@ return require('packer').startup(function(use)
             }
         end
     }
+
+    use {
+	    "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
+
 
     use 'lervag/vimtex'
 
@@ -35,11 +41,20 @@ return require('packer').startup(function(use)
     use 'nvim-treesitter/playground'
     use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
 
-    use({"iamcco/markdown-preview.nvim",
+    use({
+        "iamcco/markdown-preview.nvim",
         run = function() vim.fn["mkdp#util#install"]() end,
     })
 
-    use {'VonHeikemen/lsp-zero.nvim',
+    use {
+    'goolord/alpha-nvim',
+    requires = { 'nvim-tree/nvim-web-devicons' },
+    config = function ()
+        require'alpha'.setup(require'alpha.themes.startify'.config)
+    end
+}
+
+    use { 'VonHeikemen/lsp-zero.nvim',
         requires = {
             -- LSP Support
             { 'neovim/nvim-lspconfig' },
@@ -61,10 +76,10 @@ return require('packer').startup(function(use)
     }
     use "github/copilot.vim"
 
-    use {'nvim-tree/nvim-tree.lua',
+    use { 'nvim-tree/nvim-tree.lua',
         tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
-    use {'numToStr/Comment.nvim',
+    use { 'numToStr/Comment.nvim',
         config = function()
             require('Comment').setup()
         end
@@ -72,7 +87,8 @@ return require('packer').startup(function(use)
 
     use "nvim-lualine/lualine.nvim"
 
-    use({'noib3/nvim-cokeline',
+    use({
+        'noib3/nvim-cokeline',
         config = function()
             require('cokeline').setup()
         end
@@ -90,7 +106,7 @@ return require('packer').startup(function(use)
     use 'dkarter/bullets.vim'
     use 'antoinemadec/FixCursorHold.nvim'
 
-    use {"folke/todo-comments.nvim",
+    use { "folke/todo-comments.nvim",
         requires = "nvim-lua/plenary.nvim",
         config = function()
             require("todo-comments").setup {
@@ -107,7 +123,8 @@ return require('packer').startup(function(use)
     use "Shadorain/shadotheme"
     use "rebelot/kanagawa.nvim"
     use("petertriho/nvim-scrollbar")
-    use({"folke/noice.nvim",
+    use({
+        "folke/noice.nvim",
         config = function()
             require("noice").setup({
                 lsp = {
