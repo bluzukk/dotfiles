@@ -120,7 +120,6 @@ local function create(s)
             top    = dpi(5),
             bottom = dpi(5),
             widget = wibox.container.margin
-
         }
     }
     right_panel.buttons = gears.table.join(
