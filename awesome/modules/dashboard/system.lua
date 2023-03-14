@@ -21,7 +21,7 @@ local function create_graph(max)
         step_spacing = 1,
         step_shape = function(cr, width, height)
             gears.shape.rounded_rect(cr, width, height, 13)
-        end,
+end,
         widget = wibox.widget.graph,
         background_color = beautiful.bg_color_light,
         color = beautiful.accent_alt_color_dark,

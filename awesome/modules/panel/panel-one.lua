@@ -4,7 +4,6 @@ local gears     = require("gears")
 -- local gfs       = require("gears.filesystem")
 local wibox     = require("wibox")
 local dpi       = require("beautiful").xresources.apply_dpi
-
 local markup    = require("helpers.markup")
 
 -- Widgets
@@ -31,7 +30,6 @@ awesome.connect_signal("evil::gpu", function(evil_gpu_util, evil_gpu_temp, _, po
     gpu.markup = markup(beautiful.main_color,
         markup(color, "GPU ") .. evil_gpu_util .. "% " .. evil_gpu_temp .. "°C")
 end)
-
 
 local disk_free = wibox.widget.textbox()
 awesome.connect_signal("evil::disk_free", function(evil)
@@ -63,7 +61,8 @@ local uwu_map = {
     ["light rain"] = "little rainwu",
     ["moderate rain"] = "moderate rainwu",
     ["shower rain"] = "shower rainwu",
-    ["rain"] = "rain ",
+    ["rain"] = "rainwu",
+    ["light intensity shower rain"] = "little shower rainwu",
     ["thunderstorm"] = "thunderstorm",
     ["snow"] = "snow",
     ["light snow"] = "little snowu",
@@ -76,7 +75,7 @@ awesome.connect_signal("evil::weather", function(evil)
     local temp = string.format("%.0f", evil.temp)
     weather:set_markup(markup(beautiful.main_color,
         -- markup(beautiful.accent_color, "IRL ") ..
-        --  evil.weather[1].description .. " " ..  temp .. "°C"))
+         -- evil.weather[1].description .. " " ..  temp .. "°C"))
         markup(beautiful.accent_color, "IRL ") ..
             uwu_map[evil.weather[1].description] .. " " ..  temp .. "°C"))
 end)
@@ -149,6 +148,16 @@ local tasklist_buttons = gears.table.join(
 -- local mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 --                                      menu = mymainmenu })
 
+local mail_main = wibox.widget.textbox()
+awesome.connect_signal("evil::mail_main", function(evil)
+    mail_main:set_markup(markup(beautiful.color_critical, evil))
+end)
+
+local mail_ims = wibox.widget.textbox()
+awesome.connect_signal("evil::mail_ims", function(evil)
+    mail_ims:set_markup(markup(beautiful.color_critical, evil))
+end)
+
 local function create(s)
     local panel = awful.wibar({
         position = "top",
@@ -175,17 +184,21 @@ local function create(s)
                 widget = wibox.container.margin
             },
         },
-        tasklist,
+        {
+            tasklist,
+            mail_main,
+            mail_ims,
+            widget = wibox.layout.fixed.horizontal
+        },
         {
             layout = wibox.layout.fixed.horizontal,
-
             cpu, spr, bar, spr,
             gpu, spr, bar, spr,
             ram_used, spr, bar, spr,
             disk_free, spr, bar, spr,
             weather, spr, bar,
-            systray, spr,
-            textclock, spr,
+            systray,
+            textclock, spr, spr,
         },
     }
     return panel
