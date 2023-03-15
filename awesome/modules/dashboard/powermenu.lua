@@ -139,7 +139,7 @@ local function create()
                 forced_height = dpi(48),
             },
             widget = wibox.container.background,
-            bg     = beautiful.bg_color,
+            bg     = beautiful.bg_color_light,
             shape  = gears.shape.rounded_rect
         },
         widget  = wibox.container.margin,

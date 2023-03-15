@@ -12,6 +12,7 @@ local weather   = require("modules.dashboard.weather")
 local notes     = require("modules.dashboard.notes")
 local system    = require("modules.dashboard.system")
 local powermenu = require("modules.dashboard.powermenu")
+local launcher  = require("modules.dashboard.launcher")
 
 local slider    = sliders.create()
 local cal       = calendar.create()
@@ -19,6 +20,7 @@ local todo      = notes.create()
 local greet     = greeter.create()
 local htop      = system.create()
 local powrmenu  = powermenu.create()
+local shortcut  = launcher.create()
 
 local weather_widget
 if weather ~= -1 then
@@ -74,12 +76,16 @@ local function update()
                     greet,
                     slider,
                     weather_widget,
-                    cal,
-                    todo,
+                    {
+                        todo,
+                        cal,
+                        layout = wibox.layout.align.horizontal
+                    },
                 },
                 stretcher,
                 {
                     layout = wibox.layout.flex.vertical,
+                    shortcut,
                     powrmenu,
                 },
                 layout = wibox.layout.align.vertical,
@@ -160,6 +166,10 @@ end)
 
 -- Manage tabs and redraw callbacks
 awesome.connect_signal("dashboard::cal_redraw_needed", function()
+    update()
+end)
+
+awesome.connect_signal("dashboard::redraw_needed", function()
     update()
 end)
 

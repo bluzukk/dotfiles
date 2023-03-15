@@ -15,7 +15,11 @@ local function read_notes()
     else
         local formatted = ""
         for k,v in pairs(notes) do
-            formatted = formatted .. k .. ": " .. v .. "\n"
+            if #v > 12 then
+                formatted = formatted .. k .. ": " .. v:sub(1,12) .. "\n"
+            else
+                formatted = formatted .. k .. ": " .. v .. "\n"
+            end
         end
         return formatted
     end
@@ -48,7 +52,7 @@ local function create()
                 widget = wibox.container.place,
                 halign = "center",
                 valign = "center",
-                forced_height = dpi(150),
+                forced_height = dpi(320),
                 notes
             },
             widget = wibox.container.background,
