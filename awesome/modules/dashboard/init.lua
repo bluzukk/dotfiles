@@ -75,9 +75,10 @@ local function update()
                     layout = wibox.layout.fixed.vertical,
                     greet,
                     slider,
+                    shortcut,
                     weather_widget,
                     {
-                        todo,
+                        -- todo,
                         cal,
                         layout = wibox.layout.align.horizontal
                     },
@@ -85,7 +86,7 @@ local function update()
                 stretcher,
                 {
                     layout = wibox.layout.flex.vertical,
-                    shortcut,
+
                     powrmenu,
                 },
                 layout = wibox.layout.align.vertical,

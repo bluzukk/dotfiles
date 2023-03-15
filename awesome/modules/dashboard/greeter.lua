@@ -50,7 +50,7 @@ local function create()
             resize = true,
             widget = wibox.widget.imagebox,
             shape = gears.shape.circle,
-            forced_height = dpi(100),
+            forced_height = dpi(75),
         },
         widget = wibox.container.background,
         shape = gears.shape.circle
@@ -60,8 +60,8 @@ local function create()
         {
             id = "clock",
             markup =
-                markup.bold(markup.fontfg(font_name .. " 22", beautiful.accent_alt_color, markup.bold(day) .. "\n"))..
-                markup.fontfg(font_name .. " 22", beautiful.main_color, markup.bold(hour .. ":" .. minutes)),
+                markup.bold(markup.fontfg(font_name .. " 20", beautiful.accent_alt_color, "     " .. markup.bold(day) .. "\n"))..
+                markup.fontfg(font_name .. " 20", beautiful.main_color, markup.bold("     " .. hour .. ":" .. minutes)),
             align  = 'center',
             valign = 'center',
             widget = wibox.widget.textbox,
@@ -79,7 +79,7 @@ local function create()
         {
             {
                 {
-                    layout = wibox.layout.align.horizontal,
+                    layout = wibox.layout.fixed.horizontal,
                     image,
                     user,
                     clock,
@@ -87,7 +87,7 @@ local function create()
                 widget = wibox.container.place,
                 halign = "center",
                 valign = "center",
-                forced_height = dpi(133),
+                forced_height = dpi(100),
             },
             widget = wibox.container.background,
             bg = beautiful.bg_color_light,

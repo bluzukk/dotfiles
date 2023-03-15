@@ -26,13 +26,21 @@ end
 local function update_buttons(c, is_on)
     if startup then is_on = not is_on end
     if not is_on then
+        c.enabled = true
         c:get_children_by_id('image')[1].image = c.icon_on
         -- c:get_children_by_id('text')[1].markup = markup(beautiful.accent_alt_color, " On  ")
         -- c:set_bg(beautiful.bg_color)
     else
+        c.enabled = false
         c:get_children_by_id('image')[1].image = c.icon_off
         -- c:get_children_by_id('text')[1].markup = markup(beautiful.accent_color, " Off  ")
         -- c:set_bg(beautiful.bg_color)
+    end
+end
+
+local function open_task(self)
+    if self.task ~= "bluelight" and self.enabled then
+        awful.spawn.easy_async_with_shell(self.cmd_on)
     end
 end
 
@@ -83,6 +91,14 @@ local function check_task(button)
                 update_task(button, false)
             end
         end)
+    elseif button.task == "game" then
+        awful.spawn.easy_async_with_shell("pidof steam", function(out)
+            if out ~= "" then
+                update_task(button, true)
+            else
+                update_task(button, false)
+            end
+        end)
     end
 end
 
@@ -96,7 +112,7 @@ local function create_button(task, icon_on, icon_off, cmd_on, cmd_off)
                     resize = true,
                     widget = wibox.widget.imagebox,
                     shape = gears.shape.circle,
-                    forced_height = dpi(42),
+                    forced_height = dpi(30),
                 },
                 -- {
                 --     id = "text",
@@ -120,14 +136,25 @@ local function create_button(task, icon_on, icon_off, cmd_on, cmd_off)
         icon_off = icon_off,
         cmd_on   = cmd_on,
         cmd_off  = cmd_off,
+        enabled  = false
     }
 
     check_task(button)
-
-    button:connect_signal("button::press", function(self)
-        startup = false
-        check_task(self)
-    end)
+    button.buttons = gears.table.join(
+        awful.button({}, 1, function()
+            -- Toggle task
+            startup = false
+            check_task(button)
+        end),
+        awful.button({}, 3, function()
+            -- Jump to task
+            startup = false
+            open_task(button)
+        end))
+    -- button:connect_signal("mouse::enter", function(self)
+    --
+    --     check_task(self)
+    -- end)
     return button
 end
 
@@ -140,45 +167,54 @@ local sync_icon_off = recolor_image("cloud-off.svg", beautiful.accent_color)
 local wifi_icon_off = recolor_image("wifi-off.svg", beautiful.accent_color)
 local discord_icon_off = recolor_image("chat-off.svg", beautiful.accent_color)
 local bluelight_icon_off = recolor_image("redshift-off.svg", beautiful.accent_color)
+local game_icon_off = recolor_image("game-off.svg", beautiful.accent_color)
 
 local sync_icon_on = recolor_image("cloud-on.svg", beautiful.accent_alt_color)
 local wifi_icon_on = recolor_image("wifi-on.svg", beautiful.accent_alt_color)
 local discord_icon_on = recolor_image("chat-on.svg", beautiful.accent_alt_color)
 local bluelight_icon_on = recolor_image("redshift-on.svg", beautiful.accent_alt_color)
+local game_icon_on = recolor_image("game-on.svg", beautiful.accent_alt_color)
 
 local wifi_button = create_button(
-        "wifi",
-        wifi_icon_on,
-        wifi_icon_off,
-        "nmcli networking on; ls",
-        "nmcli networking off; ls")
+    "wifi",
+    wifi_icon_on,
+    wifi_icon_off,
+    "nmcli networking on; ls",
+    "nmcli networking off; ls")
 local sync_button = create_button(
-        "sync",
-        sync_icon_on,
-        sync_icon_off,
-        "megasync; ls",
-        "killall -9 megasync; ls")
+    "sync",
+    sync_icon_on,
+    sync_icon_off,
+    "megasync; ls",
+    "killall -9 megasync; ls")
 local discord_button = create_button(
-        "chat",
-        discord_icon_on,
-        discord_icon_off,
-        "discord;ls",
-        "killall -9 /opt/discord/Discord; ls")
+    "chat",
+    discord_icon_on,
+    discord_icon_off,
+    "discord;ls",
+    "killall -9 /opt/discord/Discord; ls")
 local bluelight_button = create_button(
-        "bluelight",
-        bluelight_icon_on,
-        bluelight_icon_off,
-        "redshift -l " .. LAT .. ":" .. LONG .. ";ls",
-        "killall -9 redshift; ls")
+    "bluelight",
+    bluelight_icon_on,
+    bluelight_icon_off,
+    "redshift -l " .. LAT .. ":" .. LONG .. ";ls",
+    "killall -9 redshift; ls")
+local game_button = create_button(
+    "game",
+    game_icon_on,
+    game_icon_off,
+    "steam;ls",
+    "killall -9 steam; ls")
 
 
 local function create()
     local launcher = {
+        game_button,
         discord_button,
         bluelight_button,
         wifi_button,
         sync_button,
-        spacing = dpi(10),
+        spacing = dpi(33),
         layout = wibox.layout.flex.horizontal,
         align = 'center',
         widget = wibox.container.place,
@@ -187,26 +223,47 @@ local function create()
     local container = wibox.widget {
         {
             {
-                widget = wibox.container.place,
-                halign = "center",
-                valign = "center",
-                forced_height = dpi(100),
-                launcher
+                {
+                    widget = wibox.container.place,
+                    halign = "center",
+                    valign = "center",
+                    forced_height = dpi(50),
+                    launcher
+                },
+                widget = wibox.container.margin,
+                margins = {
+                    left = dpi(50),
+                    right= dpi(50)
+                },
             },
-            widget = wibox.container.background,
-            bg = beautiful.bg_color_light,
-            shape = gears.shape.rounded_rect
-        },
-        widget = wibox.container.margin,
-        margins = {
-            left = beautiful.dashboard_margin/2,
-            right = beautiful.dashboard_margin/2,
-            bottom = 0,
-            top = beautiful.dashboard_margin/3,
-        },
-    }
+                widget = wibox.container.background,
+                bg = beautiful.bg_color_light,
+                shape = gears.shape.rounded_rect
+            },
+            widget = wibox.container.margin,
+            margins = {
+                left = beautiful.dashboard_margin/2,
+                right = beautiful.dashboard_margin/2,
+                bottom = 0,
+                top = beautiful.dashboard_margin/4,
+            },
+        }
     return container
 end
+
+
+gears.timer {
+       timeout = 30,
+       autostart = true,
+       callback = function()
+           startup = true
+           check_task(wifi_button)
+           check_task(game_button)
+           check_task(sync_button)
+           check_task(bluelight_button)
+           check_task(discord_button)
+       end
+}
 
 return {
     create = create
