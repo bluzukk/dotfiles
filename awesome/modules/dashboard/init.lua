@@ -9,14 +9,14 @@ local greeter   = require("modules.dashboard.greeter")
 local sliders   = require("modules.dashboard.sliders")
 local calendar  = require("modules.dashboard.cal")
 local weather   = require("modules.dashboard.weather")
-local notes     = require("modules.dashboard.notes")
+-- local notes     = require("modules.dashboard.notes")
 local system    = require("modules.dashboard.system")
 local powermenu = require("modules.dashboard.powermenu")
 local launcher  = require("modules.dashboard.launcher")
 
 local slider    = sliders.create()
 local cal       = calendar.create()
-local todo      = notes.create()
+-- local todo      = notes.create()
 local greet     = greeter.create()
 local htop      = system.create()
 local powrmenu  = powermenu.create()
@@ -81,7 +81,7 @@ local function update()
                         weather_widget,
                         layout = wibox.layout.align.horizontal
                     },
-                    todo,
+                    -- todo,
                 },
                 stretcher,
                 {
