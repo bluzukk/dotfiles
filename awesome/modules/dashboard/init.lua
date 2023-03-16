@@ -61,7 +61,7 @@ local function update()
                 },
                 layout = wibox.layout.flex.vertical,
                 forced_width = beautiful.dashboard_width,
-                forced_height = dpi(250),
+                forced_height = dpi(200),
 
             },
             widget = wibox.container.place
@@ -76,12 +76,12 @@ local function update()
                     greet,
                     slider,
                     shortcut,
-                    weather_widget,
                     {
-                        -- todo,
                         cal,
+                        weather_widget,
                         layout = wibox.layout.align.horizontal
                     },
+                    todo,
                 },
                 stretcher,
                 {

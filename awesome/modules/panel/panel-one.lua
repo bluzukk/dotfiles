@@ -53,34 +53,14 @@ awesome.connect_signal("evil::ram", function(evil)
         markup(color ,"MEM ") .. val .. "mb")
 end)
 
-local uwu_map = {
-    ["clear sky"] = "clear skywu",
-    ["few clouds"] = "few cloudwu",
-    ["scattered clouds"] = "little cloudwu",
-    ["broken clouds"] = "much cloudwu",
-    ["overcast clouds"] = "only cloudwu",
-    ["light rain"] = "little rainwu",
-    ["moderate rain"] = "moderate rainwu",
-    ["shower rain"] = "shower rainwu",
-    ["rain"] = "rainwu",
-    ["light intensity shower rain"] = "little shower rainwu",
-    ["light shower snow"] = "little shower snowu",
-    ["light intensity drizzle"] = "little drizzle rainwu",
-    ["thunderstorm"] = "thunderstorm",
-    ["snow"] = "snow",
-    ["light snow"] = "little snowu",
-    ["rain and snow"] = "rainwu snowu",
-    ["mist"] = "mist",
-}
-
 local weather = wibox.widget.textbox()
 awesome.connect_signal("evil::weather", function(evil)
     local temp = string.format("%.0f", evil.temp)
     weather:set_markup(markup(beautiful.main_color,
-        markup(beautiful.accent_color, "IRL ") ..
-         evil.weather[1].description .. " " ..  temp .. "°C"))
         -- markup(beautiful.accent_color, "IRL ") ..
-        --     uwu_map[evil.weather[1].description] .. " " ..  temp .. "°C"))
+        --  evil.weather[1].description .. " " ..  temp .. "°C"))
+        markup(beautiful.accent_color, "IRL ") ..
+            beautiful.uwu_map[evil.weather[1].description] .. " " ..  temp .. "°C"))
 end)
 
 local net_ssid = wibox.widget.textbox()
