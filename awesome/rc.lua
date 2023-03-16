@@ -42,3 +42,5 @@ require("modules.panel").create_screens()
 
 ---- Autostart Apps -----------------------------------------------------------
 require("helpers.autostart")
+
+

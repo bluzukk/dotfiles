@@ -10,6 +10,27 @@ local lama          = require("helpers.lama")
 local theme_assets  = require("beautiful.theme_assets")
 local theme = {}
 
+theme.uwu_map = {
+    ["clear sky"] = "clear skywu",
+    ["few clouds"] = "few cloudwu",
+    ["scattered clouds"] = "little cloudwu",
+    ["broken clouds"] = "much cloudwu",
+    ["overcast clouds"] = "only cloudwu",
+    ["light rain"] = "little rainwu",
+    ["moderate rain"] = "moderate rainwu",
+    ["shower rain"] = "shower rainwu",
+    ["rain"] = "rainwu",
+    ["light intensity shower rain"] = "lil shower rainwu",
+    ["light shower snow"] = "lil shower snowu",
+    ["light intensity drizzle"] = "lil drizzle rainwu",
+    ["thunderstorm"] = "thunderstormwu!",
+    ["snow"] = "snowu",
+    ["light snow"] = "little snowu",
+    ["rain and snow"] = "rainwu snowu",
+    ["mist"] = "mistwu",
+    ["fog"] = "fogwu",
+}
+
 ---------------------------------------------------------------------------------
 -- Panel and Dashboard Settings
 ---------------------------------------------------------------------------------

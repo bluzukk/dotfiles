@@ -117,7 +117,7 @@ local function create()
             left = beautiful.dashboard_margin/2,
             right = beautiful.dashboard_margin/2,
             bottom = 0,
-            top = beautiful.dashboard_margin/6,
+            top = beautiful.dashboard_margin/4,
         },
     }
     return container
