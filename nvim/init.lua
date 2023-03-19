@@ -2,6 +2,7 @@ require("plugins")
 require("sets")
 require("binds")
 require("lsp")
+-- require("dashboard-cfg")
 
 local api = vim.api
 
