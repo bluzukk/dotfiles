@@ -9,7 +9,9 @@ local markup    = require("helpers.markup")
 
 -- Widgets
 local spr = wibox.widget.textbox(" ")
-local bar = wibox.widget.textbox("|")
+-- local bar = wibox.widget.textbox("|")
+local bar = wibox.widget.textbox("★")
+local bar = wibox.widget.textbox(" ")
 
 local cpu = wibox.widget.textbox()
 awesome.connect_signal("evil::cpu", function(evil_cpu_util, evil_cpu_temp)
