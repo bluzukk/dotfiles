@@ -3,15 +3,15 @@ local helpers = {}
 local spawn = require("awful.spawn")
 
 local function file_exists(file)
-  local f = io.open(file, "rb")
-  if f then f:close() end
-  return f ~= nil
+    local f = io.open(file, "rb")
+    if f then f:close() end
+    return f ~= nil
 end
 
 function helpers.file_exists(file)
-  local f = io.open(file, "rb")
-  if f then f:close() end
-  return f ~= nil
+    local f = io.open(file, "rb")
+    if f then f:close() end
+    return f ~= nil
 end
 
 function helpers.read_line(path)
@@ -24,19 +24,19 @@ function helpers.read_line(path)
 end
 
 function helpers.read_lines(path)
-  if not file_exists(path) then return nil end
-  local lines = {}
-  for line in io.lines(path) do
-    lines[#lines + 1] = line
-  end
-  return lines
+    if not file_exists(path) then return nil end
+    local lines = {}
+    for line in io.lines(path) do
+        lines[#lines + 1] = line
+    end
+    return lines
 end
 
 function helpers.async(cmd, callback)
     return spawn.easy_async(cmd,
-    function (stdout, stderr, reason, exit_code)
-        callback(stdout, exit_code, stderr, reason)
-    end)
+        function(stdout, stderr, reason, exit_code)
+            callback(stdout, exit_code, stderr, reason)
+        end)
 end
 
 function helpers.read_cmd(cmd)

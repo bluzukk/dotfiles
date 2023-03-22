@@ -1,22 +1,23 @@
-local beautiful = require("beautiful")
-local gears     = require("gears")
-local wibox     = require("wibox")
-local dpi       = beautiful.xresources.apply_dpi
+local beautiful  = require("beautiful")
+local gears      = require("gears")
+local wibox      = require("wibox")
+local dpi        = beautiful.xresources.apply_dpi
 
-local util      = require("helpers.util")
-local markup    = require("helpers.markup")
+local util       = require("helpers.util")
+local markup     = require("helpers.markup")
 
-local NOTES_FILE =  os.getenv("HOME") .. '/Sync/.todo'
+local NOTES_FILE = os.getenv("HOME") .. '/Sync/.todo'
 
 -- Read todo/notes
 local function read_notes()
     local notes = util.read_lines(NOTES_FILE)
-    if notes == nil then return "No TODOs :) have some fun!!"
+    if notes == nil then
+        return "No TODOs :) have some fun!!"
     else
         local formatted = ""
-        for k,v in pairs(notes) do
+        for k, v in pairs(notes) do
             if #v > 12 then
-                formatted = formatted .. k .. ": " .. v:sub(1,12) .. "\n"
+                formatted = formatted .. k .. ": " .. v:sub(1, 12) .. "\n"
             else
                 formatted = formatted .. k .. ": " .. v .. "\n"
             end
@@ -61,10 +62,10 @@ local function create()
         },
         widget = wibox.container.margin,
         margins = {
-            left = beautiful.dashboard_margin/2,
-            right = beautiful.dashboard_margin/2,
+            left = beautiful.dashboard_margin / 2,
+            right = beautiful.dashboard_margin / 2,
             bottom = 0,
-            top = beautiful.dashboard_margin/4,
+            top = beautiful.dashboard_margin / 4,
         },
     }
     return container

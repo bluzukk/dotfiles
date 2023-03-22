@@ -33,8 +33,8 @@ local function create()
     local user = {
         {
             markup =
-                markup.fontfg(font_name .. " 16", beautiful.accent_color, "" .. USERNAME) ..
-                markup.fontfg(font_name .. " 14", beautiful.accent_color_dark, " @" .. HOSTNAME),
+            markup.fontfg(font_name .. " 16", beautiful.accent_color, "" .. USERNAME) ..
+            markup.fontfg(font_name .. " 14", beautiful.accent_color_dark, " @" .. HOSTNAME),
             widget = wibox.widget.textbox,
         },
         widget = wibox.container.margin,
@@ -60,8 +60,8 @@ local function create()
         {
             id = "clock",
             markup =
-                markup.bold(markup.fontfg(font_name .. " 20", beautiful.accent_alt_color, "     " .. markup.bold(day) .. "\n"))..
-                markup.fontfg(font_name .. " 20", beautiful.main_color, markup.bold("     " .. hour .. ":" .. minutes)),
+            markup.bold(markup.fontfg(font_name .. " 20", beautiful.accent_alt_color, "     " .. markup.bold(day) .. "\n"))..
+            markup.fontfg(font_name .. " 20", beautiful.main_color, markup.bold("     " .. hour .. ":" .. minutes)),
             align  = 'center',
             valign = 'center',
             widget = wibox.widget.textbox,
@@ -103,13 +103,13 @@ local function create()
     }
 
     greeter.buttons = gears.table.join(
-        greeter.buttons,
-        awful.button({}, 1, function()
-            awesome.emit_signal("dashboard::mouse1")
-        end),
-        awful.button({}, 3, function()
-            awesome.emit_signal("dashboard::mouse3")
-        end))
+    greeter.buttons,
+    awful.button({}, 1, function()
+        awesome.emit_signal("dashboard::mouse1")
+    end),
+    awful.button({}, 3, function()
+        awesome.emit_signal("dashboard::mouse3")
+    end))
 
     return greeter
 end

@@ -70,15 +70,15 @@ local function create()
     end
 
     container.buttons = gears.table.join(
-        container.buttons,
-        awful.button({}, 1, function()
-            switch_month(1)
-            awesome.emit_signal("dashboard::cal_redraw_needed")
-        end),
-        awful.button({}, 3, function()
-            switch_month(-1)
-            awesome.emit_signal("dashboard::cal_redraw_needed")
-        end)
+    container.buttons,
+    awful.button({}, 1, function()
+        switch_month(1)
+        awesome.emit_signal("dashboard::cal_redraw_needed")
+    end),
+    awful.button({}, 3, function()
+        switch_month(-1)
+        awesome.emit_signal("dashboard::cal_redraw_needed")
+    end)
     )
 
     return container

@@ -5,8 +5,7 @@ local dpi        = beautiful.xresources.apply_dpi
 
 local util      = require("helpers.util")
 local markup    = require("helpers.markup")
-
-local config = require("config.settings")
+local config    = require("config.settings")
 
 local CMD_CPU_USE  = [[ bash -c "ps -Ao pcpu --sort=-pcpu | head -n 6" ]]
 local CMD_CPU_NAME = [[ bash -c "ps -Ao comm --sort=-pcpu | head -n 6" ]]
@@ -21,7 +20,7 @@ local function create_graph(max)
         step_spacing = 1,
         step_shape = function(cr, width, height)
             gears.shape.rounded_rect(cr, width, height, 13)
-end,
+        end,
         widget = wibox.widget.graph,
         background_color = beautiful.bg_color_light,
         color = beautiful.accent_alt_color_dark,
@@ -56,7 +55,7 @@ local function create_widget_container(header, graph)
                     id = "left_content_header",
                     align = 'left',
                     markup =
-                        markup.fontfg(beautiful.font_name .. " 18", beautiful.accent_color, markup.bold(header)),
+                    markup.fontfg(beautiful.font_name .. " 18", beautiful.accent_color, markup.bold(header)),
                     widget = wibox.widget.textbox,
                     forced_height = dpi(20),
                 },
@@ -139,19 +138,19 @@ local cpu_util = 0
 awesome.connect_signal("evil::cpu", function(evil_cpu_util, evil_cpu_temp)
     cpu_util = evil_cpu_util
     cpu_widget:get_children_by_id("left_content")[1].markup =
-        markup.fontfg(beautiful.font_name .. " 15", beautiful.accent_color_dark,
-            cpu_util .. "% " .. evil_cpu_temp ..  "°C")
+    markup.fontfg(beautiful.font_name .. " 15", beautiful.accent_color_dark,
+    cpu_util .. "% " .. evil_cpu_temp ..  "°C")
 end)
 
 local gpu_util = 0
 awesome.connect_signal("evil::gpu", function(evil_gpu_util, evil_gpu_temp, evil_gpu_clock, evil_gpu_power)
     gpu_util = evil_gpu_util
     gpu_widget:get_children_by_id("left_content")[1].markup =
-        markup.fontfg(beautiful.font_name .. " 15", beautiful.accent_color_dark,
-            gpu_util .. "% " .. evil_gpu_temp ..  "°C")
+    markup.fontfg(beautiful.font_name .. " 15", beautiful.accent_color_dark,
+    gpu_util .. "% " .. evil_gpu_temp ..  "°C")
     gpu_widget:get_children_by_id("right_content")[1].markup =
-        markup.fontfg(beautiful.font_name .. " 14", beautiful.main_color, "       " .. evil_gpu_clock .. " MHz\n") ..
-        markup.fontfg(beautiful.font_name .. " 14", beautiful.main_color, "       " .. evil_gpu_power .. " Watt")
+    markup.fontfg(beautiful.font_name .. " 14", beautiful.main_color, "       " .. evil_gpu_clock .. " MHz\n") ..
+    markup.fontfg(beautiful.font_name .. " 14", beautiful.main_color, "       " .. evil_gpu_power .. " Watt")
 end)
 
 local net_now = 0
@@ -200,8 +199,8 @@ awesome.connect_signal("evil::ram", function(evil)
     mem_util = string.format("%.0f", tonumber(evil))
     mem_perc = string.format("%.0f", tonumber((mem_util / 15500) * 100))
     mem_widget:get_children_by_id("left_content")[1].markup =
-        markup.fontfg(beautiful.font_name .. " 15", beautiful.accent_color_dark,
-            mem_perc .. "% " .. mem_util ..  "mb")
+    markup.fontfg(beautiful.font_name .. " 15", beautiful.accent_color_dark,
+    mem_perc .. "% " .. mem_util ..  "mb")
 end)
 
 
@@ -246,12 +245,12 @@ timer:connect_signal("timeout", function()
     mem_widget:get_children_by_id("right_content")[1].markup = mem_top
 
     cpu_widget:get_children_by_id("right_content")[1].markup =
-        markup.fontfg(beautiful.font_name .. " 14", beautiful.main_color,  cpu_top)
+    markup.fontfg(beautiful.font_name .. " 14", beautiful.main_color,  cpu_top)
     mem_widget:get_children_by_id("right_content")[1].markup =
-        markup.fontfg(beautiful.font_name .. " 14", beautiful.main_color,  mem_top)
+    markup.fontfg(beautiful.font_name .. " 14", beautiful.main_color,  mem_top)
     net_widget:get_children_by_id("right_content")[1].markup =
-        markup.fontfg(beautiful.font_name .. " 14", beautiful.main_color,
-            "    " .. net_ip4 .. "\n" .. "      ↑ ".. net_total_up .. "mb\n       ↓ " .. net_total_down .. "mb")
+    markup.fontfg(beautiful.font_name .. " 14", beautiful.main_color,
+    "    " .. net_ip4 .. "\n" .. "      ↑ ".. net_total_up .. "mb\n       ↓ " .. net_total_down .. "mb")
 end)
 
 

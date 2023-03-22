@@ -116,8 +116,6 @@ npairs.add_rules({
 })
 
 
-
--- Fix Undefined global 'vim'
 lsp.configure('lua_ls', {
     settings = {
         Lua = {
@@ -127,7 +125,7 @@ lsp.configure('lua_ls', {
             },
             diagnostics = {
                 -- Get the language server to recognize the `vim` global
-                globals = { 'vim', "awesome", "client", "root", "tag", "screen" },
+                globals = { 'vim', "awesome", "client", "root", "tag", "screen", "clientkeys", "clientbuttons", "globalkeys" },
             },
             workspace = {
                 -- Make the server aware of Neovim runtime files

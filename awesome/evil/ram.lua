@@ -5,8 +5,8 @@
 --   evil::ram        : Used RAM                                             --
 --   evil::ram_total  : @todo Total available RAM                            --
 -------------------------------------------------------------------------------
-local awful = require("awful")
-local gears = require("gears")
+local awful    = require("awful")
+local gears    = require("gears")
 
 local cmd_used = 'bash -c "~/.config/awesome/scripts/ram-util.sh"'
 local interval = 5

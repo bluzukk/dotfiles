@@ -51,18 +51,18 @@ local function create(s)
                 -- bg = beautiful.bg_bar_inner .. "0",
                 shape  = beautiful.inner_corners,
                 widget = wibox.container.background,
-            -- },
-            -- left   = dpi(5),
-            -- right  = dpi(5),
-            -- top    = dpi(5),
-            -- bottom = dpi(5),
-            -- widget = wibox.container.margin
+                -- },
+                -- left   = dpi(5),
+                -- right  = dpi(5),
+                -- top    = dpi(5),
+                -- bottom = dpi(5),
+                -- widget = wibox.container.margin
+            }
         }
-    }
-    return center_panel
-end
+        return center_panel
+    end
 
-return {
-    create = create
-}
+    return {
+        create = create
+    }
 

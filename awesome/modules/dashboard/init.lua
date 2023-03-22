@@ -207,12 +207,12 @@ end)
 
 sidebar_activator:buttons(
 gears.table.join(
-    awful.button({ }, 1, function ()
-        awful.tag.viewprev()
-    end),
-    awful.button({ }, 5, function ()
-        awful.tag.viewnext()
-    end)
+awful.button({ }, 1, function ()
+    awful.tag.viewprev()
+end),
+awful.button({ }, 5, function ()
+    awful.tag.viewnext()
+end)
 ))
 
 

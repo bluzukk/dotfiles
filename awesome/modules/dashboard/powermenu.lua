@@ -2,7 +2,7 @@ local awful     = require("awful")
 local beautiful = require("beautiful")
 local gears     = require("gears")
 local gfs       = require("gears.filesystem")
-local naughty   = require("naughty")
+-- local naughty   = require("naughty")
 local wibox     = require("wibox")
 local dpi       = beautiful.xresources.apply_dpi
 
@@ -96,31 +96,31 @@ local function create()
     local lock_button     = create_button("Lock", "lock.svg")
 
     poweroff_button.buttons = gears.table.join(
-        awful.button({}, 1, function()
-            if poweroff_clicked then
-                awful.spawn(CMD_PWROFF)
-            end
-            poweroff_clicked = true
-            timer_poweroff:start()
-        end)
+    awful.button({}, 1, function()
+        if poweroff_clicked then
+            awful.spawn(CMD_PWROFF)
+        end
+        poweroff_clicked = true
+        timer_poweroff:start()
+    end)
     )
     reboot_button.buttons = gears.table.join(
-        awful.button({}, 1, function()
-            if reboot_clicked then
-                awful.spawn(CMD_REBOOT)
-            end
-            reboot_clicked = true
-            timer_reboot:start()
-        end)
+    awful.button({}, 1, function()
+        if reboot_clicked then
+            awful.spawn(CMD_REBOOT)
+        end
+        reboot_clicked = true
+        timer_reboot:start()
+    end)
     )
     lock_button.buttons = gears.table.join(
-        awful.button({}, 1, function()
-            if lock_clicked then
-                awful.spawn(CMD_LOCK)
-            end
-            lock_clicked = true
-            timer_lock:start()
-        end)
+    awful.button({}, 1, function()
+        if lock_clicked then
+            awful.spawn(CMD_LOCK)
+        end
+        lock_clicked = true
+        timer_lock:start()
+    end)
     )
 
     local powermenu = wibox.widget {

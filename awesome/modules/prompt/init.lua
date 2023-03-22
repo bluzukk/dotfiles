@@ -4,13 +4,12 @@ local wibox     = require("wibox")
 local gfs       = require("gears.filesystem")
 local dpi       = require("beautiful").xresources.apply_dpi
 
+local markup = require("helpers.markup")
+local notify = require("helpers.notify")
+local util   = require("helpers.util")
 
-local markup           = require("helpers.markup")
-local notify           = require("helpers.notify")
-local util             = require("helpers.util")
-
-local shell            = wibox.widget.textbox()
-local HISTORY_PATH     = gfs.get_cache_dir() .. '/history'
+local shell = wibox.widget.textbox()
+local HISTORY_PATH = gfs.get_cache_dir() .. '/history'
 
 local uwuprompt_widget = wibox.widget {
     {
@@ -43,7 +42,7 @@ local HISTORY
 local selected = 0
 local function update()
     HISTORY = util.read_lines(HISTORY_PATH)
-    rev           = {}
+    rev     = {}
     for i = #HISTORY, 1, -1 do
         rev[#rev + 1] = HISTORY[i]
     end
@@ -58,7 +57,7 @@ local function update()
     local lower = selected - 3
     local upper = selected + 3
     if lower < 1 then upper = upper - lower end
-    if upper > #HISTORY then lower = lower - (upper-#HISTORY) end
+    if upper > #HISTORY then lower = lower - (upper - #HISTORY) end
 
     for k, v in pairs(HISTORY) do
         if k < upper and k > lower then
@@ -145,9 +144,9 @@ local function launch()
                         awful.spawn(beautiful.terminal .. " -e zsh -c '" .. cmd .. ";zsh'")
                         -- Add something to todo list
                     elseif cmd:sub(1, 2) == ":n" then
-                        add_note(cmd:sub(3,#cmd))
-                     elseif cmd:sub(1, 1) == "/" then
-                        awful.spawn(beautiful.browser .. " https://www.google.com/search?q='" .. cmd:sub(2,#cmd) .. "'")
+                        add_note(cmd:sub(3, #cmd))
+                    elseif cmd:sub(1, 1) == "/" then
+                        awful.spawn(beautiful.browser .. " https://www.google.com/search?q='" .. cmd:sub(2, #cmd) .. "'")
                     elseif cmd == "rice" then
                         awful.spawn(beautiful.terminal .. " -e zsh -c 'cd /home/bluzuk/Sync/Rice/;nvim .'")
                         -- Start Program

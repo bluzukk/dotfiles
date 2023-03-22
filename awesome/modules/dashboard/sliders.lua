@@ -14,7 +14,7 @@ local volume_widget = wibox.widget {
         {
             widget = wibox.widget.textbox,
             markup = markup.fontfg(beautiful.font_name .. " 12", beautiful.accent_alt_color_dark,
-                markup.bold("vol "))
+            markup.bold("vol "))
         },
         {
             id        = "volume_bar",
@@ -49,7 +49,7 @@ local mic_widget = wibox.widget {
         {
             widget = wibox.widget.textbox,
             markup = markup.fontfg(beautiful.font_name .. " 12", beautiful.accent_color_dark,
-                markup.bold("mic "))
+            markup.bold("mic "))
         },
         {
             id        = "mic_bar",

@@ -46,7 +46,7 @@ local function create_screens()
             s.panel_center = require("modules.panel.panel-center").create(s)
             s.panel_right  = require("modules.panel.panel-right").create(s)
         end
-     end)
+    end)
     setupdone = true
 end
 

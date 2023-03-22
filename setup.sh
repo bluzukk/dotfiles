@@ -7,8 +7,8 @@ ls ~/.config/picom   || ln -s ~/Sync/Rice/picom ~/.config/picom
 
 ### Setup zsh
 ln -s ~/Sync/Rice/zsh/zshtheme ~/.config/oh-my-zsh/themes/mh2.zsh-theme
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.config/oh-my-zsh/custom/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.config/oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
 ### Setup awesome
 chmod +x ./awesome/scripts/*.sh

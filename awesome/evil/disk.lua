@@ -6,7 +6,7 @@
 --   evil::disk_total  : (TODO) Total space on main storage disk             --
 --   evil::disk_info   : (TODO) Info about filesystem                        --
 -------------------------------------------------------------------------------
-local awful = require("awful")
+local awful     = require("awful")
 
 local cmd_space = 'bash -c "~/.config/awesome/scripts/disk-home.sh"'
 local interval  = 30

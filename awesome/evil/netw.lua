@@ -7,13 +7,13 @@
 --   evil::net_total  : Total download (rx_bytes)                            --
 --   evil::net_now    : Current download speed (averaged rx_bytes)           --
 -------------------------------------------------------------------------------
-local awful = require("awful")
+local awful          = require("awful")
 
-local cmd_ip4  = [[ curl ifconfig.me 2>/dev/null ]]
-local cmd_ssid = [[ LANG=C nmcli -t -f active,ssid dev wifi | grep ^yes | cut -d: -f2- ]]
-local cmd_down = [[ bash -c "~/.config/awesome/scripts/net-totals.sh" ]]
-local cmd_up   = [[ bash -c "~/.config/awesome/scripts/net-totals-up.sh" ]]
-local cmd_now  = [[ bash -c "~/.config/awesome/scripts/net-now.sh" ]]
+local cmd_ip4        = [[ curl ifconfig.me 2>/dev/null ]]
+local cmd_ssid       = [[ LANG=C nmcli -t -f active,ssid dev wifi | grep ^yes | cut -d: -f2- ]]
+local cmd_down       = [[ bash -c "~/.config/awesome/scripts/net-totals.sh" ]]
+local cmd_up         = [[ bash -c "~/.config/awesome/scripts/net-totals-up.sh" ]]
+local cmd_now        = [[ bash -c "~/.config/awesome/scripts/net-now.sh" ]]
 
 local interval_ip4   = 3600
 local interval_ssid  = 3

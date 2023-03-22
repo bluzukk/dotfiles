@@ -6,8 +6,8 @@
 --   evil::cpu: cpu_temp_ctl  : Current CPU ctl temperature                  --
 --   evil::cpu: cpu_temp_ccd  : Current CPU ccd temperature                  --
 -------------------------------------------------------------------------------
-local awful = require("awful")
-local gears = require("gears")
+local awful        = require("awful")
+local gears        = require("gears")
 
 local cmd_temp_ctl = [[ cat /sys/class/hwmon/hwmon1/temp1_input ]]
 local cmd_temp_ccd = [[ cat /sys/class/hwmon/hwmon1/temp4_input ]]
@@ -24,19 +24,19 @@ gears.timer {
         awful.spawn.easy_async(cmd_util,
             function(evil)
                 cpu_util = tonumber(evil)
-        end)
+            end)
         awful.spawn.easy_async(cmd_temp_ctl,
             function(evil)
-                cpu_temp_ctl = tonumber(string.format("%02.f", tonumber(evil/1000)))
-        end)
+                cpu_temp_ctl = tonumber(string.format("%02.f", tonumber(evil / 1000)))
+            end)
         awful.spawn.easy_async(cmd_temp_ccd,
             function(evil)
-                cpu_temp_ccd = tonumber(string.format("%02.f", tonumber(evil/1000)))
-        end)
+                cpu_temp_ccd = tonumber(string.format("%02.f", tonumber(evil / 1000)))
+            end)
         awful.spawn.easy_async("sleep 2",
             function()
                 awesome.emit_signal("evil::cpu", cpu_util, cpu_temp_ctl, cpu_temp_ccd)
-        end)
+            end)
     end
 }
 

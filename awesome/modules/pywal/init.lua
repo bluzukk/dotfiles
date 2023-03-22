@@ -1,26 +1,25 @@
+local beautiful        = require("beautiful")
+local awful            = require("awful")
+local wibox            = require("wibox")
+local gears            = require("gears")
+local gfs              = require("gears.filesystem")
+local xresources       = require("beautiful.xresources")
+local dpi              = xresources.apply_dpi
 
-local beautiful  = require("beautiful")
-local awful      = require("awful")
-local wibox      = require("wibox")
-local gears      = require("gears")
-local gfs        = require("gears.filesystem")
-local xresources = require("beautiful.xresources")
-local dpi        = xresources.apply_dpi
+local markup           = require("helpers.markup")
+local util             = require("helpers.util")
 
-local markup     = require("helpers.markup")
-local util       = require("helpers.util")
-
-local WALLPAPER_SCRIPT = os.getenv("HOME") ..  "/.config/awesome/scripts/randombg.sh"
-local SEARCH_ICON = gfs.get_configuration_dir() .. "assets/misc/search.svg"
-local SEARCH_IMG = gears.color.recolor_image(SEARCH_ICON, beautiful.accent_color)
+local WALLPAPER_SCRIPT = os.getenv("HOME") .. "/.config/awesome/scripts/randombg.sh"
+local SEARCH_ICON      = gfs.get_configuration_dir() .. "assets/misc/search.svg"
+local SEARCH_IMG       = gears.color.recolor_image(SEARCH_ICON, beautiful.accent_color)
 
 os.execute("rm " .. WALLS_DIR .. ".walls")
 os.execute("ls " .. WALLS_DIR .. " > " .. WALLS_DIR .. ".walls")
-local wallpapers = util.read_lines(WALLS_DIR .. ".walls")
+local wallpapers     = util.read_lines(WALLS_DIR .. ".walls")
 
-local selected   = 1
-local searchtext = ""
-local search_result = wallpapers
+local selected       = 1
+local searchtext     = ""
+local search_result  = wallpapers
 local selected_image = ""
 
 
@@ -37,7 +36,7 @@ local preview_widget
 local function update_widget()
     search_result = {}
     if #searchtext > 1 then
-        for _,v in pairs(wallpapers) do
+        for _, v in pairs(wallpapers) do
             if string.match(v, searchtext) then
                 search_result[#search_result + 1] = v
             end
@@ -49,7 +48,7 @@ local function update_widget()
     local lower = selected - 4
     local upper = selected + 4
     if lower < 1 then upper = upper - lower end
-    if upper > #search_result then lower = lower - (upper-#search_result) end
+    if upper > #search_result then lower = lower - (upper - #search_result) end
 
     local item_widgets = {
         layout = wibox.layout.fixed.vertical,
@@ -57,7 +56,7 @@ local function update_widget()
         forced_height = 350,
         align = "centered"
     }
-    for k,v in pairs(search_result) do
+    for k, v in pairs(search_result) do
         if k < upper and k > lower then
             local item
             if k == selected then
@@ -149,7 +148,7 @@ local function update_widget()
     return widget
 end
 
-local wal = awful.popup{
+local wal = awful.popup {
     ontop        = true,
     visible      = true,
     shape        = gears.shape.rounded_rect,
@@ -168,40 +167,34 @@ local function hide()
 end
 
 local function get_keypress()
-  grabber = awful.keygrabber.run(function(_, key, event)
-    if event == "release" then return end
-    -- if event == "press" then notify.show("PRESSED BUTTON", key) end
-    if key == 'Up' then
-        if selected > 1 then
-            selected = selected - 1
+    grabber = awful.keygrabber.run(function(_, key, event)
+        if event == "release" then return end
+        -- if event == "press" then notify.show("PRESSED BUTTON", key) end
+        if key == 'Up' then
+            if selected > 1 then
+                selected = selected - 1
+                wal:setup(update_widget())
+            end
+        elseif key == 'Down' then
+            if selected < #search_result then
+                selected = selected + 1
+                wal:setup(update_widget())
+            end
+        elseif key == 'Return' then
+            os.execute(WALLPAPER_SCRIPT .. " " .. WALLS_DIR .. selected_image)
+            awesome.restart()
+        elseif key == "Escape" then
+            hide()
+        elseif key == "BackSpace" then
+            selected = 1
+            searchtext = searchtext:sub(1, -2)
+            wal:setup(update_widget())
+        elseif #key == 1 then
+            selected = 1
+            searchtext = searchtext .. key
             wal:setup(update_widget())
         end
-
-    elseif key == 'Down'  then
-        if selected < #search_result then
-            selected = selected + 1
-            wal:setup(update_widget())
-        end
-
-    elseif key == 'Return' then
-        os.execute(WALLPAPER_SCRIPT .. " " .. WALLS_DIR .. selected_image)
-        awesome.restart()
-
-    elseif key == "Escape" then
-        hide()
-
-    elseif key == "BackSpace" then
-        selected = 1
-        searchtext = searchtext:sub(1,-2)
-        wal:setup(update_widget())
-
-    elseif #key == 1 then
-        selected = 1
-        searchtext = searchtext .. key
-        wal:setup(update_widget())
-    end
-
-  end)
+    end)
 end
 
 local function show()

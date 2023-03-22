@@ -8,11 +8,11 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({"xcompmgr", "setxkbmap de"})
+run_once({ "xcompmgr", "setxkbmap de" })
 
 -- Run garbage collector regularly to prevent memory leaks
 gears.timer {
-       timeout = 30,
-       autostart = true,
-       callback = function() collectgarbage() end
+    timeout = 600,
+    autostart = true,
+    callback = function() collectgarbage() end
 }

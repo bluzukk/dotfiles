@@ -5,7 +5,7 @@
 --   evil::mail_ims   : Check my mails (IMS Account)                         --
 --   evil::mail_main  : Check my mails (Main Account)                        --
 -------------------------------------------------------------------------------
-local awful = require("awful")
+local awful        = require("awful")
 
 local cmd_mail_ims = [[ bash -c "~/Sync/Rice/_private/checkmail-ims.sh" ]]
 local cmd_mail     = [[ bash -c "~/Sync/Rice/_private/checkmail-uni.sh" ]]
