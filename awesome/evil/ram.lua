@@ -18,7 +18,9 @@ gears.timer {
     callback  = function()
         awful.spawn.easy_async(cmd_used,
             function(evil)
-                awesome.emit_signal("evil::ram", tonumber(evil))
+                if evil ~= "" then
+                    awesome.emit_signal("evil::ram", tonumber(evil))
+                end
             end)
     end
 }
