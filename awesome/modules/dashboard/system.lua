@@ -104,10 +104,10 @@ local function create_widget_container(header, graph)
         },
         widget = wibox.container.margin,
         margins = {
-            left = config.dashboard_margin/2,
-            right = config.dashboard_margin/2,
-            bottom = 0,
-            top = config.dashboard_margin/6,
+            left = config.dashboard_margin,
+            right = config.dashboard_margin,
+            bottom = config.dashboard_margin/5,
+            top = config.dashboard_margin/5,
         },
     }
 end
@@ -128,7 +128,7 @@ local function create()
         layout = wibox.layout.fixed.vertical,
         cpu_widget,
         mem_widget,
-        gpu_widget,
+        -- gpu_widget,
         -- net_widget,
     }
 end
@@ -149,8 +149,8 @@ awesome.connect_signal("evil::gpu", function(evil_gpu_util, evil_gpu_temp, evil_
     markup.fontfg(beautiful.font_name .. " 15", beautiful.accent_color_dark,
     gpu_util .. "% " .. evil_gpu_temp ..  "°C")
     gpu_widget:get_children_by_id("right_content")[1].markup =
-    markup.fontfg(beautiful.font_name .. " 14", beautiful.main_color, "       " .. evil_gpu_clock .. " MHz\n") ..
-    markup.fontfg(beautiful.font_name .. " 14", beautiful.main_color, "       " .. evil_gpu_power .. " Watt")
+    markup.fontfg(beautiful.font_name .. " 14", beautiful.main_color, "     " .. evil_gpu_clock .. " MHz\n") ..
+    markup.fontfg(beautiful.font_name .. " 14", beautiful.main_color, "     " .. evil_gpu_power .. " Watt")
 end)
 
 local net_now = 0
@@ -212,7 +212,7 @@ local function read_top()
     for k,v in pairs(cpu_top_names) do
         if k ~= 1 then
             local usage = string.format("%3.0f", tonumber(cpu_top_perc[k]) - 0.5)
-            cpu_top = cpu_top .. "  " .. usage .. "% " .. v:sub(1, 12) .. "\n"
+            cpu_top = cpu_top .. " " .. usage .. "% " .. v:sub(1, 12) .. "\n"
         end
     end
 
@@ -222,7 +222,7 @@ local function read_top()
     for k,v in pairs(mem_top_names) do
         if k ~= 1 then
             local usage = string.format("%3.0f", tonumber(mem_top_perc[k]) - 0.5)
-            mem_top = mem_top .. "  " .. usage .. "% " .. v:sub(1, 12) .. "\n"
+            mem_top = mem_top .. " " .. usage .. "% " .. v:sub(1, 12) .. "\n"
         end
     end
 

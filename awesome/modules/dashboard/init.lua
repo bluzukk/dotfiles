@@ -57,19 +57,19 @@ local function update()
                     greet,
                     slider,
                     htop,
-                    layout = wibox.layout.align.vertical
+                    layout = wibox.layout.fixed.vertical
                 },
                 {
                     weather_widget,
                     cal,
-                    layout = wibox.layout.fixed.vertical
+                    layout = wibox.layout.flex.vertical
                 },
                 shortcut,
 
                 todo,
             },
 
-            layout = wibox.layout.align.horizontal,
+            layout = wibox.layout.fixed.horizontal,
             forced_width = dpi(1300),
             forced_height = dpi(720),
         },
@@ -126,7 +126,7 @@ awesome.connect_signal("dashboard::mouse3", function()
 end)
 
 
-dashboard:connect_signal("mouse::leave", function() hide() end)
+-- dashboard:connect_signal("mouse::leave", function() hide() end)
 
 local function isVisible()
     return dashboard.visible
