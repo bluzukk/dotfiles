@@ -4,6 +4,8 @@ local gears     = require("gears")
 local wibox     = require("wibox")
 local dpi       = require("beautiful").xresources.apply_dpi
 
+local dashboard = require("modules.dashboard.init")
+
 awful.layout.layouts = {
     awful.layout.suit.tile.right,
     awful.layout.suit.tile.right,
@@ -97,6 +99,11 @@ local function update_taglist(widget, tag, _, _)
         -- color for currently active tag
         widget:get_children_by_id('tag_bg')[1].bg = beautiful.accent_color
         widget:get_children_by_id('tag_element')[1].forced_width = dpi(30)
+        if #tag:clients() == 0 then
+            dashboard.show()
+        else
+            dashboard.hide()
+        end
     else
         -- color for other tags
         -- tag.name = "-"

@@ -67,7 +67,7 @@ theme.inner_corners          = gears.shape.rect
 --     gears.shape.rounded_rect(cr,w,h,8)
 -- end
 
-theme.opacity                = 1
+theme.opacity                = 0.97
 theme.useless_gap            = dpi(10)
 theme.border_width           = dpi(4)
 

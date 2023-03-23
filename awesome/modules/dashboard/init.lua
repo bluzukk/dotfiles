@@ -35,18 +35,19 @@ local dashboard = awful.popup {
     widget       = {},
     border_color = beautiful.border_focus,
     border_width = 0 or beautiful.border_width,
-    placement    = awful.placement.stretch_down,
+    -- placement    = awful.placement.stretch_down,
+    placement    = awful.placement.centered,
     shape        = beautiful.corners,
     ontop        = true,
     visible      = false,
     opacity      = beautiful.opacity,
 }
 
-local stretcher = {
-    wibox.widget.textbox,
-    widget = wibox.container.place,
-    content_fill_vertical = true
-}
+-- local stretcher = {
+--     wibox.widget.textbox,
+--     widget = wibox.container.place,
+--     content_fill_vertical = true
+-- }
 
 local function update()
     dashboard.screen = awful.screen.focused()
@@ -94,7 +95,8 @@ local function update()
             },
             widget = wibox.container.place
         }
-        dashboard.placement = awful.placement.stretch_down
+        awful.placement.centered(dashboard, { offset = { y = dpi(-50)} })
+        -- dashboard.placement = awful.placement.stretch_down
     else
         dashboard.widget = wibox.widget {
             {
@@ -113,7 +115,8 @@ local function update()
             },
             widget = wibox.container.place,
         }
-        dashboard.placement = awful.placement.stretch_down
+        awful.placement.centered(dashboard, { offset = { y = dpi(-50)} })
+        -- dashboard.placement = awful.placement.stretch_down
     end
 end
 
@@ -136,6 +139,12 @@ local function popup()
 end
 
 local function show()
+    -- cls = client.get(awful.screen.focused())
+    -- for _, c in ipairs(cls) do
+    --     -- c.hidden = true
+    --     c.opacity = 0
+    --     -- c.minimized = true
+    -- end
     persist = true
     popup_timer:stop()
     popup_redraw = false
@@ -144,6 +153,12 @@ local function show()
 end
 
 local function hide()
+    -- cls = client.get(awful.screen.selected_tag)
+    -- for _, c in ipairs(cls) do
+    --     -- c.hidden = false
+    --     c.opacity = 1
+    --     -- c.minimized = false
+    -- end
     popup_redraw = true
     persist = false
     dashboard.visible = false
@@ -215,10 +230,14 @@ awful.button({ }, 5, function ()
 end)
 ))
 
+local function isVisible()
+    return dashboard.visible
+end
 
 return {
     toggle = toggle,
     show = show,
     hide = hide,
-    popup = popup
+    popup = popup,
+    isVisible = isVisible
 }

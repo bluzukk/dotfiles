@@ -6,8 +6,8 @@ local dpi        = beautiful.xresources.apply_dpi
 local util       = require("helpers.util")
 local markup     = require("helpers.markup")
 
-local CMD_GET_VOL = [[ bash -c "~/.config/awesome/scripts/volume.sh" ]]
-local CMD_GET_MIC = [[ bash -c "~/.config/awesome/scripts/microphone.sh" ]]
+local CMD_GET_VOL = [[ bash -c "volume" ]]
+local CMD_GET_MIC = [[ bash -c "microphone" ]]
 
 local volume_widget = wibox.widget {
     {
