@@ -43,11 +43,11 @@ local dashboard = awful.popup {
     opacity      = beautiful.opacity,
 }
 
--- local stretcher = {
---     wibox.widget.textbox,
---     widget = wibox.container.place,
---     content_fill_vertical = true
--- }
+local stretcher = {
+    wibox.widget.textbox,
+    widget = wibox.container.place,
+    content_fill_vertical = false
+}
 
 local function update()
     dashboard.screen = awful.screen.focused()
