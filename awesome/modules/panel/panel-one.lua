@@ -30,8 +30,10 @@ awesome.connect_signal("evil::gpu", function(evil_gpu_util, evil_gpu_temp, _, po
         color = beautiful.color_critical
     end
 
-    gpu.markup = markup(beautiful.main_color,
-        markup(color, "GPU ") .. evil_gpu_util .. "% " .. evil_gpu_temp .. "°C")
+    if evil_gpu_temp > 0 then
+        gpu.markup = markup(beautiful.main_color,
+            markup(color, "GPU ") .. evil_gpu_util .. "% " .. evil_gpu_temp .. "°C")
+    end
 end)
 
 local bat = wibox.widget.textbox()
