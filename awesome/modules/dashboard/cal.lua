@@ -7,6 +7,13 @@ local dpi       = beautiful.xresources.apply_dpi
 local date = os.date("*t")
 local current_month = date.month
 
+local container
+
+
+local function update()
+
+end
+
 local function create()
     local cal = {
         date = date,
@@ -40,7 +47,7 @@ local function create()
         end
     }
 
-    local container = {
+    container = {
         {
             {
                 widget = wibox.container.place,
@@ -56,17 +63,17 @@ local function create()
         },
         widget = wibox.container.margin,
         margins = {
-            left =  beautiful.dashboard_margin/2,
-            right = beautiful.dashboard_margin/4,
-            bottom = 0,
-            top = beautiful.dashboard_margin/4,
+            left =  beautiful.dashboard_margin,
+            right = beautiful.dashboard_margin,
+            bottom = beautiful.dashboard_margin,
+            top = beautiful.dashboard_margin,
         },
     }
 
     -- Mouse bindings
     local function switch_month(i)
         date.month = date.month + i
-        create()
+        update()
     end
 
     container.buttons = gears.table.join(

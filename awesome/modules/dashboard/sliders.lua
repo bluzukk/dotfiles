@@ -114,10 +114,10 @@ local function create()
         },
         widget = wibox.container.margin,
         margins = {
-            left = beautiful.dashboard_margin/2,
-            right = beautiful.dashboard_margin/2,
+            left = beautiful.dashboard_margin,
+            right = beautiful.dashboard_margin,
             bottom = 0,
-            top = beautiful.dashboard_margin/4,
+            top = beautiful.dashboard_margin,
         },
     }
     return container

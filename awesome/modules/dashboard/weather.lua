@@ -349,10 +349,10 @@ local function worker(user_args)
             forced_height = dpi(145),
             widget = wibox.container.margin,
             margins = {
-                left = 0,
-                right = config.dashboard_margin/2,
-                bottom = 0,
-                top = config.dashboard_margin/4,
+                left = config.dashboard_margin,
+                right = config.dashboard_margin,
+                bottom = config.dashboard_margin,
+                top = config.dashboard_margin,
             },
         })
     end
