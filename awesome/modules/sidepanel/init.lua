@@ -115,7 +115,7 @@ local function update()
             },
             widget = wibox.container.place,
         }
-        awful.placement.centered(sidepanel, { offset = { y = dpi(-50)} })
+        -- awful.placement.centered(sidepanel, { offset = { y = dpi(-50)} })
         sidepanel.placement = awful.placement.stretch_down
     end
 end
