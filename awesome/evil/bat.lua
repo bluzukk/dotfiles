@@ -11,4 +11,8 @@ local cmd_bat = "cat /sys/class/power_supply/BAT0/capacity"
 local interval = 180
 
 awful.widget.watch(cmd_bat, interval,
-    function(_, evil) awesome.emit_signal("evil::bat", evil) end)
+    function(_, evil)
+        if evil ~= "" then
+            awesome.emit_signal("evil::bat", evil)
+        end
+    end)
