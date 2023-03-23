@@ -70,7 +70,7 @@ local function create()
         widget = wibox.container.margin,
         margins = {
             left = dpi(0),
-            right = dpi(40),
+            right = dpi(20),
             top = dpi(0)
         },
     }
@@ -88,6 +88,7 @@ local function create()
                 halign = "center",
                 valign = "center",
                 forced_height = dpi(100),
+                forced_width = dpi(370),
             },
             widget = wibox.container.background,
             bg = beautiful.bg_color_light,

@@ -129,7 +129,7 @@ local function create()
         cpu_widget,
         mem_widget,
         gpu_widget,
-        net_widget,
+        -- net_widget,
     }
 end
 

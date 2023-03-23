@@ -215,7 +215,7 @@ local function create()
         wifi_button,
         sync_button,
         spacing = dpi(33),
-        layout = wibox.layout.flex.horizontal,
+        layout = wibox.layout.flex.vertical,
         align = 'center',
         widget = wibox.container.place,
     }

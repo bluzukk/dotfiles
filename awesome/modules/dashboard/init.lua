@@ -28,7 +28,7 @@ if weather ~= -1 then
 end
 
 
-local dashboard    = awful.popup {
+local dashboard = awful.popup {
     widget       = {},
     border_color = beautiful.border_focus,
     border_width = 0 or beautiful.border_width,
@@ -52,23 +52,24 @@ local function update()
     dashboard.widget = wibox.widget {
         {
             {
-                layout = wibox.layout.fixed.vertical,
-                greet,
-                slider,
-                shortcut,
+                layout = wibox.layout.fixed.horizontal,
                 {
-                    cal,
-                    weather_widget,
-                    layout = wibox.layout.align.horizontal
+                    greet,
+                    slider,
+                    htop,
+                    layout = wibox.layout.align.vertical
                 },
+                {
+                    weather_widget,
+                    cal,
+                    layout = wibox.layout.fixed.vertical
+                },
+                shortcut,
+
                 todo,
             },
-            stretcher,
-            {
-                layout = wibox.layout.flex.vertical,
-                powrmenu,
-            },
-            layout = wibox.layout.align.vertical,
+
+            layout = wibox.layout.align.horizontal,
             forced_width = dpi(1300),
             forced_height = dpi(720),
         },
