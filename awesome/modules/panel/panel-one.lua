@@ -10,7 +10,7 @@ local markup    = require("helpers.markup")
 -- Widgets
 local spr = wibox.widget.textbox(" ")
 -- local bar = wibox.widget.textbox("|")
-local bar = wibox.widget.textbox("★")
+-- local bar = wibox.widget.textbox("★")
 local bar = wibox.widget.textbox(" ")
 
 local cpu = wibox.widget.textbox()
@@ -32,6 +32,21 @@ awesome.connect_signal("evil::gpu", function(evil_gpu_util, evil_gpu_temp, _, po
 
     gpu.markup = markup(beautiful.main_color,
         markup(color, "GPU ") .. evil_gpu_util .. "% " .. evil_gpu_temp .. "°C")
+end)
+
+local bat = wibox.widget.textbox()
+awesome.connect_signal("evil::bat", function(evil_bat_perc)
+    local color = beautiful.accent_color
+    if evil_bat_perc < 30 then
+        color = beautiful.color_critical
+    end
+
+    if evil_bat_perc > 0 then
+        bat.markup = markup(beautiful.main_color,
+        markup(color, "BAT ") .. evil_bat_perc .. "%")
+    else
+        bat.markup = ""
+    end
 end)
 
 local disk_free = wibox.widget.textbox()
@@ -181,6 +196,7 @@ local function create(s)
             ram_used, spr, bar, spr,
             disk_free, spr, bar, spr,
             weather, spr, bar, spr,
+            bat, spr, bar, spr,
             net_now,
             systray,
             textclock, spr, spr,
