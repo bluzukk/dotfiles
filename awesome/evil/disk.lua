@@ -8,7 +8,7 @@
 -------------------------------------------------------------------------------
 local awful     = require("awful")
 
-local cmd_space = 'bash -c "~/.config/awesome/scripts/disk-home.sh"'
+local cmd_space = [[ bash -c "disk-home" ]]
 local interval  = 30
 
 awful.widget.watch(cmd_space, interval,

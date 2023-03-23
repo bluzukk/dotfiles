@@ -1,4 +1,18 @@
 ###############################################################
+# Scriptz
+###############################################################
+export PATH="/home/$USER/Sync/Rice/scripts:$PATH"
+
+###############################################################
+# ... StartX ...
+###############################################################
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+    sleep 1
+    randombg
+    exec startx
+fi
+
+###############################################################
 # ZSHRC
 ###############################################################
 export VISUAL=nvim;
@@ -8,7 +22,6 @@ xdg-settings set default-web-browser librewolf.desktop
 xset r rate 222 75 # Thanks Vim Diesel
 setxkbmap -option caps:swapescape # I <3 ESCAPE
 xmodmap $HOME/.Xmodmap
-
 
 ###############################################################
 # LF Working Directory and Image preview (ueberzug)

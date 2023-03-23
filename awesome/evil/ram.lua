@@ -8,7 +8,7 @@
 local awful    = require("awful")
 local gears    = require("gears")
 
-local cmd_used = 'bash -c "~/.config/awesome/scripts/ram-util.sh"'
+local cmd_used = [[ bash -c "ram-util" ]]
 local interval = 5
 
 gears.timer {
@@ -22,6 +22,3 @@ gears.timer {
             end)
     end
 }
-
--- awful.widget.watch(cmd_used, interval,
---     function(_, evil) awesome.emit_signal("evil::ram_used", evil) end)

@@ -173,7 +173,6 @@ local wifi_icon_on = recolor_image("wifi-on.svg", beautiful.accent_alt_color)
 local discord_icon_on = recolor_image("chat-on.svg", beautiful.accent_alt_color)
 local bluelight_icon_on = recolor_image("redshift-on.svg", beautiful.accent_alt_color)
 local game_icon_on = recolor_image("game-on.svg", beautiful.accent_alt_color)
-awful.spawn("discord")
 
 local wifi_button = create_button(
     "wifi",

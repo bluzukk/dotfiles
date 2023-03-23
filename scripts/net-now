@@ -1,5 +1,4 @@
 #!/bin/bash
-# A Linux Shell script to colle (rx_bytes)
 host=1.1.1.1
 host_ip=$(getent ahosts "$host" | awk '{print $1; exit}')
 DEV=$(ip route get "$host_ip" | grep -Po '(?<=(dev ))(\S+)')

@@ -11,7 +11,7 @@ local gears        = require("gears")
 
 local cmd_temp_ctl = [[ cat /sys/class/hwmon/hwmon1/temp1_input ]]
 local cmd_temp_ccd = [[ cat /sys/class/hwmon/hwmon1/temp4_input ]]
-local cmd_util     = [[ bash -c "~/.config/awesome/scripts/cpu-util.sh" ]]
+local cmd_util     = [[ bash -c "cpu-util" ]]
 local interval     = 5
 
 local cpu_util, cpu_temp_ctl, cpu_temp_ccd

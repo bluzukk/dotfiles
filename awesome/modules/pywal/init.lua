@@ -9,7 +9,7 @@ local dpi              = xresources.apply_dpi
 local markup           = require("helpers.markup")
 local util             = require("helpers.util")
 
-local WALLPAPER_SCRIPT = os.getenv("HOME") .. "/.config/awesome/scripts/randombg.sh"
+local WALLPAPER_SCRIPT = "randombg"
 local SEARCH_ICON      = gfs.get_configuration_dir() .. "assets/misc/search.svg"
 local SEARCH_IMG       = gears.color.recolor_image(SEARCH_ICON, beautiful.accent_color)
 
