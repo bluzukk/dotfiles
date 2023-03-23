@@ -13,6 +13,6 @@ local interval = 180
 awful.widget.watch(cmd_bat, interval,
     function(_, evil)
         if evil ~= "" then
-            awesome.emit_signal("evil::bat", evil)
+            awesome.emit_signal("evil::bat", tonumber(evil))
         end
     end)
