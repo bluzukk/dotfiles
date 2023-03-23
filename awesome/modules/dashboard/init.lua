@@ -69,7 +69,8 @@ local function update()
                 powrmenu,
             },
             layout = wibox.layout.align.vertical,
-            forced_width = 1000,
+            forced_width = dpi(1300),
+            forced_height = dpi(720),
         },
         widget = wibox.container.place
     }

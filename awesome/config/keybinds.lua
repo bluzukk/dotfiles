@@ -3,6 +3,7 @@ local beautiful = require("beautiful")
 local gears     = require("gears")
 require("awful.autofocus")
 
+local sidepanel   = require("modules.sidepanel.init")
 local dashboard   = require("modules.dashboard.init")
 local pywal       = require("modules.pywal.init")
 local uwuprompt   = require("modules.prompt.init")
@@ -53,7 +54,7 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey, }, "space", function() uwuprompt.launch() end,
         { description = "change wallpaper and theme", group = "hotkeys" }),
-    awful.key({ modkey, "Shift" }, "space", function() dashboard.toggle() end,
+    awful.key({ modkey, "Shift" }, "space", function() sidepanel.toggle() end,
         { description = "change wallpaper and theme", group = "hotkeys" }),
     awful.key({ modkey }, "u", function() pywal.show() end,
         { description = "run prompt", group = "launcher" }),
@@ -122,38 +123,38 @@ globalkeys = gears.table.join(
         function()
             os.execute(string.format("amixer -q sset %s 3%%+", 'Master'))
             awesome.emit_signal("volume::redraw_needed")
-            dashboard.popup()
+            sidepanel.popup()
         end),
     awful.key({}, "XF86AudioLowerVolume",
         function()
             os.execute(string.format("amixer -q sset %s 3%%-", 'Master'))
             awesome.emit_signal("volume::redraw_needed")
-            dashboard.popup()
+            sidepanel.popup()
         end),
     awful.key({ altkey }, "XF86AudioRaiseVolume",
         function()
             os.execute(string.format("amixer -q sset %s 3%%+", 'Capture'))
             awesome.emit_signal("microphone::redraw_needed")
-            dashboard.popup()
+            sidepanel.popup()
         end),
     awful.key({ altkey }, "XF86AudioLowerVolume",
         function()
             os.execute(string.format("amixer -q sset %s 3%%-", 'Capture'))
             awesome.emit_signal("microphone::redraw_needed")
-            dashboard.popup()
+            sidepanel.popup()
         end),
     awful.key({ altkey }, "Up",
         function()
             os.execute(string.format("amixer -q sset %s 3%%+", 'Master'))
             awesome.emit_signal("volume::redraw_needed")
-            dashboard.popup()
+            sidepanel.popup()
         end,
         { description = "volume up", group = "hotkeys" }),
     awful.key({ altkey }, "Down",
         function()
             os.execute(string.format("amixer -q sset %s 3%%-", 'Master'))
             awesome.emit_signal("volume::redraw_needed")
-            dashboard.popup()
+            sidepanel.popup()
         end,
         { description = "volume down", group = "hotkeys" }),
     awful.key({ altkey }, "m",
