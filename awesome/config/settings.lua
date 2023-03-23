@@ -40,6 +40,10 @@ theme.dashboard_width        = dpi(500)
 theme.dashboard_margin       = dpi(30)
 theme.dashboard_height       = dpi(1388)
 
+theme.sidepanel_width        = dpi(500)
+theme.sidepanel_margin       = dpi(30)
+theme.sidepanel_height       = dpi(1388)
+
 theme.enable_tasklist        = false
 theme.enable_one_bar         = true   -- Toggle continuous/splitted top panel
 

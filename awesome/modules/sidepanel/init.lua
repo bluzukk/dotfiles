@@ -5,14 +5,14 @@ local wibox      = require("wibox")
 local dpi        = beautiful.xresources.apply_dpi
 
 -- Dashboard Modules
-local greeter   = require("modules.dashboard.greeter")
-local sliders   = require("modules.dashboard.sliders")
-local calendar  = require("modules.dashboard.cal")
-local weather   = require("modules.dashboard.weather")
--- local notes     = require("modules.dashboard.notes")
-local system    = require("modules.dashboard.system")
-local powermenu = require("modules.dashboard.powermenu")
-local launcher  = require("modules.dashboard.launcher")
+local greeter   = require("modules.sidepanel.greeter")
+local sliders   = require("modules.sidepanel.sliders")
+local calendar  = require("modules.sidepanel.cal")
+local weather   = require("modules.sidepanel.weather")
+-- local notes     = require("modules.sidepanel.notes")
+local system    = require("modules.sidepanel.system")
+local powermenu = require("modules.sidepanel.powermenu")
+local launcher  = require("modules.sidepanel.launcher")
 
 local slider    = sliders.create()
 local cal       = calendar.create()
@@ -31,29 +31,29 @@ local tab          = true   -- Handle tabs
 local persist      = false  -- Handle hover vs. persist mode
 local popup_redraw = false  -- Redraw once in popup mode
 
-local dashboard = awful.popup {
+local sidepanel = awful.popup {
     widget       = {},
     border_color = beautiful.border_focus,
     border_width = 0 or beautiful.border_width,
-    -- placement    = awful.placement.stretch_down,
-    placement    = awful.placement.centered,
+    placement    = awful.placement.stretch_down,
+    -- placement    = awful.placement.centered,
     shape        = beautiful.corners,
     ontop        = true,
     visible      = false,
     opacity      = beautiful.opacity,
 }
 
--- local stretcher = {
---     wibox.widget.textbox,
---     widget = wibox.container.place,
---     content_fill_vertical = true
--- }
+local stretcher = {
+    wibox.widget.textbox,
+    widget = wibox.container.place,
+    content_fill_vertical = true
+}
 
 local function update()
-    dashboard.screen = awful.screen.focused()
+    sidepanel.screen = awful.screen.focused()
     greet = greeter.create()
     if not persist then
-        dashboard.widget = wibox.widget {
+        sidepanel.widget = wibox.widget {
             {
                 {
                     layout = wibox.layout.fixed.vertical,
@@ -61,16 +61,16 @@ local function update()
                     slider,
                 },
                 layout = wibox.layout.flex.vertical,
-                forced_width = beautiful.dashboard_width,
+                forced_width = beautiful.sidepanel_width,
                 forced_height = dpi(200),
 
             },
             widget = wibox.container.place
         }
-        dashboard.placement = nil
-        awful.placement.top_left(dashboard, { offset = { y = dpi(35)} })
+        sidepanel.placement = nil
+        awful.placement.top_left(sidepanel, { offset = { y = dpi(35)} })
     elseif tab then
-        dashboard.widget = wibox.widget {
+        sidepanel.widget = wibox.widget {
             {
                 {
                     layout = wibox.layout.fixed.vertical,
@@ -91,14 +91,14 @@ local function update()
                     powrmenu,
                 },
                 layout = wibox.layout.align.vertical,
-                forced_width = beautiful.dashboard_width,
+                forced_width = beautiful.sidepanel_width,
             },
             widget = wibox.container.place
         }
-        awful.placement.centered(dashboard, { offset = { y = dpi(-50)} })
-        -- dashboard.placement = awful.placement.stretch_down
+        -- awful.placement.centered(sidepanel, { offset = { y = dpi(-50)} })
+        sidepanel.placement = awful.placement.stretch_down
     else
-        dashboard.widget = wibox.widget {
+        sidepanel.widget = wibox.widget {
             {
                 {
                     layout = wibox.layout.fixed.vertical,
@@ -111,12 +111,12 @@ local function update()
                     powrmenu,
                 },
                 layout = wibox.layout.align.vertical,
-                forced_width = beautiful.dashboard_width,
+                forced_width = beautiful.sidepanel_width,
             },
             widget = wibox.container.place,
         }
-        awful.placement.centered(dashboard, { offset = { y = dpi(-50)} })
-        -- dashboard.placement = awful.placement.stretch_down
+        awful.placement.centered(sidepanel, { offset = { y = dpi(-50)} })
+        sidepanel.placement = awful.placement.stretch_down
     end
 end
 
@@ -132,7 +132,7 @@ local function popup()
     if popup_redraw then update() end
     if not persist then
         popup_redraw = false
-        dashboard.visible = true
+        sidepanel.visible = true
         popup_timer:stop()
         popup_timer:start()
     end
@@ -149,7 +149,7 @@ local function show()
     popup_timer:stop()
     popup_redraw = false
     update()
-    dashboard.visible = true
+    sidepanel.visible = true
 end
 
 local function hide()
@@ -161,13 +161,13 @@ local function hide()
     -- end
     popup_redraw = true
     persist = false
-    dashboard.visible = false
+    sidepanel.visible = false
     calendar.reset()
     cal = calendar.create()
 end
 
 local function toggle()
-    if dashboard.visible then
+    if sidepanel.visible then
         hide()
     else
         show()
@@ -181,25 +181,25 @@ popup_timer:connect_signal("timeout", function()
 end)
 
 -- Manage tabs and redraw callbacks
-awesome.connect_signal("dashboard::cal_redraw_needed", function()
+awesome.connect_signal("sidepanel::cal_redraw_needed", function()
     update()
 end)
 
-awesome.connect_signal("dashboard::redraw_needed", function()
+awesome.connect_signal("sidepanel::redraw_needed", function()
     update()
 end)
 
-awesome.connect_signal("dashboard::mouse1", function()
+awesome.connect_signal("sidepanel::mouse1", function()
     tab = not tab
     update()
 end)
 
-awesome.connect_signal("dashboard::mouse3", function()
+awesome.connect_signal("sidepanel::mouse3", function()
     hide()
 end)
 
 
-dashboard:connect_signal("mouse::leave", function() hide() end)
+sidepanel:connect_signal("mouse::leave", function() hide() end)
 
 
 local sidebar_activator = wibox({
@@ -213,13 +213,13 @@ local sidebar_activator = wibox({
     placement = awful.placement.top,
 })
 
--- sidebar_activator.height = dpi(35)
--- sidebar_activator:connect_signal("mouse::enter", function ()
---     if dashboard.visible == false then
---         show()
---     end
--- end)
---
+sidebar_activator.height = dpi(35)
+sidebar_activator:connect_signal("mouse::enter", function ()
+    if sidepanel.visible == false then
+        show()
+    end
+end)
+
 sidebar_activator:buttons(
 gears.table.join(
 awful.button({ }, 1, function ()
@@ -231,7 +231,7 @@ end)
 ))
 
 local function isVisible()
-    return dashboard.visible
+    return sidepanel.visible
 end
 
 return {

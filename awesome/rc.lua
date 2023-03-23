@@ -39,6 +39,7 @@ require("evil.bat")
 
 ---- UI Components ------------------------------------------------------------
 require("modules.panel").create_screens()
+require("modules.sidepanel")
 
 ---- Autostart Apps -----------------------------------------------------------
 require("helpers.autostart")
