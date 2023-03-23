@@ -8,10 +8,7 @@ local markup    = require("helpers.markup")
 
 
 -- Widgets
-local spr = wibox.widget.textbox(" ")
--- local bar = wibox.widget.textbox("|")
--- local bar = wibox.widget.textbox("★")
-local bar = wibox.widget.textbox(" ")
+local spr = "   "
 
 local cpu = wibox.widget.textbox()
 awesome.connect_signal("evil::cpu", function(evil_cpu_util, evil_cpu_temp)
@@ -20,7 +17,7 @@ awesome.connect_signal("evil::cpu", function(evil_cpu_util, evil_cpu_temp)
         color = beautiful.color_critical
     end
     cpu.markup = markup(beautiful.main_color,
-        markup(color, "CPU ") .. evil_cpu_util .. "% " .. evil_cpu_temp .. "°C")
+        markup(color, "CPU ") .. evil_cpu_util .. "% " .. evil_cpu_temp .. "°C" .. spr)
 end)
 
 local gpu = wibox.widget.textbox()
@@ -32,7 +29,7 @@ awesome.connect_signal("evil::gpu", function(evil_gpu_util, evil_gpu_temp, _, po
 
     if evil_gpu_temp > 0 then
         gpu.markup = markup(beautiful.main_color,
-            markup(color, "GPU ") .. evil_gpu_util .. "% " .. evil_gpu_temp .. "°C")
+            markup(color, "GPU ") .. evil_gpu_util .. "% " .. evil_gpu_temp .. "°C" .. spr)
     end
 end)
 
@@ -45,7 +42,7 @@ awesome.connect_signal("evil::bat", function(evil_bat_perc)
 
     if evil_bat_perc > 0 then
         bat.markup = markup(beautiful.main_color,
-        markup(color, "BAT ") .. evil_bat_perc .. "%")
+        markup(color, "BAT ") .. evil_bat_perc .. "%" .. spr)
     else
         bat.markup = ""
     end
@@ -58,7 +55,7 @@ awesome.connect_signal("evil::disk_free", function(evil)
         color = beautiful.color_critical
     end
     disk_free.markup = markup(beautiful.main_color,
-        markup(color ,"FS ") .. evil .. "gb")
+        markup(color ,"FS ") .. evil .. "gb" .. spr)
 end)
 
 local ram_used = wibox.widget.textbox()
@@ -69,7 +66,7 @@ awesome.connect_signal("evil::ram", function(evil)
     end
     local val = string.format("%.0f", evil)
     ram_used.markup = markup(beautiful.main_color,
-        markup(color ,"MEM ") .. val .. "mb")
+        markup(color ,"MEM ") .. val .. "mb" .. spr)
 end)
 
 local weather = wibox.widget.textbox()
@@ -79,7 +76,7 @@ awesome.connect_signal("evil::weather", function(evil)
         -- markup(beautiful.accent_color, "IRL ") ..
         --  evil.weather[1].description .. " " ..  temp .. "°C"))
         markup(beautiful.accent_color, "IRL ") ..
-            beautiful.uwu_map[evil.weather[1].description] .. " " ..  temp .. "°C"))
+            beautiful.uwu_map[evil.weather[1].description] .. " " ..  temp .. "°C") .. spr)
 end)
 
 local net_ssid = wibox.widget.textbox()
@@ -130,7 +127,12 @@ local systray = wibox.widget{
         widget = wibox.container.margin
 }
 
-local textclock = awful.widget.watch("date +'%R'", 10, function(widget, stdout)
+-- local textclock = awful.widget.watch("date +'%R:%S'", 1, function(widget, stdout)
+-- 	widget:set_markup(
+--         markup.fontfg(beautiful.font_name .. " 16", beautiful.accent_alt_color, markup.bold(stdout)))
+-- end)
+
+local textclock = awful.widget.watch("date +'%R'", 20, function(widget, stdout)
 	widget:set_markup(
         markup.fontfg(beautiful.font_name .. " 17", beautiful.accent_alt_color, markup.bold(stdout)))
 end)
@@ -159,6 +161,7 @@ awesome.connect_signal("evil::mail_ims", function(evil)
     mail_ims:set_markup(markup(beautiful.color_critical, evil))
 end)
 
+local sep = wibox.widget.textbox(" ")
 local function create(s)
     local panel = awful.wibar({
         position = "top",
@@ -193,15 +196,15 @@ local function create(s)
         },
         {
             layout = wibox.layout.fixed.horizontal,
-            bar, spr, cpu, spr, bar, spr,
-            gpu, spr, bar, spr,
-            ram_used, spr, bar, spr,
-            disk_free, spr, bar, spr,
-            weather, spr, bar, spr,
-            bat, spr, bar, spr,
+            cpu,
+            gpu,
+            ram_used,
+            disk_free,
+            weather,
+            bat,
             net_now,
             systray,
-            textclock, spr, spr,
+            textclock, sep
         },
     }
     return panel
