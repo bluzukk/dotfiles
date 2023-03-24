@@ -17,6 +17,7 @@ theme.uwu_map                = {
     ["broken clouds"] = "much cloudwu",
     ["overcast clouds"] = "only cloudwu",
     ["light rain"] = "little rainwu",
+    ["heavy intensity rain"] = "heavy rainwu",
     ["moderate rain"] = "moderate rainwu",
     ["shower rain"] = "shower rainwu",
     ["rain"] = "rainwu",
@@ -37,7 +38,7 @@ theme.uwu_map                = {
 theme.bar_height             = dpi(40)
 theme.panel_right_width      = dpi(550)
 theme.dashboard_width        = dpi(500)
-theme.dashboard_margin       = dpi(30)
+theme.dashboard_margin       = dpi(20)
 theme.dashboard_height       = dpi(1388)
 
 theme.sidepanel_width        = dpi(500)

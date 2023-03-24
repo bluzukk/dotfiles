@@ -112,7 +112,7 @@ local function create_button(task, icon_on, icon_off, cmd_on, cmd_off)
                         resize = true,
                         widget = wibox.widget.imagebox,
                         shape = gears.shape.circle,
-                        forced_height = dpi(30),
+                        forced_height = dpi(40),
                     },
                     -- {
                     --     id = "text",
@@ -215,7 +215,7 @@ local function create()
         wifi_button,
         sync_button,
         spacing = dpi(33),
-        layout = wibox.layout.flex.vertical,
+        layout = wibox.layout.flex.horizontal,
         align = 'center',
         widget = wibox.container.place,
     }
@@ -227,13 +227,13 @@ local function create()
                     widget = wibox.container.place,
                     halign = "center",
                     valign = "center",
-                    forced_height = dpi(50),
+                    forced_height = dpi(100),
                     launcher
                 },
                 widget = wibox.container.margin,
                 margins = {
-                    left = dpi(50),
-                    right = dpi(50)
+                    left = dpi(30),
+                    right = dpi(30)
                 },
             },
             widget = wibox.container.background,

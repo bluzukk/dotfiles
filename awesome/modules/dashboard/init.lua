@@ -32,12 +32,12 @@ local dashboard = awful.popup {
     widget       = {},
     border_color = beautiful.border_focus,
     border_width = 0 or beautiful.border_width,
-    -- placement    = awful.placement.stretch_down,
-    placement    = awful.placement.centered,
+    -- placement    = awful.placement.centered,
     shape        = beautiful.corners,
     ontop        = true,
     visible      = false,
     opacity      = beautiful.opacity,
+    -- bg = "#0000000"
 }
 
 local stretcher    = {
@@ -47,6 +47,7 @@ local stretcher    = {
 }
 
 local function update()
+    awful.placement.centered(dashboard, { offset = { y = dpi(-200)} })
     dashboard.screen = awful.screen.focused()
     greet = greeter.create()
     dashboard.widget = wibox.widget {
@@ -64,9 +65,12 @@ local function update()
                     cal,
                     layout = wibox.layout.flex.vertical
                 },
-                shortcut,
+                {
+                    shortcut,
+                    todo,
+                    layout = wibox.layout.fixed.vertical
+                },
 
-                todo,
             },
 
             layout = wibox.layout.fixed.horizontal,
