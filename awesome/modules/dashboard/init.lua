@@ -6,22 +6,22 @@ local dpi       = beautiful.xresources.apply_dpi
 
 -- Dashboard Modules
 local greeter   = require("modules.dashboard.greeter")
-local date      = require("modules.dashboard.date")
 local sliders   = require("modules.dashboard.sliders")
 local calendar  = require("modules.dashboard.cal")
 local weather   = require("modules.dashboard.weather")
 local notes     = require("modules.dashboard.notes")
 local system    = require("modules.dashboard.system")
 local powermenu = require("modules.dashboard.powermenu")
+local links     = require("modules.dashboard.links")
 local launcher  = require("modules.dashboard.launcher")
 
 local slider    = sliders.create()
-local clock     = date.create()
 local cal       = calendar.create()
 local todo      = notes.create()
 local greet     = greeter.create()
 local htop      = system.create()
 local powrmenu  = powermenu.create()
+local links     = links.create()
 local shortcut  = launcher.create()
 
 local weather_widget
@@ -29,6 +29,7 @@ if weather ~= -1 then
     weather_widget = weather()
 end
 
+local is_sticky = false
 
 local dashboard = awful.popup {
     widget       = {},
@@ -59,8 +60,8 @@ local function update()
                 layout = wibox.layout.align.horizontal,
                 {
                     greet,
-                    shortcut,
                     slider,
+                    shortcut,
                     htop,
                     -- stretcher,
                     powrmenu,
@@ -73,6 +74,7 @@ local function update()
                 },
                 {
                     weather_widget,
+                    links,
                     layout = wibox.layout.fixed.vertical
                 },
 
@@ -166,13 +168,24 @@ awful.button({ }, 5, function ()
     awful.tag.viewnext()
 end)
 ))
+
 local function isVisible()
     return dashboard.visible
+end
+
+local function isSticky()
+    return is_sticky
+end
+
+local function toggleSticky()
+    is_sticky = not is_sticky
 end
 
 return {
     toggle = toggle,
     show = show,
     hide = hide,
-    isVisible = isVisible
+    isVisible = isVisible,
+    isSticky = isSticky,
+    toggleSticky = toggleSticky,
 }

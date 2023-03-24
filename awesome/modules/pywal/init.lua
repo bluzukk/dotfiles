@@ -198,6 +198,7 @@ local function get_keypress()
 end
 
 local function show()
+    dashboard.hide()
     wal.visible = true
     get_keypress()
     wal:setup(update_widget())

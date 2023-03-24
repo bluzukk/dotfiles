@@ -18,30 +18,33 @@ LONG      = PRIVATE .. "/gps-longtiude"     -- ... Longtiude
 API_KEY   = PRIVATE .. "/gps-owm-api-key"   -- ... OWM API key
 
 ---- Error Handling -----------------------------------------------------------
-require("helpers.errors")
+require "helpers.errors"
 
 ---- Init BEAUTIFUL -----------------------------------------------------------
 local feels_like = os.getenv("HOME")
-require("beautiful").init(feels_like .. "/.config/awesome/config/settings.lua")
+require "beautiful".init(feels_like .. "/.config/awesome/config/settings.lua")
 
 ---- Load Keybinds ------------------------------------------------------------
-require("config.keybinds")
-require("config.clients")
+require "config.keybinds"
+require "config.clients"
 
 ---- Start Evil Monitoring ----------------------------------------------------
-require("evil.cpu")
-require("evil.gpu")
-require("evil.netw")
-require("evil.disk")
-require("evil.ram")
-require("evil.mail")
-require("evil.bat")
+require "evil.cpu"
+require "evil.gpu"
+require "evil.netw"
+require "evil.disk"
+require "evil.ram"
+require "evil.mail"
+require "evil.bat"
 
 ---- UI Components ------------------------------------------------------------
-require("modules.panel").create_screens()
-require("modules.sidepanel")
+dashboard = require "modules.dashboard.init"
+panel = require "modules.panel"
+sidepanel = require "modules.sidepanel"
+
+panel.create_screens()
 
 ---- Autostart Apps -----------------------------------------------------------
-require("helpers.autostart")
+require "helpers.autostart"
 
 

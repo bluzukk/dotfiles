@@ -57,18 +57,18 @@ local function update()
             {
                 {
                     layout = wibox.layout.fixed.vertical,
-                    greet,
+                    -- greet,
                     slider,
                 },
                 layout = wibox.layout.flex.vertical,
                 forced_width = beautiful.sidepanel_width,
-                forced_height = dpi(200),
+                forced_height = dpi(90),
 
             },
             widget = wibox.container.place
         }
         sidepanel.placement = nil
-        awful.placement.top_left(sidepanel, { offset = { y = dpi(35)} })
+        awful.placement.top(sidepanel, { offset = { y = dpi(50)} })
     elseif tab then
         sidepanel.widget = wibox.widget {
             {

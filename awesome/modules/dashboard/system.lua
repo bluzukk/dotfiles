@@ -36,9 +36,9 @@ local net_graph = create_graph(5000)
 local separator_vertical = wibox.widget {
     widget = wibox.widget.separator,
     orientation = "vertical",
-    forced_width = 20,
+    forced_width = dpi(20),
     span_ratio = 1,
-    thickness = 10,
+    thickness = dpi(10),
     color = beautiful.bg_color
 }
 
@@ -106,8 +106,8 @@ local function create_widget_container(header, graph)
         margins = {
             left = config.dashboard_margin,
             right = config.dashboard_margin,
-            bottom = config.dashboard_margin/5,
-            top = config.dashboard_margin/5,
+            bottom = config.dashboard_margin/2,
+            top = 0,
         },
     }
 end

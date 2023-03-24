@@ -3,12 +3,9 @@ local beautiful = require("beautiful")
 local gears     = require("gears")
 require("awful.autofocus")
 
-local sidepanel   = require("modules.sidepanel.init")
-local dashboard   = require("modules.dashboard.init")
 local pywal       = require("modules.pywal.init")
 local uwuprompt   = require("modules.prompt.init")
 -- local powermenu = require("modules.powermenu")
-local panel       = require("modules.panel.init")
 
 local modkey      = beautiful.modkey
 local altkey      = beautiful.altkey
@@ -30,7 +27,7 @@ root.buttons(gears.table.join(
 -- {{{ Global Key bindings
 globalkeys = gears.table.join(
 
-    -- User programs
+-- User programs
     awful.key({ modkey }, "t", function()
             awful.spawn(browser)
         end,
@@ -117,44 +114,60 @@ globalkeys = gears.table.join(
         end,
         { description = "restore minimized", group = "client" }),
 
+    -- Sticky dashboard toggle
+    awful.key({ modkey, }, "d", function()
+        dashboard.toggleSticky()
+    end),
 
     -- ALSA volume control
     awful.key({}, "XF86AudioRaiseVolume",
         function()
             os.execute(string.format("amixer -q sset %s 3%%+", 'Master'))
             awesome.emit_signal("volume::redraw_needed")
-            sidepanel.popup()
+            if not dashboard.isVisible() then
+                sidepanel.popup()
+            end
         end),
     awful.key({}, "XF86AudioLowerVolume",
         function()
             os.execute(string.format("amixer -q sset %s 3%%-", 'Master'))
             awesome.emit_signal("volume::redraw_needed")
-            sidepanel.popup()
+            if not dashboard.isVisible() then
+                sidepanel.popup()
+            end
         end),
     awful.key({ altkey }, "XF86AudioRaiseVolume",
         function()
             os.execute(string.format("amixer -q sset %s 3%%+", 'Capture'))
             awesome.emit_signal("microphone::redraw_needed")
-            sidepanel.popup()
+            if not dashboard.isVisible() then
+                sidepanel.popup()
+            end
         end),
     awful.key({ altkey }, "XF86AudioLowerVolume",
         function()
             os.execute(string.format("amixer -q sset %s 3%%-", 'Capture'))
             awesome.emit_signal("microphone::redraw_needed")
-            sidepanel.popup()
+            if not dashboard.isVisible() then
+                sidepanel.popup()
+            end
         end),
     awful.key({ altkey }, "Up",
         function()
             os.execute(string.format("amixer -q sset %s 3%%+", 'Master'))
             awesome.emit_signal("volume::redraw_needed")
-            sidepanel.popup()
+            if not dashboard.isVisible() then
+                sidepanel.popup()
+            end
         end,
         { description = "volume up", group = "hotkeys" }),
     awful.key({ altkey }, "Down",
         function()
             os.execute(string.format("amixer -q sset %s 3%%-", 'Master'))
             awesome.emit_signal("volume::redraw_needed")
-            sidepanel.popup()
+            if not dashboard.isVisible() then
+                sidepanel.popup()
+            end
         end,
         { description = "volume down", group = "hotkeys" }),
     awful.key({ altkey }, "m",
