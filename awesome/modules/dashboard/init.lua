@@ -47,7 +47,7 @@ local stretcher    = {
 }
 
 local function update()
-    awful.placement.centered(dashboard, { offset = { y = dpi(-200)} })
+    awful.placement.centered(dashboard, { offset = { y = dpi(-100)} })
     dashboard.screen = awful.screen.focused()
     greet = greeter.create()
     dashboard.widget = wibox.widget {
