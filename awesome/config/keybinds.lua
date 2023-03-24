@@ -6,7 +6,6 @@ require("awful.autofocus")
 local pywal       = require("modules.pywal.init")
 local uwuprompt   = require("modules.prompt.init")
 local volume      = require("modules.popups.volume")
-local microphone  = require("modules.popups.micro")
 
 local modkey      = beautiful.modkey
 local altkey      = beautiful.altkey
