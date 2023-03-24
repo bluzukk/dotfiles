@@ -5,7 +5,8 @@ require("awful.autofocus")
 
 local pywal       = require("modules.pywal.init")
 local uwuprompt   = require("modules.prompt.init")
--- local powermenu = require("modules.powermenu")
+local volume      = require("modules.popups.volume")
+local microphone  = require("modules.popups.micro")
 
 local modkey      = beautiful.modkey
 local altkey      = beautiful.altkey
@@ -51,7 +52,7 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey, }, "space", function() uwuprompt.launch() end,
         { description = "change wallpaper and theme", group = "hotkeys" }),
-    awful.key({ modkey, "Shift" }, "space", function() sidepanel.toggle() end,
+    awful.key({ modkey, "Shift" }, "space", function() dashboard.toggle() end,
         { description = "change wallpaper and theme", group = "hotkeys" }),
     awful.key({ modkey }, "u", function() pywal.show() end,
         { description = "run prompt", group = "launcher" }),
@@ -125,7 +126,7 @@ globalkeys = gears.table.join(
             os.execute(string.format("amixer -q sset %s 3%%+", 'Master'))
             awesome.emit_signal("volume::redraw_needed")
             if not dashboard.isVisible() then
-                sidepanel.popup()
+                volume.popup()
             end
         end),
     awful.key({}, "XF86AudioLowerVolume",
@@ -133,7 +134,7 @@ globalkeys = gears.table.join(
             os.execute(string.format("amixer -q sset %s 3%%-", 'Master'))
             awesome.emit_signal("volume::redraw_needed")
             if not dashboard.isVisible() then
-                sidepanel.popup()
+                volume.popup()
             end
         end),
     awful.key({ altkey }, "XF86AudioRaiseVolume",
@@ -141,7 +142,7 @@ globalkeys = gears.table.join(
             os.execute(string.format("amixer -q sset %s 3%%+", 'Capture'))
             awesome.emit_signal("microphone::redraw_needed")
             if not dashboard.isVisible() then
-                sidepanel.popup()
+                volume.popup()
             end
         end),
     awful.key({ altkey }, "XF86AudioLowerVolume",
@@ -149,7 +150,7 @@ globalkeys = gears.table.join(
             os.execute(string.format("amixer -q sset %s 3%%-", 'Capture'))
             awesome.emit_signal("microphone::redraw_needed")
             if not dashboard.isVisible() then
-                sidepanel.popup()
+               volume.popup()
             end
         end),
     awful.key({ altkey }, "Up",
@@ -157,7 +158,7 @@ globalkeys = gears.table.join(
             os.execute(string.format("amixer -q sset %s 3%%+", 'Master'))
             awesome.emit_signal("volume::redraw_needed")
             if not dashboard.isVisible() then
-                sidepanel.popup()
+                volume.popup()
             end
         end,
         { description = "volume up", group = "hotkeys" }),
@@ -166,7 +167,7 @@ globalkeys = gears.table.join(
             os.execute(string.format("amixer -q sset %s 3%%-", 'Master'))
             awesome.emit_signal("volume::redraw_needed")
             if not dashboard.isVisible() then
-                sidepanel.popup()
+                volume.popup()
             end
         end,
         { description = "volume down", group = "hotkeys" }),

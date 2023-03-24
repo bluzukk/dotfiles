@@ -16,8 +16,8 @@ local cmd_up         = [[ bash -c "net-totals-up" ]]
 local cmd_now        = [[ bash -c "net-now" ]]
 
 local interval_ip4   = 3600
-local interval_ssid  = 3
-local interval_total = 5
+local interval_ssid  = 3600
+local interval_total = 10
 local interval_now   = 1
 
 -- IP4
@@ -36,5 +36,11 @@ awful.widget.watch(cmd_up, interval_total,
     function(_, evil) awesome.emit_signal("evil::net_total_up", tonumber(evil)) end)
 
 -- Current Network Download
+local lastRX = 0
 awful.widget.watch(cmd_now, interval_now,
-    function(_, evil) awesome.emit_signal("evil::net_now", tonumber(evil)) end)
+    function(_, evil)
+        local currentRX = tonumber(evil)
+        local lastsecond = currentRX - lastRX
+        lastRX = currentRX
+        awesome.emit_signal("evil::net_now", tonumber(lastsecond))
+    end)

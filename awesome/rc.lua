@@ -40,7 +40,6 @@ require "evil.bat"
 ---- UI Components ------------------------------------------------------------
 dashboard = require "modules.dashboard.init"
 panel = require "modules.panel"
-sidepanel = require "modules.sidepanel"
 
 panel.create_screens()
 

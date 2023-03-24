@@ -1,3 +1,4 @@
+local awful      = require("awful")
 local beautiful  = require("beautiful")
 local gears      = require("gears")
 local wibox      = require("wibox")
@@ -8,6 +9,19 @@ local markup     = require("helpers.markup")
 
 local CMD_GET_VOL = [[ bash -c "volume" ]]
 local CMD_GET_MIC = [[ bash -c "microphone" ]]
+
+local volume_popup = awful.popup {
+    widget       = {},
+    border_color = beautiful.border_focus,
+    border_width = 0 or beautiful.border_width,
+    -- placement    = awful.placement.centered,
+    shape        = beautiful.corners,
+    ontop        = true,
+    visible      = false,
+    opacity      = beautiful.opacity,
+}
+
+awful.placement.top_left(volume_popup, { offset = { y = dpi(30)} })
 
 local volume_widget = wibox.widget {
     {
@@ -99,7 +113,7 @@ local function create()
         widget = wibox.container.place,
     }
 
-    local container = wibox.widget {
+    volume_popup.widget = wibox.widget {
         {
             {
                 widget = wibox.container.place,
@@ -114,15 +128,32 @@ local function create()
         },
         widget = wibox.container.margin,
         margins = {
-            left = beautiful.sidepanel_margin/2,
-            right = beautiful.sidepanel_margin/2,
-            bottom = 0,
-            top = beautiful.sidepanel_margin/4,
+            left = beautiful.dashboard_margin,
+            right = beautiful.dashboard_margin,
+            bottom = beautiful.dashboard_margin,
+            top = beautiful.dashboard_margin,
         },
     }
-    return container
 end
 
+-- Show / Hide / Popup Logic
+local popup_timer = gears.timer {
+    timeout = 0.75,
+}
+
+local function popup()
+    volume_popup.visible = true
+    popup_timer:stop()
+    popup_timer:start()
+end
+popup_timer:connect_signal("timeout", function()
+    volume_popup.visible = false
+    popup_timer:stop()
+end)
+
+
+create()
+
 return {
-    create = create,
+    popup = popup,
 }
