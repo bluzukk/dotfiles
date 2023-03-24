@@ -236,6 +236,7 @@ local function create()
                     right = dpi(30)
                 },
             },
+            forced_width = dpi(400),
             widget = wibox.container.background,
             bg = beautiful.bg_color_light,
             shape = gears.shape.rounded_rect
@@ -244,8 +245,8 @@ local function create()
         margins = {
             left = beautiful.dashboard_margin,
             right = beautiful.dashboard_margin,
-            bottom = beautiful.dashboard_margin,
-            top = beautiful.dashboard_margin,
+            -- bottom = beautiful.dashboard_margin,
+            top = beautiful.dashboard_margin*1.5,
         },
     }
     return container

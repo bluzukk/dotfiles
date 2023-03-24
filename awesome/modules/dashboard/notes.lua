@@ -11,7 +11,7 @@ local NOTES_FILE = os.getenv("HOME") .. '/Sync/.todo'
 -- Read todo/notes
 local function read_notes()
     local notes = util.read_lines(NOTES_FILE)
-    if notes == nil then
+    if notes == nil or notes == "" then
         return "No TODOs :) have some fun!!"
     else
         local formatted = ""

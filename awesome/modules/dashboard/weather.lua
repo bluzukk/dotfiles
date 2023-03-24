@@ -346,7 +346,8 @@ local function worker(user_args)
                 bg = beautiful.bg_color_light,
                 shape = gears.shape.rounded_rect,
             },
-            forced_height = dpi(145),
+            forced_height = dpi(360),
+            forced_width = dpi(340),
             widget = wibox.container.margin,
             margins = {
                 left = config.dashboard_margin,

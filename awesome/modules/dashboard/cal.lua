@@ -20,7 +20,7 @@ local function create()
         spacing = 2,
         widget = wibox.widget.calendar.month,
         fn_embed = function (widget, flag)
-            widget.font = beautiful.font_name .. " 15"
+            widget.font = beautiful.font_name .. " 17"
 
             local colors = {
                 header = beautiful.accent_color,
@@ -54,9 +54,10 @@ local function create()
                 halign = "center",
                 valign = "center",
                 bg = beautiful.accent_color,
-                forced_height = dpi(320),
                 cal
             },
+            forced_height = dpi(350),
+            forced_width = dpi(400),
             widget = wibox.container.background,
             bg = beautiful.bg_color_light,
             shape = gears.shape.rounded_rect
@@ -66,7 +67,7 @@ local function create()
             left =  beautiful.dashboard_margin,
             right = beautiful.dashboard_margin,
             bottom = beautiful.dashboard_margin,
-            top = 0,
+            top = beautiful.dashboard_margin,
         },
     }
 

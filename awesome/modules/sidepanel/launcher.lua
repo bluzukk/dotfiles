@@ -112,7 +112,7 @@ local function create_button(task, icon_on, icon_off, cmd_on, cmd_off)
                         resize = true,
                         widget = wibox.widget.imagebox,
                         shape = gears.shape.circle,
-                        forced_height = dpi(30),
+                        forced_height = dpi(35),
                     },
                     -- {
                     --     id = "text",
@@ -227,7 +227,7 @@ local function create()
                     widget = wibox.container.place,
                     halign = "center",
                     valign = "center",
-                    forced_height = dpi(50),
+                    forced_height = dpi(70),
                     launcher
                 },
                 widget = wibox.container.margin,

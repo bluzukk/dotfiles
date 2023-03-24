@@ -118,8 +118,8 @@ local function create()
         margins = {
             left = beautiful.dashboard_margin,
             right = beautiful.dashboard_margin,
-            bottom = beautiful.dashboard_margin,
-            top = beautiful.dashboard_margin,
+            bottom = beautiful.dashboard_margin/2,
+            top = beautiful.dashboard_margin/2,
         },
     }
     return container

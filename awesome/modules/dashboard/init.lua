@@ -6,6 +6,7 @@ local dpi       = beautiful.xresources.apply_dpi
 
 -- Dashboard Modules
 local greeter   = require("modules.dashboard.greeter")
+local date      = require("modules.dashboard.date")
 local sliders   = require("modules.dashboard.sliders")
 local calendar  = require("modules.dashboard.cal")
 local weather   = require("modules.dashboard.weather")
@@ -15,6 +16,7 @@ local powermenu = require("modules.dashboard.powermenu")
 local launcher  = require("modules.dashboard.launcher")
 
 local slider    = sliders.create()
+local clock     = date.create()
 local cal       = calendar.create()
 local todo      = notes.create()
 local greet     = greeter.create()
@@ -43,39 +45,42 @@ local dashboard = awful.popup {
 local stretcher    = {
     wibox.widget.textbox,
     widget = wibox.container.place,
+    forced_height = dpi(50),
     content_fill_vertical = false
 }
 
 local function update()
-    awful.placement.centered(dashboard, { offset = { y = dpi(0)} })
+    awful.placement.centered(dashboard, { offset = { y = dpi(10)} })
     dashboard.screen = awful.screen.focused()
     greet = greeter.create()
     dashboard.widget = wibox.widget {
         {
             {
-                layout = wibox.layout.fixed.horizontal,
+                layout = wibox.layout.align.horizontal,
                 {
                     greet,
+                    shortcut,
                     slider,
                     htop,
+                    -- stretcher,
+                    powrmenu,
+                    layout = wibox.layout.fixed.vertical
+                },
+                {
+                    cal,
+                    todo,
                     layout = wibox.layout.fixed.vertical
                 },
                 {
                     weather_widget,
-                    cal,
-                    layout = wibox.layout.flex.vertical
-                },
-                {
-                    shortcut,
-                    todo,
                     layout = wibox.layout.fixed.vertical
                 },
 
             },
 
             layout = wibox.layout.fixed.horizontal,
-            forced_width = dpi(1300),
-            forced_height = dpi(720),
+            forced_width = dpi(1420),
+            forced_height = dpi(800),
         },
         widget = wibox.container.place
     }
