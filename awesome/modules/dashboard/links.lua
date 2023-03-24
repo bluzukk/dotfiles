@@ -87,7 +87,7 @@ local function create()
                     {
                         widget = wibox.widget.textbox(),
                         markup = markup.fontfg(beautiful.font_name .. " 20", beautiful.accent_alt_color,
-                            "  APPS")
+                            "  /Apps")
                     },
                     game_button,
                     browse_button,
@@ -112,7 +112,7 @@ local function create()
         },
     }
 
-    local power           = wibox.widget {
+   local browse = wibox.widget {
         {
             {
                 {
@@ -121,7 +121,42 @@ local function create()
                     {
                         widget = wibox.widget.textbox(),
                         markup = markup.fontfg(beautiful.font_name .. " 20", beautiful.accent_alt_color,
-                            "  APPS")
+                            "  /Browse")
+                    },
+                    game_button,
+                    browse_button,
+                    music_button,
+                },
+                widget = wibox.container.place,
+                halign = "center",
+                valign = "center",
+                -- forced_height = dpi(600),
+                forced_width = dpi(300)
+            },
+            widget = wibox.container.background,
+            bg     = beautiful.bg_color_light,
+            shape  = gears.shape.rounded_rect
+        },
+        widget  = wibox.container.margin,
+        margins = {
+            left  = beautiful.dashboard_margin,
+            right = beautiful.dashboard_margin,
+            -- bottom = beautiful.dashboard_margin,
+            top   = beautiful.dashboard_margin,
+        },
+    }
+
+
+    local locations = wibox.widget {
+        {
+            {
+                {
+                    layout = wibox.layout.flex.vertical,
+                    spacing = dpi(10),
+                    {
+                        widget = wibox.widget.textbox(),
+                        markup = markup.fontfg(beautiful.font_name .. " 20", beautiful.accent_alt_color,
+                            "  /Home")
                     },
                     game_button,
                     browse_button,
@@ -147,6 +182,8 @@ local function create()
     }
     local links           = wibox.widget {
         apps,
+        browse,
+        locations,
         layout = wibox.layout.align.vertical
     }
     return links

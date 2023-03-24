@@ -7,25 +7,25 @@ local dpi        = beautiful.xresources.apply_dpi
 -- Dashboard Modules
 local greeter   = require("modules.sidepanel.greeter")
 local sliders   = require("modules.sidepanel.sliders")
-local calendar  = require("modules.sidepanel.cal")
-local weather   = require("modules.sidepanel.weather")
+-- local calendar  = require("modules.sidepanel.cal")
+-- local weather   = require("modules.sidepanel.weather")
 -- local notes     = require("modules.sidepanel.notes")
-local system    = require("modules.sidepanel.system")
-local powermenu = require("modules.sidepanel.powermenu")
-local launcher  = require("modules.sidepanel.launcher")
+-- local system    = require("modules.sidepanel.system")
+-- local powermenu = require("modules.sidepanel.powermenu")
+-- local launcher  = require("modules.sidepanel.launcher")
 
 local slider    = sliders.create()
-local cal       = calendar.create()
+-- local cal       = calendar.create()
 -- local todo      = notes.create()
-local greet     = greeter.create()
-local htop      = system.create()
-local powrmenu  = powermenu.create()
-local shortcut  = launcher.create()
+-- local greet     = greeter.create()
+-- local htop      = system.create()
+-- local powrmenu  = powermenu.create()
+-- local shortcut  = launcher.create()
 
 local weather_widget
-if weather ~= -1 then
-    weather_widget = weather()
-end
+-- if weather ~= -1 then
+--     weather_widget = weather()
+-- end
 
 local tab          = true   -- Handle tabs
 local persist      = false  -- Handle hover vs. persist mode
@@ -51,7 +51,7 @@ local stretcher = {
 
 local function update()
     sidepanel.screen = awful.screen.focused()
-    greet = greeter.create()
+    -- greet = greeter.create()
     if not persist then
         sidepanel.widget = wibox.widget {
             {
