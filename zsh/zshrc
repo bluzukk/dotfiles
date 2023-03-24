@@ -96,8 +96,8 @@ alias todoc="cat ~/Sync/.todo"
 ################################################################
 alias gstat="git status"
 alias gcheck="git checkout"
-alias gpull="git pull"
-alias pusch="git commit -m 'Here, have code...'; git push origin"
+alias pull="git pull"
+alias push="git commit -m 'Code changes from time to time...'; git push origin main"
 alias log='git log --format="%C(yellow) %h %C(reset) %d %s %Cblue<%an, %cr>" --graph --all'
 
 ################################################################
