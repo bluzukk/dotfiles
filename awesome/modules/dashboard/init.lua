@@ -29,9 +29,8 @@ if weather ~= -1 then
     weather_widget = weather()
 end
 
-local is_sticky = false
-
-local dashboard = awful.popup {
+local is_sticky        = false
+local dashboard        = awful.popup {
     widget       = {},
     border_color = beautiful.border_focus,
     border_width = 0 or beautiful.border_width,
@@ -43,15 +42,93 @@ local dashboard = awful.popup {
     -- bg = "#0000000"
 }
 
-local stretcher    = {
+-- local tasklist_buttons = gears.table.join(
+--     awful.button({}, 1, function(c)
+--         c:emit_signal(
+--             "request::activate",
+--             "tasklist",
+--             { raise = true }
+--         )
+--     end)
+-- )
+--
+-- local tasklist         = awful.widget.tasklist {
+--     screen          = screen[1],
+--     filter          = awful.widget.tasklist.filter.allscreen,
+--     buttons         = tasklist_buttons,
+--     style           = {
+--         shape = gears.shape.rect,
+--     },
+--     layout          = {
+--         spacing        = 15,
+--         spacing_widget = {
+--             {
+--                 forced_width = 10,
+--                 widget       = wibox.widget.separator,
+--             },
+--             opacity = 0,
+--             widget = wibox.container.place,
+--         },
+--         layout         = wibox.layout.flex.vertical
+--     },
+--     widget_template = {
+--         {
+--             spr,
+--             {
+--                 id     = 'text_role',
+--                 widget = wibox.widget.textbox,
+--                 align  = "center"
+--             },
+--             spr,
+--             forced_width = 300,
+--             layout = wibox.layout.flex.vertical
+--         },
+--         id     = 'background_role',
+--         widget = wibox.container.background,
+--     },
+-- }
+
+local stretcher        = {
     wibox.widget.textbox,
     widget = wibox.container.place,
-    forced_height = dpi(50),
+    forced_height = dpi(100),
     content_fill_vertical = false
 }
 
+local markup           = require("helpers.markup")
+local up               = awful.widget.watch("uptime -p", 60, function(widget, stdout)
+    widget:set_markup(
+        markup.fontfg(beautiful.font_name .. " 18", beautiful.accent_color, stdout))
+end)
+local uptime           = wibox.widget {
+    {
+        {
+            {
+                layout = wibox.layout.fixed.horizontal,
+                up,
+            },
+            widget = wibox.container.place,
+            halign = "center",
+            valign = "center",
+            -- forced_height = dpi(100),
+            -- forced_width = dpi(450),
+        },
+        widget = wibox.container.background,
+        bg = beautiful.bg_color_light,
+        shape = gears.shape.rounded_rect
+    },
+    widget = wibox.container.margin,
+    margins = {
+        left = beautiful.dashboard_margin,
+        right = beautiful.dashboard_margin,
+        bottom = beautiful.dashboard_margin,
+        -- top = beautiful.dashboard_margin,
+    },
+}
+
+
 local function update()
-    awful.placement.centered(dashboard, { offset = { y = dpi(10)} })
+    awful.placement.centered(dashboard, { offset = { y = dpi(10) } })
     dashboard.screen = awful.screen.focused()
     greet = greeter.create()
     dashboard.widget = wibox.widget {
@@ -64,22 +141,24 @@ local function update()
                     shortcut,
                     htop,
                     -- stretcher,
+                    uptime,
                     powrmenu,
                     layout = wibox.layout.fixed.vertical
                 },
                 {
+                    links,
+                    -- tasklist,
+                    stretcher,
+                    powrmenu,
+                    layout = wibox.layout.align.vertical
+                },
+                {
+                    weather_widget,
                     cal,
                     todo,
                     layout = wibox.layout.fixed.vertical
                 },
-                {
-                    weather_widget,
-                    links,
-                    layout = wibox.layout.fixed.vertical
-                },
-
             },
-
             layout = wibox.layout.fixed.horizontal,
             forced_width = dpi(1420),
             forced_height = dpi(800),
@@ -151,7 +230,7 @@ local sidebar_activator = wibox({
 })
 
 sidebar_activator.height = dpi(35)
-sidebar_activator:connect_signal("mouse::enter", function ()
+sidebar_activator:connect_signal("mouse::enter", function()
     if dashboard.visible == false then
         show()
     else
@@ -160,14 +239,14 @@ sidebar_activator:connect_signal("mouse::enter", function ()
 end)
 
 sidebar_activator:buttons(
-gears.table.join(
-awful.button({ }, 1, function ()
-    awful.tag.viewprev()
-end),
-awful.button({ }, 5, function ()
-    awful.tag.viewnext()
-end)
-))
+    gears.table.join(
+        awful.button({}, 1, function()
+            awful.tag.viewprev()
+        end),
+        awful.button({}, 5, function()
+            awful.tag.viewnext()
+        end)
+    ))
 
 local function isVisible()
     return dashboard.visible

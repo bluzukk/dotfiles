@@ -4,7 +4,7 @@ local gears     = require("gears")
 local wibox     = require("wibox")
 local dpi       = beautiful.xresources.apply_dpi
 
-local naughty   = require("naughty")
+-- local naughty   = require("naughty")
 local util      = require("helpers.util")
 -- local markup    = require("helpers.markup")
 local gfs       = require("gears.filesystem")
@@ -47,10 +47,10 @@ end
 local function update_task(self, is_on)
     if not startup then
         if not is_on then
-            naughty.notify({ title = "Enabling " .. self.task .. " : " .. self.cmd_on })
+            -- naughty.notify({ title = "Enabling " .. self.task .. " : " .. self.cmd_on })
             awful.spawn(self.cmd_on)
         else
-            naughty.notify({ title = "Disabling " .. self.task })
+            -- naughty.notify({ title = "Disabling " .. self.task })
             awful.spawn(self.cmd_off)
         end
     end

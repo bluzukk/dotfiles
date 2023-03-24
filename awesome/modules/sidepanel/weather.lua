@@ -299,6 +299,7 @@ local function worker(user_args)
 
 
     local function update_widget(widget, stdout, stderr)
+        Print("UP weather_widget")
         if stderr ~= '' then
             if not warning_shown then
                 if (stderr ~= 'curl: (52) Empty reply from server'
@@ -330,7 +331,6 @@ local function worker(user_args)
             upper_widget = daily_forecast_widget_two
             lower_widget = daily_forecast_widget_one
         end
-
 
         widget:setup(
         {

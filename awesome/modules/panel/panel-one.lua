@@ -74,7 +74,7 @@ awesome.connect_signal("evil::weather", function(evil)
     local temp = string.format("%.0f", evil.temp)
     weather:set_markup(markup(beautiful.main_color,
         -- markup(beautiful.accent_color, "IRL ") ..
-        --  evil.weather[1].description .. " " ..  temp .. "°C"))
+        --     evil.weather[1].description .. " " ..  temp .. "°C"))
         markup(beautiful.accent_color, "IRL ") ..
             beautiful.uwu_map[evil.weather[1].description] .. " " ..  temp .. "°C") .. spr)
 end)

@@ -87,7 +87,7 @@ local function gen_temperature_str(temp, fmt_str)
     return s
 end
 
-local separator_vertical = wibox.widget {
+local separator_vertical   = wibox.widget {
     widget = wibox.widget.separator,
     orientation = "vertical",
     span_ratio = 1,
@@ -103,8 +103,30 @@ local separator_horizontal = wibox.widget {
     color = beautiful.bg_color
 }
 
-local tab = true
-local result = ""
+local tab                  = true
+local result               = ""
+
+local uwu = wibox.widget.textbox()
+
+local uwuww                = "" ..
+    ' ⣐⢕⢕⢕⢕⢕⢕⢕⢕⠅⢗⢕⢕⢕⢕⢕⢕⢕⠕⠕⢕⢕⢕⢕⢕⢕⢕⢕⢕\n' ..
+    '⢐⢕⢕⢕⢕⢕⣕⢕⢕⠕⠁⢕⢕⢕⢕⢕⢕⢕⢕⠅⡄⢕⢕⢕⢕⢕⢕⢕⢕⢕\n' ..
+    '⢕⢕⢕⢕⢕⠅⢗⢕⠕⣠⠄⣗⢕⢕⠕⢕⢕⢕⠕⢠⣿⠐⢕⢕⢕⠑⢕⢕⠵⢕\n' ..
+    '⢕⢕⢕⢕⠁⢜⠕⢁⣴⣿⡇⢓⢕⢵⢐⢕⢕⠕⢁⣾⢿⣧⠑⢕⢕⠄⢑⢕⠅⢕\n' ..
+    '⢕⢕⠵⢁⠔⢁⣤⣤⣶⣶⣶⡐⣕⢽⠐⢕⠕⣡⣾⣶⣶⣶⣤⡁⢓⢕⠄⢑⢅⢑\n' ..
+    '⠍⣧⠄⣶⣾⣿⣿⣿⣿⣿⣿⣷⣔⢕⢄⢡⣾⣿⣿⣿⣿⣿⣿⣿⣦⡑⢕⢤⠱⢐\n' ..
+    '⢠⢕⠅⣾⣿⠋⢿⣿⣿⣿⠉⣿⣿⣷⣦⣶⣽⣿⣿⠈⣿⣿⣿⣿⠏⢹⣷⣷⡅⢐\n' ..
+    '⣔⢕⢥⢻⣿⡀⠈⠛⠛⠁⢠⣿⣿⣿⣿⣿⣿⣿⣿⡀⠈⠛⠛⠁⠄⣼⣿⣿⡇⢔\n' ..
+    '⢕⢕⢽⢸⢟⢟⢖⢖⢤⣶⡟⢻⣿⡿⠻⣿⣿⡟⢀⣿⣦⢤⢤⢔⢞⢿⢿⣿⠁⢕\n' ..
+    '⢕⢕⠅⣐⢕⢕⢕⢕⢕⣿⣿⡄⠛⢀⣦⠈⠛⢁⣼⣿⢗⢕⢕⢕⢕⢕⢕⡏⣘⢕\n' ..
+    '⢕⢕⠅⢓⣕⣕⣕⣕⣵⣿⣿⣿⣾⣿⣿⣿⣿⣿⣿⣿⣷⣕⢕⢕⢕⢕⡵⢀⢕⢕\n' ..
+    '⢑⢕⠃⡈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢃⢕⢕⢕\n' ..
+    '⣆⢕⠄⢱⣄⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⢁⢕⢕⠕⢁\n' ..
+    '⣿⣦⡀⣿⣿⣷⣶⣬⣍⣛⣛⣛⡛⠿⠿⠿⠛⠛⢛⣛⣉⣭⣤⣂⢜⠕⢑⣡⣴⣿\n'
+
+uwu.markup  =
+    markup.fontfg(beautiful.font_name .. " 7", beautiful.accent_color, "\n") ..
+    markup.fontfg(beautiful.font_name .. " 7", beautiful.accent_color, uwuww)
 
 local function worker(user_args)
     --- Validate required parameters
@@ -115,34 +137,35 @@ local function worker(user_args)
     local timeout = 600
 
     local owm_one_cal_api =
-    ('https://api.openweathermap.org/data/2.5/onecall' ..
-    '?lat=' .. LAT .. '&lon=' .. LONG .. '&appid=' .. api_key ..
-    '&units=' .. units .. '&exclude=minutely' ..
-    (show_daily_forecast == false and ',daily' or '') ..
-    '&lang=en')
+        ('https://api.openweathermap.org/data/2.5/onecall' ..
+        '?lat=' .. LAT .. '&lon=' .. LONG .. '&appid=' .. api_key ..
+        '&units=' .. units .. '&exclude=minutely' ..
+        (show_daily_forecast == false and ',daily' or '') ..
+        '&lang=en')
 
     local daily_forecast_widget_one = {
         layout = wibox.layout.flex.horizontal,
+        spacing = dpi(20),
         update = function(self, forecast, timezone_offset)
             local count = #self
             for i = 0, count do self[i] = nil end
             for i, day in ipairs(forecast) do
                 local img = ICONS_DIR_UWU .. icon_map[day.weather[1].icon] .. icons_extension
                 img = gears.color.recolor_image(img, beautiful.accent_color)
-                if i > 3 then break end
+                if i > 7 then break end
 
                 local day_forecast = wibox.widget {
                     {
                         text = " ",
                         align = 'center',
-                        font = font_name .. ' 6',
+                        font = font_name .. ' 30',
                         widget = wibox.widget.textbox
                     },
                     {
-                        markup = markup(beautiful.accent_alt_color,
-                        os.date('%a', tonumber(day.dt) + tonumber(timezone_offset))),
+                        markup = markup(beautiful.accent_alt_color, markup.bold(
+                            os.date('%a', tonumber(day.dt) + tonumber(timezone_offset)))),
                         align = 'center',
-                        font = font_name .. ' 13',
+                        font = font_name .. ' 14',
                         widget = wibox.widget.textbox
                     },
                     {
@@ -168,14 +191,14 @@ local function worker(user_args)
                         },
                         {
                             markup = markup(beautiful.main_color,
-                            gen_temperature_str(day.temp.night, '%.0f', false, units)),
+                                gen_temperature_str(day.temp.night, '%.0f', false, units)),
                             align = 'center',
                             font = font_name .. ' 12',
                             widget = wibox.widget.textbox
                         },
                         layout = wibox.layout.fixed.vertical
                     },
-                    spacing = 3,
+                    spacing = dpi(5),
                     layout = wibox.layout.fixed.vertical
                 }
                 table.insert(self, day_forecast)
@@ -183,79 +206,87 @@ local function worker(user_args)
         end
     }
 
-    local daily_forecast_widget_two = {
-        layout = wibox.layout.flex.horizontal,
-        update = function(self, forecast, timezone_offset)
-            local count = #self
-            for i = 0, count do self[i] = nil end
-            for i, day in ipairs(forecast) do
-                local img = ICONS_DIR_UWU .. icon_map[day.weather[1].icon] .. icons_extension
-                img = gears.color.recolor_image(img, beautiful.accent_color)
-                if i > 3 and i < 7 then
+    -- local daily_forecast_widget_two = {
+    --     layout = wibox.layout.flex.horizontal,
+    --     update = function(self, forecast, timezone_offset)
+    --         local count = #self
+    --         for i = 0, count do self[i] = nil end
+    --         for i, day in ipairs(forecast) do
+    --             local img = ICONS_DIR_UWU .. icon_map[day.weather[1].icon] .. icons_extension
+    --             img = gears.color.recolor_image(img, beautiful.accent_color)
+    --             if i > 3 and i < 7 then
+    --
+    --                 local day_forecast = wibox.widget {
+    --                     {
+    --                         text = " ",
+    --                         align = 'center',
+    --                         font = font_name .. ' 6',
+    --                         widget = wibox.widget.textbox
+    --                     },
+    --                     {
+    --                         markup = markup(beautiful.accent_alt_color,
+    --                         os.date('%a', tonumber(day.dt) + tonumber(timezone_offset))),
+    --                         align = 'center',
+    --                         font = font_name .. ' 13',
+    --                         widget = wibox.widget.textbox
+    --                     },
+    --                     {
+    --                         {
+    --                             {
+    --                                 image = img,
+    --                                 resize = true,
+    --                                 forced_width = 36,
+    --                                 forced_height = 36,
+    --                                 widget = wibox.widget.imagebox
+    --                             },
+    --                             align = 'center',
+    --                             layout = wibox.container.place
+    --                         },
+    --                         layout = wibox.layout.fixed.vertical
+    --                     },
+    --                     {
+    --                         {
+    --                             markup = markup(beautiful.main_color, gen_temperature_str(day.temp.day, '%.0f')),
+    --                             align = 'center',
+    --                             font = font_name .. ' 12',
+    --                             widget = wibox.widget.textbox
+    --                         },
+    --                         {
+    --                             markup = markup(beautiful.main_color,
+    --                             gen_temperature_str(day.temp.night, '%.0f')),
+    --                             align = 'center',
+    --                             font = font_name .. ' 12',
+    --                             widget = wibox.widget.textbox
+    --                         },
+    --                         layout = wibox.layout.fixed.vertical
+    --                     },
+    --                     spacing = 3,
+    --                     layout = wibox.layout.fixed.vertical
+    --                 }
+    --                 table.insert(self, day_forecast)
+    --             end
+    --         end
+    --     end
+    -- }
 
-                    local day_forecast = wibox.widget {
-                        {
-                            text = " ",
-                            align = 'center',
-                            font = font_name .. ' 6',
-                            widget = wibox.widget.textbox
-                        },
-                        {
-                            markup = markup(beautiful.accent_alt_color,
-                            os.date('%a', tonumber(day.dt) + tonumber(timezone_offset))),
-                            align = 'center',
-                            font = font_name .. ' 13',
-                            widget = wibox.widget.textbox
-                        },
-                        {
-                            {
-                                {
-                                    image = img,
-                                    resize = true,
-                                    forced_width = 36,
-                                    forced_height = 36,
-                                    widget = wibox.widget.imagebox
-                                },
-                                align = 'center',
-                                layout = wibox.container.place
-                            },
-                            layout = wibox.layout.fixed.vertical
-                        },
-                        {
-                            {
-                                markup = markup(beautiful.main_color, gen_temperature_str(day.temp.day, '%.0f', false, units)),
-                                align = 'center',
-                                font = font_name .. ' 12',
-                                widget = wibox.widget.textbox
-                            },
-                            {
-                                markup = markup(beautiful.main_color,
-                                gen_temperature_str(day.temp.night, '%.0f', false, units)),
-                                align = 'center',
-                                font = font_name .. ' 12',
-                                widget = wibox.widget.textbox
-                            },
-                            layout = wibox.layout.fixed.vertical
-                        },
-                        spacing = 3,
-                        layout = wibox.layout.fixed.vertical
-                    }
-                    table.insert(self, day_forecast)
-                end
-            end
-        end
-    }
-
-    local spr = wibox.widget.textbox("   ")
+    local spr = wibox.widget.textbox("  ")
     local current_weather_widget = wibox.widget {
+        spr,
         {
+            text = " ",
+            align = 'center',
+            font = font_name .. ' 3',
+            widget = wibox.widget.textbox
+        },
+        {
+            spr,
             spr,
             {
                 id = 'icon',
                 resize = true,
                 widget = wibox.widget.imagebox,
-                forced_width = dpi(56),
-                forced_height = dpi(56)
+                forced_width = dpi(72),
+                forced_height = dpi(72)
             },
             {
                 id = "temp",
@@ -269,23 +300,24 @@ local function worker(user_args)
         {
             id = "description",
             align = 'center',
-            font = beautiful.font_name .. " 13",
+            font = beautiful.font_name .. " 14",
             widget = wibox.widget.textbox,
         },
         {
-            font = beautiful.font_name .. " 12",
+            font = beautiful.font_name .. " 13",
             id = "feels_like_temp",
             align = 'center',
             widget = wibox.widget.textbox,
         },
+        spacing = dpi(5),
         layout = wibox.layout.fixed.vertical,
         update = function(self, weather)
-            self:get_children_by_id('temp')[1]:set_markup(markup.fontfg(beautiful.font_name .. " 18",
-            beautiful.accent_color, "<b>  " .. gen_temperature_str(weather.temp, '%.0f', false, units) .. "</b>"))
+            self:get_children_by_id('temp')[1]:set_markup(markup.fontfg(beautiful.font_name .. " 21",
+                beautiful.accent_color, markup.bold(gen_temperature_str(weather.temp, ' %.0f'))))
             self:get_children_by_id('feels_like_temp')[1]:set_markup(markup(beautiful.accent_color_dark,
-            LCLE.feels_like .. gen_temperature_str(weather.feels_like, '%.0f', false, units)))
-            self:get_children_by_id('description')[1]:set_markup(markup(beautiful.accent_color,
-            beautiful.uwu_map[weather.weather[1].description]))
+                "  " .. LCLE.feels_like .. gen_temperature_str(weather.feels_like, '%.0f')))
+            self:get_children_by_id('description')[1]:set_markup(markup(beautiful.accent_color, "  " ..
+                beautiful.uwu_map[weather.weather[1].description]))
             -- Print(weather.weather[1].description)
             local image = ICONS_DIR_UWU .. icon_map[weather.weather[1].icon] .. icons_extension
             image = gears.color.recolor_image(image, beautiful.accent_alt_color)
@@ -322,46 +354,47 @@ local function worker(user_args)
         awesome.emit_signal("evil::weather", result.current)
         current_weather_widget:update(result.current)
         daily_forecast_widget_one:update(result.daily, result.timezone_offset)
-        daily_forecast_widget_two:update(result.daily, result.timezone_offset)
+        -- daily_forecast_widget_two:update(result.daily, result.timezone_offset)
 
         local upper_widget = current_weather_widget
-        local lower_widget = daily_forecast_widget_one
+        local lower_widget = uwu
         if not tab then
-            upper_widget = daily_forecast_widget_two
+            -- upper_widget = daily_forecast_widget_two
+            upper_widget = nil
             lower_widget = daily_forecast_widget_one
         end
 
 
         widget:setup(
-        {
             {
                 {
-                    layout = wibox.layout.fixed.vertical,
-                    spr,
-                    lower_widget,
-                    spr,
-                    upper_widget,
+                    {
+                        layout = wibox.layout.fixed.horizontal,
+                        spr,
+                        upper_widget,
+                        spr,
+                        lower_widget,
+                    },
+                    widget = wibox.container.background,
+                    bg = beautiful.bg_color_light,
+                    shape = gears.shape.rounded_rect,
                 },
-                widget = wibox.container.background,
-                bg = beautiful.bg_color_light,
-                shape = gears.shape.rounded_rect,
-            },
-            forced_height = dpi(350),
-            forced_width = dpi(300),
-            widget = wibox.container.margin,
-            margins = {
-                left = config.dashboard_margin,
-                right = config.dashboard_margin,
-                bottom = config.dashboard_margin,
-                top = config.dashboard_margin,
-            },
-        })
+                forced_height = dpi(220),
+                forced_width = dpi(500),
+                widget = wibox.container.margin,
+                margins = {
+                    left = config.dashboard_margin,
+                    right = config.dashboard_margin,
+                    -- bottom = config.dashboard_margin,
+                    top = config.dashboard_margin,
+                },
+            })
     end
 
     watch(
-    string.format(GET_FORECAST_CMD, owm_one_cal_api),
-    2000, -- API limit is 1k req/day; day has 1440 min; every 2 min is good
-    update_widget, weather_widget
+        string.format(GET_FORECAST_CMD, owm_one_cal_api),
+        2000, -- API limit is 1k req/day; day has 1440 min; every 2 min is good
+        update_widget, weather_widget
     )
 
     weather_widget:buttons(gears.table.join(awful.button({}, 1, function()

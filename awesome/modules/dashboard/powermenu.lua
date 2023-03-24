@@ -92,8 +92,8 @@ end
 local function create()
 
     local poweroff_button = create_button("Pwroff", "shutdown.svg")
-    local reboot_button   = create_button("Reboot", "reboot.svg" )
-    local lock_button     = create_button("Lock", "lock.svg")
+    local reboot_button   = create_button("Rebo0t", "reboot.svg" )
+    local lock_button     = create_button("L0ck", "lock.svg")
 
     poweroff_button.buttons = gears.table.join(
     awful.button({}, 1, function()
@@ -127,8 +127,8 @@ local function create()
         {
             {
                 {
-                    layout = wibox.layout.flex.horizontal,
-                    spacing = dpi(24),
+                    layout = wibox.layout.flex.vertical,
+                    spacing = dpi(10),
                     poweroff_button,
                     reboot_button,
                     lock_button,
@@ -136,8 +136,8 @@ local function create()
                 widget = wibox.container.place,
                 halign = "center",
                 valign = "center",
-                forced_height = dpi(48),
-                forced_width = dpi(440)
+                -- forced_height = dpi(48),
+                -- forced_width = dpi(440)
             },
             widget = wibox.container.background,
             bg     = beautiful.bg_color_light,
@@ -148,7 +148,7 @@ local function create()
             left   = beautiful.dashboard_margin,
             right  = beautiful.dashboard_margin,
             bottom = beautiful.dashboard_margin,
-            top    = beautiful.dashboard_margin/2,
+            top    = beautiful.dashboard_margin,
         },
     }
     return powermenu
