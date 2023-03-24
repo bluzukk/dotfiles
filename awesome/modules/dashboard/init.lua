@@ -137,6 +137,35 @@ end)
 
 -- dashboard:connect_signal("mouse::leave", function() hide() end)
 
+local sidebar_activator = wibox({
+    width = 20,
+    visible = true,
+    ontop = true,
+    opacity = 0,
+    below = true,
+    screen = screen.primary,
+    bg = beautiful.accent_color,
+    placement = awful.placement.top,
+})
+
+sidebar_activator.height = dpi(35)
+sidebar_activator:connect_signal("mouse::enter", function ()
+    if dashboard.visible == false then
+        show()
+    else
+        hide()
+    end
+end)
+
+sidebar_activator:buttons(
+gears.table.join(
+awful.button({ }, 1, function ()
+    awful.tag.viewprev()
+end),
+awful.button({ }, 5, function ()
+    awful.tag.viewnext()
+end)
+))
 local function isVisible()
     return dashboard.visible
 end
