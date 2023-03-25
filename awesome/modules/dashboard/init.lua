@@ -98,7 +98,7 @@ local stretcher        = {
 local markup           = require("helpers.markup")
 local up               = awful.widget.watch("uptime -p", 60, function(widget, stdout)
     widget:set_markup(
-        markup.fontfg(beautiful.font_name .. " 18", beautiful.accent_color, stdout))
+        markup.fontfg(beautiful.font_name .. " 16", beautiful.accent_color, stdout))
 end)
 local uptime           = wibox.widget {
     {
@@ -146,17 +146,17 @@ local function update()
                     layout = wibox.layout.fixed.vertical
                 },
                 {
+                    weather_widget,
+                    cal,
+                    todo,
+                    layout = wibox.layout.fixed.vertical
+                },
+                {
                     links,
                     -- tasklist,
                     stretcher,
                     powrmenu,
                     layout = wibox.layout.align.vertical
-                },
-                {
-                    weather_widget,
-                    cal,
-                    todo,
-                    layout = wibox.layout.fixed.vertical
                 },
             },
             layout = wibox.layout.fixed.horizontal,

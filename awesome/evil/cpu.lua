@@ -39,7 +39,7 @@ gears.timer {
                     cpu_temp_ccd = tonumber(string.format("%02.f", tonumber(evil / 1000)))
                 end
             end)
-        awful.spawn.easy_async("sleep 2",
+        awful.spawn.easy_async("sleep 5",
             function()
                 awesome.emit_signal("evil::cpu", cpu_util, cpu_temp_ctl, cpu_temp_ccd)
             end)
