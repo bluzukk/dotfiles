@@ -182,7 +182,7 @@ local function create()
                 halign = "center",
                 valign = "center",
                 -- forced_height = dpi(600),
-                forced_width = dpi(300)
+                forced_width = dpi(200)
             },
             widget = wibox.container.background,
             bg     = beautiful.bg_color_light,

@@ -88,7 +88,7 @@ local function create_button(text, icon_name)
             -- forced_width = dpi(60),
             widget       = wibox.container.background,
             bg           = beautiful.bg_color_light,
-            shape        = gears.shape.rounded_rect,
+            -- shape        = gears.shape.rounded_rect,
 
         }
     button:connect_signal("button::press", function(c) c:set_bg(beautiful.accent_color) end)
@@ -140,7 +140,7 @@ local function create()
             {
                 {
                     layout = wibox.layout.flex.horizontal,
-                    spacing = dpi(10),
+                    -- spacing = dpi(10),
                     lock_button,
                     reboot_button,
                     poweroff_button,
