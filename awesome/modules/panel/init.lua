@@ -90,7 +90,7 @@ local function toggle_zenmode()
         s.zenmode = not s.zenmode
         s.box.visible = not s.box.visible
         if beautiful.enable_one_bar then
-            s.panel.visible = not s.panel.visible
+            -- s.panel.visible = not s.panel.visible
         else
             s.panel_left.visible = not s.panel_left.visible
             s.panel_right.visible = not s.panel_right.visible

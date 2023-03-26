@@ -12,7 +12,7 @@ local weather   = require("modules.dashboard.weather")
 local notes     = require("modules.dashboard.notes")
 local system    = require("modules.dashboard.system")
 local powermenu = require("modules.dashboard.powermenu")
-local links     = require("modules.dashboard.links")
+local linkz     = require("modules.dashboard.links")
 local launcher  = require("modules.dashboard.launcher")
 
 local slider    = sliders.create()
@@ -21,7 +21,7 @@ local todo      = notes.create()
 local greet     = greeter.create()
 local htop      = system.create()
 local powrmenu  = powermenu.create()
-local links     = links.create()
+local links     = linkz.create()
 local shortcut  = launcher.create()
 
 local weather_widget
@@ -29,8 +29,8 @@ if weather ~= -1 then
     weather_widget = weather()
 end
 
-local is_sticky        = false
-local dashboard        = awful.popup {
+local is_sticky = false
+local dashboard = awful.popup {
     widget       = {},
     border_color = beautiful.border_focus,
     border_width = 0 or beautiful.border_width,
@@ -42,92 +42,97 @@ local dashboard        = awful.popup {
     -- bg = "#0000000"
 }
 
--- local tasklist_buttons = gears.table.join(
---     awful.button({}, 1, function(c)
---         c:emit_signal(
---             "request::activate",
---             "tasklist",
---             { raise = true }
---         )
---     end)
--- )
---
--- local tasklist         = awful.widget.tasklist {
---     screen          = screen[1],
---     filter          = awful.widget.tasklist.filter.allscreen,
---     buttons         = tasklist_buttons,
---     style           = {
---         shape = gears.shape.rect,
---     },
---     layout          = {
---         spacing        = 15,
---         spacing_widget = {
---             {
---                 forced_width = 10,
---                 widget       = wibox.widget.separator,
---             },
---             opacity = 0,
---             widget = wibox.container.place,
---         },
---         layout         = wibox.layout.flex.vertical
---     },
---     widget_template = {
---         {
---             spr,
---             {
---                 id     = 'text_role',
---                 widget = wibox.widget.textbox,
---                 align  = "center"
---             },
---             spr,
---             forced_width = 300,
---             layout = wibox.layout.flex.vertical
---         },
---         id     = 'background_role',
---         widget = wibox.container.background,
---     },
--- }
+local tasklist_buttons = gears.table.join(
+    awful.button({}, 1, function(c)
+        c:emit_signal(
+            "request::activate",
+            "tasklist",
+            { raise = true }
+        )
+    end)
+)
 
-local stretcher        = {
+
+local function createContainer(widget)
+    return wibox.widget {
+        {
+            {
+                widget,
+                widget = wibox.container.place,
+                halign = "center",
+                valign = "center",
+                -- forced_height = dpi(100),
+                -- forced_width = dpi(450),
+            },
+            widget = wibox.container.background,
+            bg = beautiful.bg_color_light,
+            shape = gears.shape.rounded_rect
+        },
+        widget = wibox.container.margin,
+        margins = {
+            left = beautiful.dashboard_margin,
+            right = beautiful.dashboard_margin,
+            bottom = beautiful.dashboard_margin,
+            top = beautiful.dashboard_margin,
+        },
+    }
+end
+
+local tasklist  = awful.widget.tasklist {
+    screen          = screen[1],
+    filter          = awful.widget.tasklist.filter.allscreen,
+    buttons         = tasklist_buttons,
+    style           = {
+        shape = gears.shape.rect,
+    },
+    layout          = {
+        spacing        = 15,
+        spacing_widget = {
+            {
+                forced_width = 10,
+                widget       = wibox.widget.separator,
+            },
+            opacity = 0,
+            widget = wibox.container.place,
+        },
+        layout         = wibox.layout.flex.vertical
+    },
+    widget_template = {
+        {
+            {
+                id     = 'text_role',
+                widget = wibox.widget.textbox,
+                align  = "center"
+            },
+            forced_width = 300,
+            layout = wibox.layout.flex.vertical
+        },
+        id     = 'background_role',
+        widget = wibox.container.background,
+        bg = beautiful.bg_color_light
+    },
+}
+
+tasklist = createContainer(tasklist)
+
+local stretcher = {
     wibox.widget.textbox,
     widget = wibox.container.place,
     forced_height = dpi(100),
     content_fill_vertical = false
 }
 
-local markup           = require("helpers.markup")
-local up               = awful.widget.watch("uptime -p", 60, function(widget, stdout)
+local markup    = require("helpers.markup")
+local up        = awful.widget.watch("uptime -p", 180, function(widget, stdout)
     widget:set_markup(
         markup.fontfg(beautiful.font_name .. " 16", beautiful.accent_color, stdout))
 end)
-local uptime           = wibox.widget {
-    {
-        {
-            {
-                layout = wibox.layout.fixed.horizontal,
-                up,
-            },
-            widget = wibox.container.place,
-            halign = "center",
-            valign = "center",
-            -- forced_height = dpi(100),
-            -- forced_width = dpi(450),
-        },
-        widget = wibox.container.background,
-        bg = beautiful.bg_color_light,
-        shape = gears.shape.rounded_rect
-    },
-    widget = wibox.container.margin,
-    margins = {
-        left = beautiful.dashboard_margin,
-        right = beautiful.dashboard_margin,
-        bottom = beautiful.dashboard_margin,
-        -- top = beautiful.dashboard_margin,
-    },
-}
+
+local uptime    = createContainer(up)
 
 
 local function update()
+    Print("UPDATE DASHBOARD")
     awful.placement.centered(dashboard, { offset = { y = dpi(10) } })
     dashboard.screen = awful.screen.focused()
     greet = greeter.create()
@@ -152,6 +157,7 @@ local function update()
                     layout = wibox.layout.fixed.vertical
                 },
                 {
+                    tasklist,
                     links,
                     -- tasklist,
                     stretcher,

@@ -3,8 +3,8 @@ local beautiful = require("beautiful")
 local gears     = require("gears")
 require("awful.autofocus")
 
-local pywal       = require("modules.pywal.init")
-local uwuprompt   = require("modules.prompt.init")
+local pywal       = require("modules.pywal")
+local uwuprompt   = require("modules.prompt")
 local volume      = require("modules.popups.volume")
 
 local modkey      = beautiful.modkey

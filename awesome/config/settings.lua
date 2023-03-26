@@ -155,7 +155,7 @@ theme.taglist_bg_urgent      = theme.color_critical
 theme.tasklist_fg_focus      = theme.accent_color
 theme.tasklist_fg_normal     = theme.main_color
 theme.tasklist_bg_focus      = theme.bg_color
-theme.tasklist_bg_normal     = theme.bg_color
+theme.tasklist_bg_normal     = theme.bg_color_light
 
 -- Notifications
 theme.notification_shape     = theme.shape

@@ -80,7 +80,7 @@ local function create_boxes(s)
         ontop = false,
         type = "dock",
         height = dpi(10),
-        position = "top",
+        position = "bottom",
         -- width = dpi(800),
         bg = "#00000000",
         opacity = 0.50,

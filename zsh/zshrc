@@ -79,6 +79,7 @@ alias dlr="ranger ~/Downloads"
 alias proj="cd ~/Sync/Projects"
 alias rice="cd ~/Sync/Rice"
 alias setup="neofetch --config ~/.config/neofetch/config-setup.conf"
+alias neofetch="uwufetch"
 
 alias bss="nvim ~/Sync/Rice/zsh/zshrc"
 alias bs="nvim ~/Sync/Rice/_private/linux-aliasrc"

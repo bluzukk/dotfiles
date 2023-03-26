@@ -1,6 +1,6 @@
 local helpers = {}
-
-local spawn = require("awful.spawn")
+local awful = require("awful")
+local spawn = awful.spawn
 
 local function file_exists(file)
     local f = io.open(file, "rb")
@@ -50,6 +50,25 @@ function helpers.read_cmd(cmd)
         end
     end
     return result
+end
+
+-- On the fly useless gaps change (lain)
+function helpers.useless_gaps_resize(thatmuch, s, t)
+    local scr = s or awful.screen.focused()
+    local tag = t or scr.selected_tag
+    tag.gap = tag.gap + tonumber(thatmuch)
+    awful.layout.arrange(scr)
+end
+
+-- get a table with all lines from a file matching regexp (lain)
+function helpers.lines_match(regexp, path)
+    local lines = {}
+    for line in io.lines(path) do
+        if string.match(line, regexp) then
+            lines[#lines + 1] = line
+        end
+    end
+    return lines
 end
 
 return helpers
