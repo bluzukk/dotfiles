@@ -46,7 +46,7 @@ theme.sidepanel_margin       = dpi(30)
 theme.sidepanel_height       = dpi(1388)
 
 theme.enable_tasklist        = false
-theme.enable_one_bar         = true   -- Toggle continuous/splitted top panel
+theme.enable_one_bar         = true -- Toggle continuous/splitted top panel
 
 ---------------------------------------------------------------------------------
 -- Theme Variables
@@ -104,6 +104,16 @@ theme.bg_color               = lama.lighten(xrdb.background, 0)
 
 -- Adjusted colors thanks to lama
 theme.bg_color_light         = lama.lighten(theme.bg_color, 2)
+theme.bg_color_light1        = lama.lighten(theme.bg_color, 1)
+theme.bg_color_light2        = lama.lighten(theme.bg_color, 2)
+theme.bg_color_light3        = lama.lighten(theme.bg_color, 3)
+theme.bg_color_light4        = lama.lighten(theme.bg_color, 4)
+theme.bg_color_light5        = lama.lighten(theme.bg_color, 5)
+theme.bg_color_light6        = lama.lighten(theme.bg_color, 6)
+theme.bg_color_light7        = lama.lighten(theme.bg_color, 7)
+theme.bg_color_light8        = lama.lighten(theme.bg_color, 8)
+theme.bg_color_light9        = lama.lighten(theme.bg_color, 9)
+theme.bg_color_light10       = lama.lighten(theme.bg_color, 10)
 theme.bg_color_dark          = lama.lighten(theme.bg_color, -2)
 
 theme.accent_color_light     = lama.lighten(theme.accent_color, 3)
@@ -119,14 +129,14 @@ theme.main_color_dark        = lama.lighten(theme.main_color, -2)
 theme.color_default          = theme.main_color
 theme.color_moderate         = xrdb.color6
 theme.color_stress           = xrdb.color8
-theme.color_critical         = "#e54c62"   -- surprise: its red
+theme.color_critical         = "#e54c62" -- surprise: its red
 
 -- Default BG colors
 theme.bg_normal              = theme.bg_color
 theme.bg_focus               = theme.bg_color
 theme.bg_urgent              = theme.bg_color
 theme.bg_minimize            = theme.bg_color
-theme.bg_systray             = theme.bg_color
+theme.bg_systray             = theme.bg_color_light5
 theme.bg_bar_outer           = theme.bg_color
 theme.bg_bar_inner           = theme.bg_color
 

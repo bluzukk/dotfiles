@@ -59,7 +59,7 @@ local function create_button(text, icon_name, cmd)
                     left   = dpi(20),
                     right  = dpi(20),
                     bottom = dpi(10),
-                    top    = dpi(10),
+    top    = dpi(10),
                 },
             },
             widget = wibox.container.background,

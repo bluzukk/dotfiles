@@ -10,12 +10,12 @@
 
 ---- Variables ----------------------------------------------------------------
 local PRIVATE = os.getenv("HOME") .. "/Sync/Rice/_private"
-                                            -- Path to your
-AVATAR    = PRIVATE .. "/assets/korin.jpg"  -- ... Avatar
-WALLS_DIR = PRIVATE .. "/assets/wallpaper/" -- ... Wallpaper collection
-LAT       = PRIVATE .. "/gps-latitude"      -- ... Latitude
-LONG      = PRIVATE .. "/gps-longtiude"     -- ... Longtiude
-API_KEY   = PRIVATE .. "/gps-owm-api-key"   -- ... OWM API key
+-- Path to your
+AVATAR        = PRIVATE .. "/assets/korin.jpg"  -- ... Avatar
+WALLS_DIR     = PRIVATE .. "/assets/wallpaper/" -- ... Wallpaper collection
+LAT           = PRIVATE .. "/gps-latitude"      -- ... Latitude
+LONG          = PRIVATE .. "/gps-longtiude"     -- ... Longtiude
+API_KEY       = PRIVATE .. "/gps-owm-api-key"   -- ... OWM API key
 
 ---- Error Handling -----------------------------------------------------------
 require "helpers.errors"
@@ -39,11 +39,10 @@ require "evil.bat"
 
 ---- UI Components ------------------------------------------------------------
 dashboard = require "modules.dashboard.init"
-panel = require "modules.panel"
+panel     = require "modules.panel"
+powermenu = require "modules.powermenu"
 
 panel.create_screens()
 
 ---- Autostart Apps -----------------------------------------------------------
 require "helpers.autostart"
-
-

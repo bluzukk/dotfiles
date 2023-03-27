@@ -1,53 +1,100 @@
+local beautiful  = require("beautiful")
+local awful      = require("awful")
+local wibox      = require("wibox")
+local gfs        = require("gears.filesystem")
+local gears      = require("gears")
+local dpi        = beautiful.xresources.apply_dpi
 
-local beautiful = require("beautiful")
-local awful     = require("awful")
-local wibox     = require("wibox")
-local gfs       = require("gears.filesystem")
-local gears     = require("gears")
+local markup     = require("helpers.markup")
 
-local markup    = require("helpers.markup")
-local notify    = require("helpers.notify")
+local ICONS_PATH = gfs.get_configuration_dir() .. "assets/powermenu/"
+
+local function create_button(text, icon_name, cmd)
+    local img      = gears.color.recolor_image(
+        ICONS_PATH .. icon_name, beautiful.accent_alt_color)
+    local button   = wibox.widget
+        {
+            {
+                {
+                    {
+                        {
+                            image         = img,
+                            resize        = true,
+                            widget        = wibox.widget.imagebox,
+                            shape         = gears.shape.circle,
+                            forced_height = dpi(48),
+                        },
+                        {
+                            id = "text",
+                            font = beautiful.font_name .. " 16",
+                            markup = markup(beautiful.accent_color, " " .. text),
+                            widget = wibox.widget.textbox,
+                        },
+                        layout = wibox.layout.fixed.horizontal,
+                        forced_width = beautiful.dashboard_width,
+                    },
+                    widget = wibox.container.place,
+                    halign = "center",
+                    valign = "center",
+                },
+                widget  = wibox.container.margin,
+                margins = {
+                    left   = dpi(100),
+                    right  = dpi(5),
+                    bottom = dpi(5),
+                    top    = dpi(10),
+                },
+            },
+            forced_height = dpi(150),
+            widget = wibox.container.background,
+            bg     = beautiful.bg_color_light,
+        }
+
+    button.buttons = gears.table.join(
+        awful.button({}, 1, function()
+            awful.spawn(cmd)
+        end)
+    )
+
+    button:connect_signal("button::press", function(c) c:set_bg(beautiful.accent_color) end)
+    button:connect_signal("button::release", function(c) c:set_bg(beautiful.bg_color_light10) end)
+    button:connect_signal("mouse::enter", function(c) c:set_bg(beautiful.bg_color_light10) end)
+    button:connect_signal("mouse::leave", function(c) c:set_bg(beautiful.bg_color_light) end)
+    return button
+end
 
 local powermenu_widget = wibox.widget {
-
     {
         {
-            id = 'icon',
-            image = AVATAR,
-            resize = true,
-            forced_width = 470,
-            forced_height = 350,
-            widget = wibox.widget.imagebox,
-            shape = gears.shape.circle,
-            opacity = 0.2,
+            -- wibox.widget.textbox(""),
+            create_button("Pwroff", "shutdown.svg", "poweroff"),
+            create_button("Reb0ot", "reboot.svg", "reboot"),
+            create_button("L0ck", "lock.svg", "lock"),
+            layout = wibox.layout.flex.vertical,
+            spacing = dpi(50)
         },
         align = 'center',
+        valign = 'center',
         widget = wibox.container.place,
-        forced_height = 120,
-        forced_width = 120,
     },
-    layout = wibox.layout.fixed.vertical,
-
-    update = function(self)
-        -- self:get_children_by_id('greeter')[1]:set_markup("Hi " .. markup(beautiful.accent_color, username) .. " :)")
-    end,
+    layout        = wibox.layout.flex.vertical,
+    forced_height = dpi(800),
+    forced_width  = dpi(1420),
 }
 
 local powermenu = awful.popup {
-    widget       = powermenu_widget,
-    border_color = beautiful.border_focus,
-    border_width = 0 or beautiful.border_width,
-    placement    = awful.placement.centered,
-    shape        = beautiful.corners,
-    ontop        = true,
-    visible      = false,
-    forced_height       = 1000,
-    opacity      = beautiful.opacity,
+    widget        = powermenu_widget,
+    border_color  = beautiful.border_focus,
+    border_width  = 3 or beautiful.border_width,
+    placement     = awful.placement.centered,
+    shape         = beautiful.corners,
+    ontop         = true,
+    visible       = false,
+    opacity       = beautiful.opacity,
 }
 
 local function toggle()
     if not powermenu.visible then
-        powermenu_widget:update()
         powermenu.visible = true
     else
         powermenu.visible = false

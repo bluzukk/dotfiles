@@ -23,6 +23,6 @@ awful.widget.watch(cmd_mail_ims, interval,
     function(_, evil)
         local count = tonumber(evil)
         if count and count > 0 then
-            awesome.emit_signal("evil::mail_main_ims", count)
+            awesome.emit_signal("evil::mail_ims", count)
         end
     end)
