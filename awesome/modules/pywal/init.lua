@@ -1,3 +1,9 @@
+-------------------------------------------------------------------------------
+-- Allows to select and set a wallpaper                                      --
+-- @TODO Care! Leaks memory to awesome!!!                                    --
+-- I guess its fine since it restarts awesome after selecting a wallpaper    --
+-------------------------------------------------------------------------------
+
 local beautiful        = require("beautiful")
 local awful            = require("awful")
 local wibox            = require("wibox")
@@ -9,7 +15,7 @@ local dpi              = xresources.apply_dpi
 local markup           = require("helpers.markup")
 local util             = require("helpers.util")
 
-local WALLPAPER_SCRIPT = "randombg"
+local WALLPAPER_SCRIPT = [[ . ~/.config/awesome/scripts/randombg ]]
 local SEARCH_ICON      = gfs.get_configuration_dir() .. "assets/misc/search.svg"
 local SEARCH_IMG       = gears.color.recolor_image(SEARCH_ICON, beautiful.accent_color)
 
@@ -63,13 +69,12 @@ local function update_widget()
                 selected_image = v
                 item = wibox.widget {
                     {
-                        font = beautiful.font_name .. ' 18',
                         markup = markup(beautiful.accent_color, v),
                         widget = wibox.widget.textbox,
                         forced_height = dpi(50),
                         align = "center"
                     },
-                    bg = beautiful.bg_focus,
+                    bg = beautiful.bg_color_light5,
                     widget = wibox.container.background
                 }
             else
@@ -80,7 +85,7 @@ local function update_widget()
                         forced_height = dpi(50),
                         align = "center"
                     },
-                    bg = beautiful.bg_normal,
+                    bg = beautiful.bg_color,
                     widget = wibox.container.background
                 }
             end
@@ -198,7 +203,6 @@ local function get_keypress()
 end
 
 local function show()
-    dashboard.hide()
     wal.visible = true
     get_keypress()
     wal:setup(update_widget())

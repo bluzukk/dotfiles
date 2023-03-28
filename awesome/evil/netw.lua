@@ -11,13 +11,13 @@ local awful          = require("awful")
 
 local cmd_ip4        = [[ curl ifconfig.me 2>/dev/null ]]
 local cmd_ssid       = [[ LANG=C nmcli -t -f active,ssid dev wifi | grep ^yes | cut -d: -f2- ]]
-local cmd_down       = [[ bash -c "net-totals" ]]
-local cmd_up         = [[ bash -c "net-totals-up" ]]
-local cmd_now        = [[ bash -c "net-now" ]]
+-- local cmd_down       = [[ bash -c ". ~/.config/awesome/scripts/net-totals" ]]
+-- local cmd_up         = [[ bash -c ". ~/.config/awesome/scripts/net-totals-up" ]]
+local cmd_now        = [[ bash -c ". ~/.config/awesome/scripts/net-now" ]]
 
 local interval_ip4   = 3600
 local interval_ssid  = 3600
-local interval_total = 10
+-- local interval_total = 10
 local interval_now   = 1
 
 -- IP4
@@ -29,11 +29,11 @@ awful.widget.watch(cmd_ssid, interval_ssid,
     function(_, evil) awesome.emit_signal("evil::net_ssid", evil) end)
 
 -- Total Download
-awful.widget.watch(cmd_down, interval_total,
-    function(_, evil) awesome.emit_signal("evil::net_total", tonumber(evil)) end)
-
-awful.widget.watch(cmd_up, interval_total,
-    function(_, evil) awesome.emit_signal("evil::net_total_up", tonumber(evil)) end)
+-- awful.widget.watch(cmd_down, interval_total,
+--     function(_, evil) awesome.emit_signal("evil::net_total", tonumber(evil)) end)
+--
+-- awful.widget.watch(cmd_up, interval_total,
+--     function(_, evil) awesome.emit_signal("evil::net_total_up", tonumber(evil)) end)
 
 -- Current Network Download
 local lastRX = 0
