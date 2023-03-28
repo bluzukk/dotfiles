@@ -1,3 +1,7 @@
+-------------------------------------------------------------------------------
+-- Playerctl Widget                                                          --
+-------------------------------------------------------------------------------
+
 local awful      = require("awful")
 local beautiful  = require("beautiful")
 local gears      = require("gears")

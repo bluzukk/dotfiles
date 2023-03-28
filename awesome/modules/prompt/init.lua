@@ -1,33 +1,40 @@
-local beautiful = require("beautiful")
-local awful     = require("awful")
-local wibox     = require("wibox")
-local gfs       = require("gears.filesystem")
-local dpi       = require("beautiful").xresources.apply_dpi
+-------------------------------------------------------------------------------
+-- Experimenting with a heavily modified awesomeWM prompt                    --
+-------------------------------------------------------------------------------
+
+local awful       = require("awful")
+local beautiful   = require("beautiful")
+local wibox       = require("wibox")
+local gears       = require("gears")
+local gfs         = require("gears.filesystem")
+local dpi         = require("beautiful").xresources.apply_dpi
+
+local markup      = require("helpers.markup")
+local notify      = require("helpers.notify")
+local util        = require("helpers.util")
+
+local SEARCH_ICON = gfs.get_configuration_dir() .. "assets/misc/search.svg"
+local SEARCH_IMG  = gears.color.recolor_image(SEARCH_ICON, beautiful.accent_color)
 
 
-local markup = require("helpers.markup")
-local notify = require("helpers.notify")
-local util   = require("helpers.util")
+local searching_history = false
+local shell             = wibox.widget.textbox()
+local HISTORY_PATH      = gfs.get_cache_dir() .. '/history'
 
-local shell = wibox.widget.textbox()
-local HISTORY_PATH = gfs.get_cache_dir() .. '/history'
-
-local uwuprompt_widget = wibox.widget {
+local uwuprompt_widget  = wibox.widget {
     {
         shell,
         layout = wibox.layout.align.horizontal,
     },
     widget = wibox.container.place,
     align = "center",
-    forced_width = dpi(300),
-    forced_height = beautiful.bar_height,
 }
 
-local uwuprompt        = awful.popup {
+local uwuprompt         = awful.popup {
     widget       = uwuprompt_widget,
     border_color = beautiful.border_focus,
     border_width = 0 or beautiful.border_width,
-    placement    = awful.placement.top,
+    placement    = awful.placement.centered,
     shape        = beautiful.corners,
     ontop        = true,
     visible      = false,
@@ -42,65 +49,107 @@ end
 local HISTORY
 local selected = 0
 local function update()
-    HISTORY = util.read_lines(HISTORY_PATH)
-    rev     = {}
-    for i = #HISTORY, 1, -1 do
-        rev[#rev + 1] = HISTORY[i]
-    end
-    HISTORY = rev
     local item_widgets = {
         layout = wibox.layout.fixed.vertical,
-        forced_width = 500,
-        forced_height = 350,
+        forced_width = dpi(600),
+        forced_height = dpi(240),
         align = "centered"
     }
-
-    local lower = selected - 3
-    local upper = selected + 3
-    if lower < 1 then upper = upper - lower end
-    if upper > #HISTORY then lower = lower - (upper - #HISTORY) end
-
-    for k, v in pairs(HISTORY) do
-        if k < upper and k > lower then
-            local item
-            if k == selected then
-                item = wibox.widget {
-                    {
-                        font = beautiful.font_name .. ' 18',
-                        markup = markup(beautiful.accent_color, v),
-                        widget = wibox.widget.textbox,
-                        forced_height = dpi(50),
-                        align = "center"
-                    },
-                    bg = beautiful.bg_focus,
-                    widget = wibox.container.background
-                }
-            else
-                item = wibox.widget {
-                    {
-                        text = v,
-                        widget = wibox.widget.textbox,
-                        forced_height = dpi(50),
-                        align = "center"
-                    },
-                    bg = beautiful.bg_normal,
-                    widget = wibox.container.background
-                }
-            end
-            table.insert(item_widgets, item)
+    HISTORY = util.read_lines(HISTORY_PATH)
+    if searching_history then
+        rev = {}
+        for i = #HISTORY, 1, -1 do
+            rev[#rev + 1] = HISTORY[i]
         end
-        uwuprompt.widget = wibox.widget {
-            {
-                shell,
-                item_widgets,
-                layout = wibox.layout.align.vertical,
-            },
-            widget = wibox.container.place,
-            align = "center",
-            forced_width = dpi(300),
-        }
+        HISTORY = rev
+
+        local lower = selected - 3
+        local upper = selected + 3
+        if lower < 1 then upper = upper - lower end
+        if upper > #HISTORY then lower = lower - (upper - #HISTORY) end
+
+        for k, v in pairs(HISTORY) do
+            if k < upper and k > lower then
+                local item
+                if k == selected then
+                    item = wibox.widget {
+                        {
+                        {
+                            font = beautiful.font_name .. ' 16',
+                            markup = markup(beautiful.accent_color, v),
+                            widget = wibox.widget.textbox,
+                            forced_height = dpi(50),
+                            align = "left"
+                        },
+                            widget = wibox.container.margin,
+                            left = dpi(20),
+                        },
+                        bg = beautiful.bg_color_light5,
+                        widget = wibox.container.background
+                    }
+                else
+                    item = wibox.widget {
+                        {
+                            {
+                                text = v,
+                                font = beautiful.font_name .. ' 16',
+                                widget = wibox.widget.textbox,
+                                forced_height = dpi(50),
+                                align = "left"
+                            },
+                            widget = wibox.container.margin,
+                            left = dpi(20),
+                        },
+                        bg = beautiful.bg_normal,
+                        widget = wibox.container.background
+                    }
+                end
+                table.insert(item_widgets, item)
+            end
+        end
+    else
+        table.insert(item_widgets, wibox.widget.textbox(" "))
     end
+    uwuprompt.widget = wibox.widget {
+        {
+            {
+                {
+                    {
+                        {
+                            image = SEARCH_IMG,
+                            resize = true,
+                            forced_width = 32,
+                            forced_height = 32,
+                            widget = wibox.widget.imagebox,
+                            align = "center"
+                        },
+                        shell,
+                        spacing = dpi(20),
+                        layout = wibox.layout.fixed.horizontal
+                    },
+                    widget = wibox.container.margin,
+                    top = dpi(20),
+                    left = dpi(20),
+                    right = dpi(50),
+                    bottom = dpi(20),
+                },
+                bg = beautiful.bg_color_light5,
+                widget = wibox.container.background
+            },
+            wibox.widget.textbox("   "),
+            item_widgets,
+            spacing = dpi(20),
+            layout = wibox.layout.align.vertical,
+        },
+
+        widget = wibox.container.margin,
+        top = dpi(50),
+        left = dpi(50),
+        right = dpi(50),
+        bottom = dpi(50)
+    }
 end
+
 
 local function launch()
     selected = 0
@@ -108,24 +157,28 @@ local function launch()
     if not uwuprompt.visible then
         uwuprompt.visible = true
         awful.prompt.run {
-            prompt               = "Run: ",
+            prompt               = "",
             bg_cursor            = beautiful.accent_color,
             textbox              = shell,
             fg_cursor            = beautiful.accent_alt_color,
             fg                   = beautiful.accent_alt_color,
-            autoexec             = true,
+            font                 = beautiful.font_name .. " 20",
+            -- autoexec             = true,
             with_shell           = true,
             -- keypressed_callback = get_keypress,
             history_path         = HISTORY_PATH,
             exe_callback         = function(cmd) awful.spawn(cmd) end,
             done_callback        = function() uwuprompt.visible = false end,
             keyreleased_callback = function(mod, key, cmd)
+                Print(key)
                 if key == "Up" then
+                    searching_history = true
                     if selected < #HISTORY then
                         selected = selected + 1
                         update()
                     end
                 elseif key == "Down" then
+                    searching_history = true
                     if selected > 0 then
                         selected = selected - 1
                         update()
@@ -139,6 +192,7 @@ local function launch()
             completion_callback  = awful.completion.shell,
             hooks                = {
                 { {}, 'Return', function(cmd)
+                    searching_history = false
                     -- Start programs
                     if cmd:sub(string.len(cmd), string.len(cmd)) == ':' then
                         cmd = cmd:sub(1, string.len(cmd) - 1)
