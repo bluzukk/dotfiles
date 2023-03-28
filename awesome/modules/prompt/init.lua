@@ -1,6 +1,7 @@
 -------------------------------------------------------------------------------
 -- Experimenting with a heavily modified awesomeWM prompt                    --
 -------------------------------------------------------------------------------
+-- compgen -c" Maybe I need this in future
 
 local awful       = require("awful")
 local beautiful   = require("beautiful")
@@ -16,6 +17,11 @@ local util        = require("helpers.util")
 local SEARCH_ICON = gfs.get_configuration_dir() .. "assets/misc/search.svg"
 local SEARCH_IMG  = gears.color.recolor_image(SEARCH_ICON, beautiful.accent_color)
 
+
+local art = [[
+
+
+]]
 
 local searching_history = false
 local shell             = wibox.widget.textbox()
@@ -57,58 +63,62 @@ local function update()
     }
     HISTORY = util.read_lines(HISTORY_PATH)
     if searching_history then
-        rev = {}
-        for i = #HISTORY, 1, -1 do
-            rev[#rev + 1] = HISTORY[i]
-        end
-        HISTORY = rev
+        local rev = {}
+        if HISTORY then
+            for i = #HISTORY, 1, -1 do
+                rev[#rev + 1] = HISTORY[i]
+            end
+            HISTORY = rev
 
-        local lower = selected - 3
-        local upper = selected + 3
-        if lower < 1 then upper = upper - lower end
-        if upper > #HISTORY then lower = lower - (upper - #HISTORY) end
+            local lower = selected - 3
+            local upper = selected + 3
+            if lower < 1 then upper = upper - lower end
+            if upper > #HISTORY then lower = lower - (upper - #HISTORY) end
 
-        for k, v in pairs(HISTORY) do
-            if k < upper and k > lower then
-                local item
-                if k == selected then
-                    item = wibox.widget {
-                        {
-                        {
-                            font = beautiful.font_name .. ' 16',
-                            markup = markup(beautiful.accent_color, v),
-                            widget = wibox.widget.textbox,
-                            forced_height = dpi(50),
-                            align = "left"
-                        },
-                            widget = wibox.container.margin,
-                            left = dpi(20),
-                        },
-                        bg = beautiful.bg_color_light5,
-                        widget = wibox.container.background
-                    }
-                else
-                    item = wibox.widget {
-                        {
+            for k, v in pairs(HISTORY) do
+                if k < upper and k > lower then
+                    local item
+                    if k == selected then
+                        item = wibox.widget {
                             {
-                                text = v,
-                                font = beautiful.font_name .. ' 16',
-                                widget = wibox.widget.textbox,
-                                forced_height = dpi(50),
-                                align = "left"
+                                {
+                                    font = beautiful.font_name .. ' 16',
+                                    markup = markup(beautiful.accent_color, v),
+                                    widget = wibox.widget.textbox,
+                                    forced_height = dpi(50),
+                                    align = "left"
+                                },
+                                widget = wibox.container.margin,
+                                left = dpi(20),
                             },
-                            widget = wibox.container.margin,
-                            left = dpi(20),
-                        },
-                        bg = beautiful.bg_normal,
-                        widget = wibox.container.background
-                    }
+                            bg = beautiful.bg_color_light5,
+                            widget = wibox.container.background
+                        }
+                    else
+                        item = wibox.widget {
+                            {
+                                {
+                                    text = v,
+                                    font = beautiful.font_name .. ' 16',
+                                    widget = wibox.widget.textbox,
+                                    forced_height = dpi(50),
+                                    align = "left"
+                                },
+                                widget = wibox.container.margin,
+                                left = dpi(20),
+                            },
+                            bg = beautiful.bg_normal,
+                            widget = wibox.container.background
+                        }
+                    end
+                    table.insert(item_widgets, item)
                 end
-                table.insert(item_widgets, item)
             end
         end
     else
-        table.insert(item_widgets, wibox.widget.textbox(" "))
+        local placeholder = wibox.widget.textbox()
+        placeholder.text = art
+        table.insert(item_widgets, placeholder)
     end
     uwuprompt.widget = wibox.widget {
         {
@@ -170,7 +180,6 @@ local function launch()
             exe_callback         = function(cmd) awful.spawn(cmd) end,
             done_callback        = function() uwuprompt.visible = false end,
             keyreleased_callback = function(mod, key, cmd)
-                Print(key)
                 if key == "Up" then
                     searching_history = true
                     if selected < #HISTORY then
@@ -184,7 +193,6 @@ local function launch()
                         update()
                     end
                 else
-                    Print(cmd)
                     -- update()
                     -- selected = 0
                 end
@@ -209,7 +217,12 @@ local function launch()
                         return cmd
                     end
                 end },
+            { {}, 'Escape', function(_)
+                update()
+                searching_history = false
+            end },
             },
+
         }
     end
 end
