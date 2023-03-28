@@ -40,7 +40,7 @@ local lastRX = 0
 awful.widget.watch(cmd_now, interval_now,
     function(_, evil)
         local currentRX = tonumber(evil)
-        local lastsecond = currentRX - lastRX
+        local lastsecond = (currentRX - lastRX)
         lastRX = currentRX
         awesome.emit_signal("evil::net_now", tonumber(lastsecond))
     end)

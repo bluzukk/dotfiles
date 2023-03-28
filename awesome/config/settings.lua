@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
--- Beautiful
+-- Beautiful                                                                 --
 -------------------------------------------------------------------------------
 local gears                   = require("gears")
 local xresources              = require("beautiful.xresources")
@@ -92,6 +92,7 @@ theme.shell                   = "zsh"
 theme.browser                 = "librewolf"
 theme.browser_alt             = "firefox"
 theme.editor                  = "nvim"
+theme.music_player            = "youtube-music"
 
 ---------------------------------------------------------------------------------
 -- Colors

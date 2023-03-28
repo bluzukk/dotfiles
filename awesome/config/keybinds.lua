@@ -1,20 +1,24 @@
+-------------------------------------------------------------------------------
+-- Global Keybinds and Tag Keys                                              --
+-------------------------------------------------------------------------------
 local awful     = require("awful")
 local beautiful = require("beautiful")
 local gears     = require("gears")
 require("awful.autofocus")
 
-local pywal       = require("modules.pywal")
-local uwuprompt   = require("modules.prompt")
-local volume      = require("modules.popups.volume")
+local pywal     = require("modules.pywal")
+local uwuprompt = require("modules.prompt")
+local volume    = require("modules.popups.volume")
 
-local modkey      = beautiful.modkey
-local altkey      = beautiful.altkey
-local terminal    = beautiful.terminal .. " " .. beautiful.shell
-local browser     = beautiful.browser
-local browser_alt = beautiful.browser_alt
 
-local mail_ims    = beautiful.terminal .. " -e neomutt -F ~/Sync/Rice/_private/mail-muttrcIMS"
-local mail_st     = beautiful.terminal .. " -e neomutt -F ~/Sync/Rice/_private/mail-muttrcUni"
+local modkey       = beautiful.modkey
+local altkey       = beautiful.altkey
+local terminal     = beautiful.terminal .. " " .. beautiful.shell
+local browser      = beautiful.browser
+local browser_alt  = beautiful.browser_alt
+local music_player = beautiful.music_player
+local mail_ims     = beautiful.terminal .. " -e neomutt -F ~/Sync/Rice/_private/mail-muttrcIMS"
+local mail_st      = beautiful.terminal .. " -e neomutt -F ~/Sync/Rice/_private/mail-muttrcUni"
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
@@ -34,10 +38,12 @@ globalkeys = gears.table.join(
         { description = "run browser", group = "launcher" }),
     awful.key({ modkey }, "z", function() awful.spawn(browser_alt) end,
         { description = "run browser", group = "launcher" }),
+    awful.key({ modkey }, "g", function() awful.spawn(music_player) end,
+        { description = "run browser", group = "launcher" }),
     awful.key({ modkey }, "Return", function() awful.spawn(terminal) end,
         { description = "open a terminal", group = "launcher" }),
     awful.key({ modkey }, "F1", function() awful.spawn(mail_ims) end,
-        { description = "checkmail", group = "launcher" }),
+        { descaauription = "checkmail", group = "launcher" }),
     awful.key({ modkey }, "F2", function() awful.spawn(mail_st) end,
         { description = "checkmail", group = "launcher" }),
     awful.key({ modkey }, "F4", function() panel.toggle_zenmode() end,
@@ -150,7 +156,7 @@ globalkeys = gears.table.join(
             os.execute(string.format("amixer -q sset %s 3%%-", 'Capture'))
             awesome.emit_signal("microphone::redraw_needed")
             if not dashboard.isVisible() then
-               volume.popup()
+                volume.popup()
             end
         end),
     awful.key({ altkey }, "Up",

@@ -27,6 +27,17 @@ local function notification_hide()
     end
 end
 
+-- local sep = wibox.widget {
+--          {
+--                 widget = wibox.widget.textbox,
+--                 id = "text",
+--                 text = "   "
+--         },
+--         widget        = wibox.container.background,
+--         bg            = beautiful.accent_color,
+--         shape         = gears.shape.powerline,
+-- }
+--
 local function notification_show(str, bg_color)
     naughty.destroy(notification)
     notification = naughty.notify({
@@ -56,7 +67,7 @@ local function createWidget(title, onclick_cmd, color_default, color_accent, is_
         },
         widget        = wibox.container.background,
         bg            = color_default,
-        shape         = gears.shape.powerline,
+        -- shape         = gears.shape.powerline,
         onclick       = onclick_cmd,
         title         = title,
         color_default = color_default,
