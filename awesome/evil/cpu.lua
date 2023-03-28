@@ -11,7 +11,7 @@ local gears        = require("gears")
 
 local cmd_temp_ctl = [[ cat /sys/class/hwmon/hwmon1/temp1_input ]]
 local cmd_temp_ccd = [[ cat /sys/class/hwmon/hwmon1/temp4_input ]]
-local cmd_util     = [[ bash -c "cpu-util" ]]
+-- local cmd_util     = [[ bash -c "cpu-util" ]]
 local interval     = 1
 
 local util         = require("helpers.util")
@@ -60,12 +60,7 @@ gears.timer {
     call_now  = true,
     autostart = true,
     callback  = function()
-        awful.spawn.easy_async(cmd_util,
-            function(evil)
-                if evil ~= "" then
-                    cpu_util = cpu.update()
-                end
-            end)
+        cpu_util = cpu.update()
         awful.spawn.easy_async(cmd_temp_ctl,
             function(evil)
                 if evil ~= "" then

@@ -14,7 +14,7 @@ local CMD_FILES  = beautiful.terminal .. " -e zsh -c 'lf'"
 local CMD_BROWSE = [[ librewolf  ]]
 local CMD_GAME   =
 [[ bash -c "VULKAN_DEVICE_INDEX=1 WINEPREFIX=~/Games/.wow wine ~/Games/WoW/ClassicWoW/_classic_/WowClassic.exe" ]]
-local CMD_MUSIC  = [[ librewolf https://www.youtube.com/watch?v=AjIwBNxv3FE ]]
+local CMD_MUSIC  = [[ youtube-music ]]
 
 
 local CMD_DOWNLOAD = [[ thunar Downloads ]]

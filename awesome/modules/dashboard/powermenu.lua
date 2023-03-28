@@ -51,25 +51,25 @@ local function create_button(text, icon_name)
         ICONS_PATH .. icon_name, beautiful.accent_alt_color)
     local button = wibox.widget
         -- {
+        {
             {
                 {
+                    -- wibox.widget.textbox(" "),
                     {
-                        -- wibox.widget.textbox(" "),
-                        {
-                            id            = "image",
-                            image         = img,
-                            resize        = true,
-                            widget        = wibox.widget.imagebox,
-                            shape         = gears.shape.circle,
-                            forced_height = dpi(42),
-                        },
-                        -- {
-                        --     id = "text",
-                        --     font = beautiful.font_name .. " 14",
-                        --     markup = markup(beautiful.accent_color, " " .. text),
-                        --     widget = wibox.widget.textbox,
-                        --
-                        -- },
+                        id            = "image",
+                        image         = img,
+                        resize        = true,
+                        widget        = wibox.widget.imagebox,
+                        shape         = gears.shape.circle,
+                        forced_height = dpi(42),
+                    },
+                    -- {
+                    --     id = "text",
+                    --     font = beautiful.font_name .. " 14",
+                    --     markup = markup(beautiful.accent_color, " " .. text),
+                    --     widget = wibox.widget.textbox,
+                    --
+                    -- },
                     --     layout = wibox.layout.fixed.horizontal,
                     --     forced_width = beautiful.dashboard_width,
                     -- },
@@ -86,8 +86,8 @@ local function create_button(text, icon_name)
                 }
             },
             -- forced_width = dpi(60),
-            widget       = wibox.container.background,
-            bg           = beautiful.bg_color_light,
+            widget = wibox.container.background,
+            bg     = beautiful.bg_color_light,
             -- shape        = gears.shape.rounded_rect,
 
         }
@@ -110,7 +110,8 @@ local function create()
     poweroff_button.buttons = gears.table.join(
         awful.button({}, 1, function()
             if poweroff_clicked then
-                awful.spawn(CMD_PWROFF)
+                dashboard.hide()
+                powermenu.toggle()
             end
             poweroff_clicked = true
             timer_poweroff:start()

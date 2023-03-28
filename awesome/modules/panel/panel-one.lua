@@ -2,14 +2,14 @@
 -- Main Panel including Taglist/Tasklist and Systeminformation               --
 -------------------------------------------------------------------------------
 
-local awful           = require("awful")
-local beautiful       = require("beautiful")
-local gears           = require("gears")
-local naughty         = require("naughty")
+local awful     = require("awful")
+local beautiful = require("beautiful")
+local gears     = require("gears")
+local naughty   = require("naughty")
 -- local gfs       = require("gears.filesystem")
-local wibox           = require("wibox")
-local dpi             = require("beautiful").xresources.apply_dpi
-local markup          = require("helpers.markup")
+local wibox     = require("wibox")
+local dpi       = require("beautiful").xresources.apply_dpi
+local markup    = require("helpers.markup")
 
 local CMD_PROC_CPU    = [[ bash -c "ps -Ao pcpu,comm,pid --sort=-pcpu | head -n 30" ]]
 local CMD_PROC_MEM    = [[ bash -c "ps -Ao pmem,comm,pid --sort=-pmem | head -n 30" ]]
@@ -18,7 +18,7 @@ local CMD_NET         = [[ echo "implement me =("  ]]
 local CMD_BAT         = [[ echo "implement me =("  ]]
 local CMD_WEATHER     = [[ echo "implement me =("  ]]
 local CMD_FILE_SYSTEM = [[ echo "implement me =("  ]]
-local CMD_CLOCK       = powermenu
+local CMD_CLOCK       = dashboard
 
 local notification
 local function notification_hide()
@@ -204,6 +204,8 @@ awesome.connect_signal("evil::mail_ims", function(evil)
     mail_ims:set_markup(markup(beautiful.color_critical, evil))
 end)
 
+local playerctl_widget = require("modules.playerctl.panel-widget")
+
 local function create(s)
     local panel = awful.wibar({
         position = "top",
@@ -231,6 +233,7 @@ local function create(s)
             },
         },
         {
+            playerctl_widget,
             tasklist,
             mail_main,
             mail_ims,

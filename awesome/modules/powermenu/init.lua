@@ -10,9 +10,9 @@ local markup     = require("helpers.markup")
 local ICONS_PATH = gfs.get_configuration_dir() .. "assets/powermenu/"
 
 local function create_button(text, icon_name, cmd)
-    local img      = gears.color.recolor_image(
+    local img    = gears.color.recolor_image(
         ICONS_PATH .. icon_name, beautiful.accent_alt_color)
-    local button   = wibox.widget
+    local button = wibox.widget
         {
             {
                 {
@@ -46,16 +46,24 @@ local function create_button(text, icon_name, cmd)
                 },
             },
             forced_height = dpi(150),
-            widget = wibox.container.background,
-            bg     = beautiful.bg_color_light,
+            widget        = wibox.container.background,
+            bg            = beautiful.bg_color_light,
         }
 
-    button.buttons = gears.table.join(
-        awful.button({}, 1, function()
-            awful.spawn(cmd)
-        end)
-    )
-
+    if text == "Back" then
+        button.buttons = gears.table.join(
+            awful.button({}, 1, function()
+                powermenu.toggle()
+                dashboard.show()
+            end)
+        )
+    else
+        button.buttons = gears.table.join(
+            awful.button({}, 1, function()
+                awful.spawn(cmd)
+            end)
+        )
+    end
     button:connect_signal("button::press", function(c) c:set_bg(beautiful.accent_color) end)
     button:connect_signal("button::release", function(c) c:set_bg(beautiful.bg_color_light10) end)
     button:connect_signal("mouse::enter", function(c) c:set_bg(beautiful.bg_color_light10) end)
@@ -70,6 +78,7 @@ local powermenu_widget = wibox.widget {
             create_button("Pwroff", "shutdown.svg", "poweroff"),
             create_button("Reb0ot", "reboot.svg", "reboot"),
             create_button("L0ck", "lock.svg", "lock"),
+            create_button("Back", "", "lock"),
             layout = wibox.layout.flex.vertical,
             spacing = dpi(50)
         },
@@ -83,14 +92,14 @@ local powermenu_widget = wibox.widget {
 }
 
 local powermenu = awful.popup {
-    widget        = powermenu_widget,
-    border_color  = beautiful.border_focus,
-    border_width  = 3 or beautiful.border_width,
-    placement     = awful.placement.centered,
-    shape         = beautiful.corners,
-    ontop         = true,
-    visible       = false,
-    opacity       = beautiful.opacity,
+    widget       = powermenu_widget,
+    border_color = beautiful.border_focus,
+    border_width = 3 or beautiful.border_width,
+    placement    = awful.placement.centered,
+    shape        = beautiful.corners,
+    ontop        = true,
+    visible      = false,
+    opacity      = beautiful.opacity,
 }
 
 local function toggle()

@@ -48,9 +48,10 @@ globalkeys = gears.table.join(
     -- X screen locker
     -- awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
     --           {description = "lock screen", group = "hotkeys"}),
-
-    awful.key({ modkey, }, "space", function() uwuprompt.launch() end,
+    awful.key({ modkey, }, "space", function() powermenu.toggle() end,
         { description = "change wallpaper and theme", group = "hotkeys" }),
+    -- awful.key({ modkey, }, "space", function() uwuprompt.launch() end,
+    --     { description = "change wallpaper and theme", group = "hotkeys" }),
     awful.key({ modkey, "Shift" }, "space", function() dashboard.toggle() end,
         { description = "change wallpaper and theme", group = "hotkeys" }),
     awful.key({ modkey }, "u", function() pywal.show() end,
