@@ -123,7 +123,7 @@ theme.accent_color_dark2      = lama.lighten(theme.accent_color, -10)
 theme.accent_alt_color_light  = lama.lighten(theme.accent_alt_color, 3)
 theme.accent_alt_color_light2 = lama.lighten(theme.accent_alt_color, 6)
 theme.accent_alt_color_dark   = lama.lighten(theme.accent_alt_color, -3)
-theme.accent_alt_color_dark2  = lama.lighten(theme.accent_alt_color, -10)
+theme.accent_alt_color_dark2  = lama.lighten(theme.accent_alt_color, -20)
 
 theme.main_color_light        = lama.lighten(theme.main_color, 2)
 theme.main_color_dark         = lama.lighten(theme.main_color, -2)
