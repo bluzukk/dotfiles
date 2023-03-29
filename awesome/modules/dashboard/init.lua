@@ -156,7 +156,7 @@ local uptime    = createContainer(up)
 
 
 local function update()
-    awful.placement.right(dashboard, { offset = { y = dpi(10) } })
+    awful.placement.centered(dashboard, { offset = { y = dpi(10) } })
     dashboard.screen = awful.screen.focused()
     greet = greeter.create()
     dashboard.widget = wibox.widget {
