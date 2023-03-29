@@ -12,13 +12,13 @@ local gfs        = require("gears.filesystem")
 local markup     = require("helpers.markup")
 local ICONS_DIR  = gfs.get_configuration_dir() .. "assets/misc/"
 
-local CMD_MAIN   = [[ playerctl --follow metadata --format '{{status}};{{xesam:artist}};{{xesam:title}}' ]]
-local CMD_LEN    = [[ playerctl metadata mpris:length ]]
-local CMD_TOGGLE = [[ playerctl play-pause ]]
-local CMD_POS    = [[ playerctl position ]]
-local CMD_CHECK  = [[ playerctl --list-all ]]
-local CMD_NEXT   = [[ playerctl next ]]
-local CMD_PREV   = [[ playerctl previous ]]
+local CMD_MAIN   = [[ playerctl -i firefox --follow metadata --format '{{status}};{{xesam:artist}};{{xesam:title}}' ]]
+local CMD_LEN    = [[ playerctl -i firefox metadata mpris:length ]]
+local CMD_TOGGLE = [[ playerctl -i firefox play-pause ]]
+local CMD_POS    = [[ playerctl -i firefox position ]]
+local CMD_CHECK  = [[ playerctl -i firefox --list-all ]]
+local CMD_NEXT   = [[ playerctl -i firefox next ]]
+local CMD_PREV   = [[ playerctl -i firefox previous ]]
 
 -- Create Buttons
 local function recolor_image(image, color)
