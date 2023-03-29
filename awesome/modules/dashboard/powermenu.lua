@@ -60,7 +60,6 @@ local function create_button(text, icon_name)
                         image         = img,
                         resize        = true,
                         widget        = wibox.widget.imagebox,
-                        shape         = gears.shape.circle,
                         forced_height = dpi(42),
                     },
                     -- {
@@ -88,12 +87,12 @@ local function create_button(text, icon_name)
             -- forced_width = dpi(60),
             widget = wibox.container.background,
             bg     = beautiful.bg_color_light,
-            -- shape        = gears.shape.rounded_rect,
+            shape  = gears.shape.rounded_rect,
 
         }
     button:connect_signal("button::press", function(c) c:set_bg(beautiful.accent_color) end)
     button:connect_signal("button::release", function(c) c:set_bg(beautiful.bg_color) end)
-    button:connect_signal("mouse::enter", function(c) c:set_bg(beautiful.bg_color) end)
+    button:connect_signal("mouse::enter", function(c) c:set_bg(beautiful.bg_color_light10) end)
     button:connect_signal("mouse::leave", function(c) c:set_bg(beautiful.bg_color_light) end)
     return button
 end
@@ -106,12 +105,11 @@ local function create()
     -- local poweroff_button = create_button("Pwroff", "shutdown.svg")
     -- local reboot_button   = create_button("Rebo0t", "reboot.svg" )
     -- local lock_button     = create_button("L0ck", "lock.svg")
-
+    --
     poweroff_button.buttons = gears.table.join(
         awful.button({}, 1, function()
             if poweroff_clicked then
-                dashboard.hide()
-                powermenu.toggle()
+                awful.spawn(CMD_PWROFF)
             end
             poweroff_clicked = true
             timer_poweroff:start()
@@ -138,23 +136,12 @@ local function create()
 
     local powermenu         = wibox.widget {
         {
-            {
-                {
-                    layout = wibox.layout.flex.horizontal,
-                    -- spacing = dpi(10),
-                    lock_button,
-                    reboot_button,
-                    poweroff_button,
-                },
-                widget = wibox.container.place,
-                halign = "center",
-                valign = "center",
-                -- forced_height = dpi(48),
-                forced_width = dpi(300)
-            },
-            widget = wibox.container.background,
-            bg     = beautiful.bg_color_light,
-            shape  = gears.shape.rounded_rect
+            layout = wibox.layout.fixed.horizontal,
+            forced_width = dpi(200),
+            spacing = dpi(15),
+            lock_button,
+            reboot_button,
+            poweroff_button,
         },
         widget  = wibox.container.margin,
         margins = {
@@ -162,7 +149,7 @@ local function create()
             right  = beautiful.dashboard_margin,
             bottom = beautiful.dashboard_margin,
             top    = beautiful.dashboard_margin,
-        },
+        }
     }
     return powermenu
 end

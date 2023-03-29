@@ -75,7 +75,7 @@ local function create_button(text, icon_name, cmd)
 
     button:connect_signal("button::press", function(c) c:set_bg(beautiful.accent_color) end)
     button:connect_signal("button::release", function(c) c:set_bg(beautiful.bg_color) end)
-    button:connect_signal("mouse::enter", function(c) c:set_bg(beautiful.bg_color) end)
+    button:connect_signal("mouse::enter", function(c) c:set_bg(beautiful.bg_color_light10) end)
     button:connect_signal("mouse::leave", function(c) c:set_bg(beautiful.bg_color_light) end)
     return button
 end

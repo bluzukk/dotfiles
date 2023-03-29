@@ -16,6 +16,28 @@ if util.file_exists(AVATAR) then
 else
     naughty.notify { title = "Avatar Missing" }
 end
+local uwu = wibox.widget.textbox()
+
+local uwuww                = "" ..
+    ' ⣐⢕⢕⢕⢕⢕⢕⢕⢕⠅⢗⢕⢕⢕⢕⢕⢕⢕⠕⠕⢕⢕⢕⢕⢕⢕⢕⢕⢕\n' ..
+    '⢐⢕⢕⢕⢕⢕⣕⢕⢕⠕⠁⢕⢕⢕⢕⢕⢕⢕⢕⠅⡄⢕⢕⢕⢕⢕⢕⢕⢕⢕\n' ..
+    '⢕⢕⢕⢕⢕⠅⢗⢕⠕⣠⠄⣗⢕⢕⠕⢕⢕⢕⠕⢠⣿⠐⢕⢕⢕⠑⢕⢕⠵⢕\n' ..
+    '⢕⢕⢕⢕⠁⢜⠕⢁⣴⣿⡇⢓⢕⢵⢐⢕⢕⠕⢁⣾⢿⣧⠑⢕⢕⠄⢑⢕⠅⢕\n' ..
+    '⢕⢕⠵⢁⠔⢁⣤⣤⣶⣶⣶⡐⣕⢽⠐⢕⠕⣡⣾⣶⣶⣶⣤⡁⢓⢕⠄⢑⢅⢑\n' ..
+    '⠍⣧⠄⣶⣾⣿⣿⣿⣿⣿⣿⣷⣔⢕⢄⢡⣾⣿⣿⣿⣿⣿⣿⣿⣦⡑⢕⢤⠱⢐\n' ..
+    '⢠⢕⠅⣾⣿⠋⢿⣿⣿⣿⠉⣿⣿⣷⣦⣶⣽⣿⣿⠈⣿⣿⣿⣿⠏⢹⣷⣷⡅⢐\n' ..
+    '⣔⢕⢥⢻⣿⡀⠈⠛⠛⠁⢠⣿⣿⣿⣿⣿⣿⣿⣿⡀⠈⠛⠛⠁⠄⣼⣿⣿⡇⢔\n' ..
+    '⢕⢕⢽⢸⢟⢟⢖⢖⢤⣶⡟⢻⣿⡿⠻⣿⣿⡟⢀⣿⣦⢤⢤⢔⢞⢿⢿⣿⠁⢕\n' ..
+    '⢕⢕⠅⣐⢕⢕⢕⢕⢕⣿⣿⡄⠛⢀⣦⠈⠛⢁⣼⣿⢗⢕⢕⢕⢕⢕⢕⡏⣘⢕\n' ..
+    '⢕⢕⠅⢓⣕⣕⣕⣕⣵⣿⣿⣿⣾⣿⣿⣿⣿⣿⣿⣿⣷⣕⢕⢕⢕⢕⡵⢀⢕⢕\n' ..
+    '⢑⢕⠃⡈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢃⢕⢕⢕\n' ..
+    '⣆⢕⠄⢱⣄⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⢁⢕⢕⠕⢁\n' ..
+    '⣿⣦⡀⣿⣿⣷⣶⣬⣍⣛⣛⣛⡛⠿⠿⠿⠛⠛⢛⣛⣉⣭⣤⣂⢜⠕⢑⣡⣴⣿\n'
+
+uwu.markup  =
+    markup.fontfg(beautiful.font_name .. " 7", beautiful.accent_color, "\n") ..
+    markup.fontfg(beautiful.font_name .. " 7", beautiful.accent_color, uwuww)
+
 
 local USERNAME = "no username"
 local HOSTNAME = "no hostname"
@@ -25,10 +47,10 @@ util.async("cat /etc/hostname", function(evil) HOSTNAME = evil end)
 local font_name = beautiful.font_name
 local greeter
 
-local textclock = awful.widget.watch("date +'  %R:%S'", 1, function(widget, stdout)
-    widget:set_markup(
-        markup.fontfg(beautiful.font_name .. " 32", beautiful.accent_alt_color, markup.bold(stdout)))
-end)
+-- local textclock = awful.widget.watch("date +'  %R:%S'", 1, function(widget, stdout)
+--     widget:set_markup(
+--         markup.fontfg(beautiful.font_name .. " 32", beautiful.accent_alt_color, markup.bold(stdout)))
+-- end)
 
 local function create()
     local hour = os.date("%H")
@@ -44,27 +66,17 @@ local function create()
         },
         widget = wibox.container.margin,
         margins = {
-            left = dpi(-10),
+            left = dpi(10),
             right = dpi(20),
             top = dpi(12),
         },
     }
 
     local image = {
-        {
-            {
-                image         = USER_IMAGE,
-                resize        = true,
-                widget        = wibox.widget.imagebox,
-                shape         = gears.shape.circle,
-                forced_height = dpi(70),
-            },
-            widget = wibox.container.background,
-            shape = gears.shape.circle
-        },
+            uwu,
         widget = wibox.container.margin,
         margins = {
-            left = dpi(-20),
+            left = dpi(20),
             top = dpi(10),
             bottom = dpi(10)
         },
@@ -97,14 +109,14 @@ local function create()
                     user,
                     {
                         layout = wibox.layout.align.vertical,
-                        clock,
+                        -- clock,
                         textclock,
                     },
                 },
                 widget = wibox.container.place,
                 halign = "center",
                 valign = "center",
-                forced_height = dpi(100),
+                forced_height = dpi(200),
                 forced_width = dpi(450),
             },
             widget = wibox.container.background,

@@ -161,7 +161,12 @@ local function update()
 end
 
 
+local dashboard_visible = false
 local function launch()
+    if dashboard.isVisible() then
+        dashboard_visible = true
+        dashboard.hide()
+    end
     selected = 0
     update()
     if not uwuprompt.visible then
@@ -220,6 +225,9 @@ local function launch()
             { {}, 'Escape', function(_)
                 update()
                 searching_history = false
+                if dashboard_visible then
+                    dashboard.show()
+                end
             end },
             },
 

@@ -29,12 +29,12 @@ local function update_buttons(c, is_on)
         c.enabled = true
         c:get_children_by_id('image')[1].image = c.icon_on
         -- c:get_children_by_id('text')[1].markup = markup(beautiful.accent_alt_color, " On  ")
-        -- c:set_bg(beautiful.bg_color)
+        c:set_bg(beautiful.bg_color_light10)
     else
         c.enabled = false
         c:get_children_by_id('image')[1].image = c.icon_off
         -- c:get_children_by_id('text')[1].markup = markup(beautiful.accent_color, " Off  ")
-        -- c:set_bg(beautiful.bg_color)
+        c:set_bg(beautiful.bg_color_light)
     end
 end
 
@@ -107,25 +107,17 @@ local function create_button(task, icon_on, icon_off, cmd_on, cmd_off)
         {
             {
                 {
-                    {
-                        id = "image",
-                        resize = true,
-                        widget = wibox.widget.imagebox,
-                        shape = gears.shape.circle,
-                        forced_height = dpi(40),
-                    },
-                    -- {
-                    --     id = "text",
-                    --     font = beautiful.font_name .. " 12",
-                    --     widget = wibox.widget.textbox,
-                    -- },
-                    layout = wibox.layout.fixed.vertical,
+                    id = "image",
+                    resize = true,
+                    widget = wibox.widget.imagebox,
+                    shape = gears.shape.circle,
+                    forced_height = dpi(48),
                 },
                 widget = wibox.container.margin,
-                top = dpi(2),
-                left = dpi(2),
-                right = dpi(2),
-                bottom = dpi(2)
+                top = dpi(10),
+                left = dpi(10),
+                right = dpi(5),
+                bottom = dpi(10)
             },
             widget   = wibox.container.background,
             bg       = beautiful.bg_color_light,
@@ -137,6 +129,28 @@ local function create_button(task, icon_on, icon_off, cmd_on, cmd_off)
             cmd_off  = cmd_off,
             enabled  = false
         }
+    -- button:connect_signal("button::press", function(c) c:set_bg(beautiful.accent_color) end)
+    -- button:connect_signal("button::release", function(c)
+    --     if c.enabled then
+    --         c:set_bg(beautiful.bg_color_light10)
+    --     else
+    --         c:set_bg(beautiful.bg_color_light)
+    --     end
+    -- end)
+    -- button:connect_signal("mouse::enter", function(c)
+    --     if c.enabled then
+    --         c:set_bg(beautiful.accent_alt_color)
+    --     else
+    --         c:set_bg(beautiful.bg_color_light10)
+    --     end
+    -- end)
+    -- button:connect_signal("mouse::leave", function(c)
+    --     if c.enabled then
+    --         c:set_bg(beautiful.bg_color_light10)
+    --     else
+    --         c:set_bg(beautiful.bg_color_light)
+    --     end
+    -- end)
 
     check_task(button)
     button.buttons = gears.table.join(
@@ -150,10 +164,6 @@ local function create_button(task, icon_on, icon_off, cmd_on, cmd_off)
             startup = false
             open_task(button)
         end))
-    -- button:connect_signal("mouse::enter", function(self)
-    --
-    --     check_task(self)
-    -- end)
     return button
 end
 
@@ -209,12 +219,12 @@ local game_button = create_button(
 
 local function create()
     local launcher = {
-        game_button,
+        -- game_button,
         discord_button,
         bluelight_button,
         wifi_button,
         sync_button,
-        spacing = dpi(33),
+        spacing = dpi(10),
         layout = wibox.layout.flex.horizontal,
         align = 'center',
         widget = wibox.container.place,
@@ -223,30 +233,25 @@ local function create()
     local container = wibox.widget {
         {
             {
-                {
-                    widget = wibox.container.place,
-                    halign = "center",
-                    valign = "center",
-                    forced_height = dpi(100),
-                    launcher
-                },
-                widget = wibox.container.margin,
-                margins = {
-                    left = dpi(30),
-                    right = dpi(30)
-                },
+                widget        = wibox.container.place,
+                halign        = "center",
+                valign        = "center",
+                forced_height = dpi(100),
+                forced_width  = dpi(200),
+                launcher
             },
-            forced_width = dpi(400),
-            widget = wibox.container.background,
-            bg = beautiful.bg_color_light,
-            shape = gears.shape.rounded_rect
+            widget = wibox.container.margin,
+            margins = {
+                left = dpi(0),
+                right = dpi(0)
+            },
         },
         widget = wibox.container.margin,
         margins = {
             left = beautiful.dashboard_margin,
             right = beautiful.dashboard_margin,
             bottom = beautiful.dashboard_margin,
-            -- top = beautiful.dashboard_margin,
+            top = beautiful.dashboard_margin,
         },
     }
     return container

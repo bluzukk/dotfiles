@@ -2,6 +2,7 @@ local awful     = require("awful")
 local beautiful = require("beautiful")
 local gears     = require("gears")
 local wibox     = require("wibox")
+local markup    = require("helpers.markup")
 local dpi       = beautiful.xresources.apply_dpi
 
 -- Dashboard Modules
@@ -61,7 +62,7 @@ local function createContainer(widget)
                 widget = wibox.container.place,
                 halign = "center",
                 valign = "center",
-                -- forced_height = dpi(100),
+                forced_height = dpi(100),
                 -- forced_width = dpi(450),
             },
             widget = wibox.container.background,
@@ -77,6 +78,29 @@ local function createContainer(widget)
         },
     }
 end
+
+local hour = os.date("%H")
+local minutes = os.date("%M")
+local day = os.date("%A")
+
+
+local textclock = awful.widget.watch("date +'%R:%S'", 1, function(widget, stdout)
+    widget:set_markup(
+        markup.fontfg(beautiful.font_name .. " 32", beautiful.accent_alt_color, markup.bold(stdout)))
+end)
+
+local clock = wibox.widget {
+    layout = wibox.layout.fixed.vertical,
+    {
+        widget = wibox.widget.textbox,
+        font   = beautiful.font_name .. " 22",
+        markup = markup(beautiful.accent_color, markup.bold(day))
+    },
+    textclock,
+}
+
+
+local clock = createContainer(clock)
 
 local tasklist  = awful.widget.tasklist {
     screen          = screen[1],
@@ -132,7 +156,7 @@ local uptime    = createContainer(up)
 
 
 local function update()
-    awful.placement.centered(dashboard, { offset = { y = dpi(10) } })
+    awful.placement.right(dashboard, { offset = { y = dpi(10) } })
     dashboard.screen = awful.screen.focused()
     greet = greeter.create()
     dashboard.widget = wibox.widget {
@@ -142,20 +166,21 @@ local function update()
                 {
                     greet,
                     slider,
-                    shortcut,
                     htop,
                     -- stretcher,
                     uptime,
                     layout = wibox.layout.fixed.vertical
                 },
                 {
+                    clock,
                     weather_widget,
                     cal,
-                    todo,
+                    -- todo,
                     layout = wibox.layout.fixed.vertical
                 },
                 {
-                    tasklist,
+                    shortcut,
+                    -- tasklist,
                     links,
                     -- tasklist,
                     powrmenu,
