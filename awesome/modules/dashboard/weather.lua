@@ -357,7 +357,7 @@ local function worker(user_args)
         -- daily_forecast_widget_two:update(result.daily, result.timezone_offset)
 
         local upper_widget = current_weather_widget
-        local lower_widget = uwu
+        local lower_widget
         if not tab then
             -- upper_widget = daily_forecast_widget_two
             upper_widget = nil

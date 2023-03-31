@@ -19,8 +19,7 @@ end
 local uwu = wibox.widget.textbox()
 
 local uwuww                = "" ..
-    ' ⣐⢕⢕⢕⢕⢕⢕⢕⢕⠅⢗⢕⢕⢕⢕⢕⢕⢕⠕⠕⢕⢕⢕⢕⢕⢕⢕⢕⢕\n' ..
-    '⢐⢕⢕⢕⢕⢕⣕⢕⢕⠕⠁⢕⢕⢕⢕⢕⢕⢕⢕⠅⡄⢕⢕⢕⢕⢕⢕⢕⢕⢕\n' ..
+    '⢕⢕⢕⢕⢕⢕⣕⢕⢕⠕⠁⢕⢕⢕⢕⢕⢕⢕⢕⠅⡄⢕⢕⢕⢕⢕⢕⢕⢕⢕\n' ..
     '⢕⢕⢕⢕⢕⠅⢗⢕⠕⣠⠄⣗⢕⢕⠕⢕⢕⢕⠕⢠⣿⠐⢕⢕⢕⠑⢕⢕⠵⢕\n' ..
     '⢕⢕⢕⢕⠁⢜⠕⢁⣴⣿⡇⢓⢕⢵⢐⢕⢕⠕⢁⣾⢿⣧⠑⢕⢕⠄⢑⢕⠅⢕\n' ..
     '⢕⢕⠵⢁⠔⢁⣤⣤⣶⣶⣶⡐⣕⢽⠐⢕⠕⣡⣾⣶⣶⣶⣤⡁⢓⢕⠄⢑⢅⢑\n' ..
@@ -32,7 +31,7 @@ local uwuww                = "" ..
     '⢕⢕⠅⢓⣕⣕⣕⣕⣵⣿⣿⣿⣾⣿⣿⣿⣿⣿⣿⣿⣷⣕⢕⢕⢕⢕⡵⢀⢕⢕\n' ..
     '⢑⢕⠃⡈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢃⢕⢕⢕\n' ..
     '⣆⢕⠄⢱⣄⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⢁⢕⢕⠕⢁\n' ..
-    '⣿⣦⡀⣿⣿⣷⣶⣬⣍⣛⣛⣛⡛⠿⠿⠿⠛⠛⢛⣛⣉⣭⣤⣂⢜⠕⢑⣡⣴⣿\n'
+    '⣿⣦⡀⣿⣿⣷⣶⣬⣍⣛⣛⣛⡛⠿⠿⠿⠛⠛⢛⣛⣉⣭⣤⣂⢜⠕⢑⣡⣴⣿'
 
 uwu.markup  =
     markup.fontfg(beautiful.font_name .. " 7", beautiful.accent_color, "\n") ..
@@ -73,11 +72,11 @@ local function create()
     }
 
     local image = {
-            uwu,
+        uwu,
         widget = wibox.container.margin,
         margins = {
             left = dpi(20),
-            top = dpi(10),
+            -- top = dpi(10),
             bottom = dpi(10)
         },
     }
@@ -94,7 +93,7 @@ local function create()
         },
         widget = wibox.container.margin,
         margins = {
-            left = dpi(0),
+            left = dpi(20),
             right = dpi(00),
             top = dpi(10)
         },
@@ -110,11 +109,11 @@ local function create()
                     {
                         layout = wibox.layout.align.vertical,
                         -- clock,
-                        textclock,
+                        -- textclock,
                     },
                 },
                 widget = wibox.container.place,
-                halign = "center",
+                halign = "left",
                 valign = "center",
                 forced_height = dpi(200),
                 forced_width = dpi(450),

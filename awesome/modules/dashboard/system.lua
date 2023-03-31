@@ -197,7 +197,7 @@ local mem_perc = ""
 local mem_util = ""
 awesome.connect_signal("evil::ram", function(evil)
     mem_util = string.format("%.0f", tonumber(evil))
-    mem_perc = string.format("%.0f", tonumber((mem_util / 15500) * 100))
+    mem_perc = string.format("%.0f", tonumber((mem_util / 31500) * 100))
     mem_widget:get_children_by_id("left_content")[1].markup =
     markup.fontfg(beautiful.font_name .. " 15", beautiful.accent_color_dark,
     mem_perc .. "% " .. mem_util ..  "mb")

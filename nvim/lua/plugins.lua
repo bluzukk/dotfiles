@@ -28,11 +28,11 @@ return require('packer').startup(function(use)
     }
 
     use {
-	    "windwp/nvim-autopairs",
+        "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
     }
 
-
+    use 'brenoprata10/nvim-highlight-colors'
     use 'lervag/vimtex'
 
     use 'nekonako/xresources-nvim'
@@ -46,14 +46,11 @@ return require('packer').startup(function(use)
         run = function() vim.fn["mkdp#util#install"]() end,
     })
 
+    -- use 'mhinz/vim-startify'
     use {
-    'goolord/alpha-nvim',
-    requires = { 'nvim-tree/nvim-web-devicons' },
-    config = function ()
-        require'alpha'.setup(require'dashboard-nvim theme'.config)
-    end
-}
-
+        'goolord/alpha-nvim',
+        requires = { 'nvim-tree/nvim-web-devicons' },
+    }
     use { 'VonHeikemen/lsp-zero.nvim',
         requires = {
             -- LSP Support
@@ -87,12 +84,14 @@ return require('packer').startup(function(use)
 
     use "nvim-lualine/lualine.nvim"
 
-    use({
-        'noib3/nvim-cokeline',
-        config = function()
-            require('cokeline').setup()
-        end
-    })
+    use 'nvim-tree/nvim-web-devicons'
+    use { 'romgrk/barbar.nvim', requires = 'nvim-web-devicons' }
+    -- use({
+    --     'noib3/nvim-cokeline',
+    --     config = function()
+    --         require('cokeline').setup()
+    --     end
+    -- })
     use "tpope/vim-surround"
     use "alvan/vim-closetag"
     use 'mhinz/vim-signify'
@@ -130,9 +129,9 @@ return require('packer').startup(function(use)
                 lsp = {
                     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
                     override = {
-                            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                            ["vim.lsp.util.stylize_markdown"] = true,
-                            ["cmp.entry.get_documentation"] = true,
+                        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                        ["vim.lsp.util.stylize_markdown"] = true,
+                        ["cmp.entry.get_documentation"] = true,
                     },
                 },
                 -- you can enable a preset for easier configuration
