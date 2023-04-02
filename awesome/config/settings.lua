@@ -57,9 +57,9 @@ theme.font                    = theme.font_name .. " " .. theme.font_size
 
 theme.corners                 = gears.shape.rect
 -- If not using picom
-theme.shape = function(cr,w,h)
-    gears.shape.rounded_rect(cr,w,h,8)
-end
+-- theme.shape = function(cr,w,h)
+--     gears.shape.rounded_rect(cr,w,h,8)
+-- end
 
 theme.corners                 = gears.shape.rect
 -- theme.corners = function(cr,w,h)
@@ -68,9 +68,9 @@ theme.corners                 = gears.shape.rect
 
 -- Mostly used in bars
 theme.inner_corners           = gears.shape.rect
-theme.inner_corners = function(cr,w,h)
-    gears.shape.rounded_rect(cr,w,h,8)
-end
+-- theme.inner_corners = function(cr,w,h)
+--     gears.shape.rounded_rect(cr,w,h,8)
+-- end
 
 theme.opacity                 = 0.97
 theme.useless_gap             = dpi(10)
