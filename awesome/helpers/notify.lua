@@ -1,4 +1,6 @@
--- Naive notification implementation I use from time to time
+-------------------------------------------------------------------------------
+-- Naive notification implementation I use from time to time                 --
+-------------------------------------------------------------------------------
 local awful     = require("awful")
 local beautiful = require("beautiful")
 local gears     = require("gears")

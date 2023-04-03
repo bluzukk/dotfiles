@@ -1,39 +1,39 @@
-local awful     = require("awful")
-local beautiful = require("beautiful")
-local gears     = require("gears")
-local wibox     = require("wibox")
-local dpi       = require("beautiful").xresources.apply_dpi
+local awful           = require("awful")
+local beautiful       = require("beautiful")
+local gears           = require("gears")
+local wibox           = require("wibox")
+local dpi             = require("beautiful").xresources.apply_dpi
 
-local dashboard = require("modules.dashboard.init")
+local dashboard       = require("modules.dashboard.init")
 
-awful.layout.layouts = {
+awful.layout.layouts  = {
     awful.layout.suit.tile.right,
     awful.layout.suit.tile.right,
-    awful.layout.suit.floating,
+    awful.layout.suit.tile.right,
 }
 
-local modkey = beautiful.modkey
+local modkey          = beautiful.modkey
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
-    awful.button({ }, 1, function(t) t:view_only() end),
+    awful.button({}, 1, function(t) t:view_only() end),
     awful.button({ modkey }, 1, function(t)
         if client.focus then
             client.focus:move_to_tag(t)
-         end
+        end
     end),
-    awful.button({ }, 3, awful.tag.viewtoggle),
+    awful.button({}, 3, awful.tag.viewtoggle),
     awful.button({ modkey }, 3, function(t)
         if client.focus then
             client.focus:toggle_tag(t)
         end
     end),
-    awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
-    awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
+    awful.button({}, 4, function(t) awful.tag.viewnext(t.screen) end),
+    awful.button({}, 5, function(t) awful.tag.viewprev(t.screen) end)
 )
 
 local function create_boxes(s)
     -- Helper function that updates a taglist item
-    local update_taglist_blocks = function (item, tag, index)
+    local update_taglist_blocks = function(item, tag, index)
         if tag.selected then
             item.bg = beautiful.accent_color
             item.opacity = 1
@@ -50,13 +50,13 @@ local function create_boxes(s)
 
     -- Create a taglist for every screen
     s.mytaglist = awful.widget.taglist {
-        screen  = s,
-        filter  = awful.widget.taglist.filter.all,
-        buttons = taglist_buttons,
-        layout = {
+        screen          = s,
+        filter          = awful.widget.taglist.filter.all,
+        buttons         = taglist_buttons,
+        layout          = {
             spacing = 10,
             spacing_widget = {
-                color  = '#00ff00' .. "0",
+                color  = '#0000000',
                 shape  = gears.shape.circle,
                 widget = wibox.widget.separator,
             },
@@ -82,10 +82,9 @@ local function create_boxes(s)
         height = dpi(10),
         position = "top",
         -- width = dpi(800),
-        bg = "#00000000",
+        bg = "#0000000",
         opacity = 0.50,
         shape = gears.shape.rect
-
     })
     s.taglist_box:setup {
         widget = s.mytaglist,
@@ -95,41 +94,55 @@ local function create_boxes(s)
 end
 
 local function update_taglist(widget, tag, _, _)
+    widget:connect_signal('mouse::enter', function()
+        widget.bg = beautiful.bg_color_light10
+    end)
+    widget:connect_signal('mouse::leave', function()
+        widget.bg = beautiful.bg_color
+    end)
     if tag == awful.tag.selected() then
         -- color for currently active tag
         widget:get_children_by_id('tag_bg')[1].bg = beautiful.accent_color
-        widget:get_children_by_id('tag_element')[1].forced_width = dpi(30)
+        widget:get_children_by_id('tag_element')[1].forced_width = dpi(20)
         if #tag:clients() == 0 and dashboard.isSticky() then
             dashboard.show()
         else
             dashboard.hide()
         end
     else
+        -- if #tag:clients() > 0 then
+        --     widget:get_children_by_id('tag_bg')[1].bg = beautiful.main_color
+        -- else
+        --     -- Hide tags which do not have clients
+        --     widget:get_children_by_id('tag_element')[1].forced_width = dpi(20)
+        --     widget:get_children_by_id('tag_bg')[1].bg = beautiful.bg_color
+        -- end
+
         -- color for other tags
-        -- tag.name = "-"
         widget:get_children_by_id('tag_bg')[1].bg = beautiful.main_color
-        widget:get_children_by_id('tag_element')[1].forced_width = dpi(10)
+        widget:get_children_by_id('tag_element')[1].forced_width = dpi(20)
     end
 end
 
 -- Create a taglist for every screen
 local function create(s)
     return awful.widget.taglist {
-        screen  = s,
-        filter  = awful.widget.taglist.filter.all,
+        screen          = s,
+        filter          = awful.widget.taglist.filter.all,
 
         widget_template = {
             {
                 {
                     {
-                        id     = 'tag_element',
-                        widget = wibox.widget.textbox,
+                        id           = 'tag_element',
+                        widget       = wibox.widget.textbox,
+                        forced_width = dpi(20)
                     },
                     {
                         id     = 'tag_name',
                         widget = wibox.widget.textbox,
                     },
-                    id = "tag_bg",
+                    id     = "tag_bg",
                     shape  = beautiful.corners,
                     widget = wibox.container.background,
                 },
@@ -139,13 +152,12 @@ local function create(s)
                 bottom = dpi(10),
                 widget = wibox.container.margin
             },
-            id     = 'background_role',
-            widget = wibox.container.background,
+            id              = 'background_role',
+            widget          = wibox.container.background,
             update_callback = update_taglist,
-            create_callback = update_taglist
+            create_callback = update_taglist,
         },
-
-        buttons = taglist_buttons,
+        buttons         = taglist_buttons,
     }
 end
 

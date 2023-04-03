@@ -28,128 +28,130 @@ local searchtext     = ""
 local search_result  = wallpapers
 local selected_image = ""
 
-
-local spacer_widget = {
-    color         = beautiful.accent_color,
-    shape         = gears.shape.rect,
-    widget        = wibox.widget.separator,
-    forced_height = 2,
-    forced_width  = 20,
-    span_ratio    = 0.95,
-}
-
 local preview_widget
 local function update_widget()
-    search_result = {}
-    if #searchtext > 1 then
-        for _, v in pairs(wallpapers) do
-            if string.match(v, searchtext) then
-                search_result[#search_result + 1] = v
+    local widget
+    if wallpapers then
+        search_result = {}
+        if #searchtext > 1 then
+            for _, v in pairs(wallpapers) do
+                if string.match(v, searchtext) then
+                    search_result[#search_result + 1] = v
+                end
+            end
+        else
+            search_result = wallpapers
+        end
+
+        local lower = selected - 4
+        local upper = selected + 4
+        if lower < 1 then upper = upper - lower end
+        if upper > #search_result then lower = lower - (upper - #search_result) end
+
+        local item_widgets = {
+            layout = wibox.layout.fixed.vertical,
+            forced_width = 500,
+            forced_height = 300,
+            align = "centered"
+        }
+        for k, v in pairs(search_result) do
+            if k < upper and k > lower then
+                local item
+                if k == selected then
+                    selected_image = v
+                    item = wibox.widget {
+                        {
+                            markup = markup(beautiful.accent_color, v),
+                            widget = wibox.widget.textbox,
+                            forced_height = dpi(45),
+                            align = "center"
+                        },
+                        bg = beautiful.bg_color_light5,
+                        widget = wibox.container.background
+                    }
+                else
+                    item = wibox.widget {
+                        {
+                            text = v,
+                            widget = wibox.widget.textbox,
+                            forced_height = dpi(45),
+                            align = "center"
+                        },
+                        bg = beautiful.bg_color,
+                        widget = wibox.container.background
+                    }
+                end
+                table.insert(item_widgets, item)
             end
         end
-    else
-        search_result = wallpapers
-    end
 
-    local lower = selected - 4
-    local upper = selected + 4
-    if lower < 1 then upper = upper - lower end
-    if upper > #search_result then lower = lower - (upper - #search_result) end
+        local searchbox = {
+            id = 'textbox',
+            font = beautiful.font_name .. ' 18',
+            align = 'center',
+            markup = markup(beautiful.accent_color, searchtext),
+            widget = wibox.widget.textbox,
+            forced_height = 40
+        }
 
-    local item_widgets = {
-        layout = wibox.layout.fixed.vertical,
-        forced_width = 500,
-        forced_height = 350,
-        align = "centered"
-    }
-    for k, v in pairs(search_result) do
-        if k < upper and k > lower then
-            local item
-            if k == selected then
-                selected_image = v
-                item = wibox.widget {
-                    {
-                        markup = markup(beautiful.accent_color, v),
-                        widget = wibox.widget.textbox,
-                        forced_height = dpi(50),
-                        align = "center"
-                    },
-                    bg = beautiful.bg_color_light5,
-                    widget = wibox.container.background
-                }
-            else
-                item = wibox.widget {
-                    {
-                        text = v,
-                        widget = wibox.widget.textbox,
-                        forced_height = dpi(50),
-                        align = "center"
-                    },
-                    bg = beautiful.bg_color,
-                    widget = wibox.container.background
-                }
-            end
-            table.insert(item_widgets, item)
-        end
-    end
+        preview_widget = {
+            id = 'icon',
+            image = WALLS_DIR .. selected_image,
+            resize = true,
+            forced_width = dpi(700),
+            forced_height = dpi(40),
+            widget = wibox.widget.imagebox,
+            opacity = 1,
+            align = "center"
+        }
 
-    local searchbox = {
-        id = 'textbox',
-        font = beautiful.font_name .. ' 18',
-        align = 'center',
-        markup = markup(beautiful.accent_color, searchtext),
-        -- markup = markup(beautiful.accent_color, searchtext .. "  ") .. markup(beautiful.main_color, #search_result .. " Wallpapers found"),
-        widget = wibox.widget.textbox,
-        forced_height = 40
-    }
-
-    -- Setup image
-    preview_widget = {
-        id = 'icon',
-        image = WALLS_DIR .. selected_image,
-        resize = true,
-        forced_width = dpi(700),
-        forced_height = dpi(40),
-        widget = wibox.widget.imagebox,
-        opacity = 1,
-        align = "center"
-    }
-
-    local spr = wibox.widget.textbox(" ")
-    local widget = {
-        {
+        widget = {
             {
                 {
                     {
-                        image = SEARCH_IMG,
-                        resize = true,
-                        forced_width = 32,
-                        forced_height = 32,
-                        widget = wibox.widget.imagebox,
-                        align = "center"
+                        {
+                            {
+                                {
+                                    image = SEARCH_IMG,
+                                    resize = true,
+                                    forced_width = 32,
+                                    forced_height = 32,
+                                    widget = wibox.widget.imagebox,
+                                    align = "center"
+                                },
+                                wibox.widget.textbox(" "),
+                                searchbox,
+                                layout = wibox.layout.fixed.horizontal
+                            },
+                            widget = wibox.container.margin,
+                            top = dpi(12),
+                            bottom = dpi(10),
+                            left = dpi(20),
+                        },
+                        widget = wibox.container.background,
+                        bg = beautiful.bg_color_light5
                     },
-                    spr,
-                    searchbox,
-                    layout = wibox.layout.fixed.horizontal
+                    -- spacer_widget,
+                    wibox.widget.textbox(" "),
+                    item_widgets,
+                    layout = wibox.layout.fixed.vertical
                 },
                 widget = wibox.container.margin,
                 top = dpi(10),
-                left = dpi(10),
+                bottom = dpi(10),
+                left = dpi(20),
+                right = dpi(20),
             },
-            spacer_widget,
-            item_widgets,
-            layout = wibox.layout.fixed.vertical
-        },
-        wibox.widget.textbox("  "),
-        {
-            preview_widget,
-            widget = wibox.container.margin,
-            top = dpi(10),
-            bottom = dpi(10),
-            right = dpi(10),
-        },
-        layout = wibox.layout.fixed.horizontal,
-    }
+            {
+                preview_widget,
+                widget = wibox.container.margin,
+                top = dpi(10),
+                bottom = dpi(10),
+                right = dpi(10),
+            },
+            layout = wibox.layout.fixed.horizontal,
+        }
+    end
     return widget
 end
 
@@ -168,7 +170,6 @@ local grabber
 local function hide()
     wal.visible = false
     awful.keygrabber.stop(grabber)
-    -- wal:setup({layout = wibox.layout.fixed.vertical})
 end
 
 local function get_keypress()

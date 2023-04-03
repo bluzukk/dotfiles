@@ -9,7 +9,7 @@ require("awful.autofocus")
 local pywal     = require("modules.pywal")
 local uwuprompt = require("modules.prompt")
 local volume    = require("modules.popups.volume")
-
+local window_switcher = require("modules.window_switcher")
 
 local modkey       = beautiful.modkey
 local altkey       = beautiful.altkey
@@ -104,9 +104,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey, }, "Tab",
         function()
             awful.client.focus.byidx(-1)
-            if client.focus then
-                client.focus:raise()
-            end
+            window_switcher_show(awful.screen.focused())
         end,
         { description = "go back", group = "client" }),
 

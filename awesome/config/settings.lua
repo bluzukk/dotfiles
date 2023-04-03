@@ -73,8 +73,8 @@ theme.inner_corners           = gears.shape.rect
 -- end
 
 theme.opacity                 = 0.97
-theme.useless_gap             = dpi(10)
-theme.border_width            = dpi(4)
+theme.useless_gap             = dpi(15)
+theme.border_width            = dpi(2)
 
 theme.master_width_factor     = 0.689
 -- theme.tasklist_plain_task_name = false
