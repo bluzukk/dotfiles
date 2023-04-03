@@ -6,10 +6,9 @@ local beautiful = require("beautiful")
 local gears     = require("gears")
 require("awful.autofocus")
 
-local pywal     = require("modules.pywal")
-local uwuprompt = require("modules.prompt")
-local volume    = require("modules.popups.volume")
-local window_switcher = require("modules.window_switcher")
+local pywal        = require("modules.pywal")
+local uwuprompt    = require("modules.prompt")
+local volume       = require("modules.popups.volume")
 
 local modkey       = beautiful.modkey
 local altkey       = beautiful.altkey
@@ -27,6 +26,41 @@ root.buttons(gears.table.join(
     awful.button({}, 5, awful.tag.viewprev)
 ))
 -- }}}
+
+-- {{{ Window Switching
+-- Mark focused client with border while "cycling"
+local function hideborder()
+    local focused = client.focus
+    if focused then
+        focused.border_color = beautiful.bg_color
+    end
+end
+
+local border_timer
+border_timer = gears.timer {
+    timeout   = 0.5,
+    autostart = false,
+    run_once  = true,
+    callback  = function()
+        hideborder()
+        border_timer:stop()
+    end
+}
+local function showborder()
+    border_timer:stop()
+    hideborder()
+    local screen = awful.screen.focused()
+    local clients = screen.selected_tag:clients()
+    for _, c in pairs(clients) do
+        c.border_color = beautiful.bg_color
+    end
+    if client.focus then
+        client.focus.border_color = beautiful.accent_color
+    end
+    border_timer:start()
+end
+-- }}}
+
 
 -- {{{ Global Key bindings
 globalkeys = gears.table.join(
@@ -89,6 +123,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey }, "Escape", function()
         awful.client.swap.byidx(1)
         awful.client.focus.byidx(1)
+        showborder()
     end, { description = "select previous", group = "layout" }),
 
     -- Sticky client toggle
@@ -103,10 +138,10 @@ globalkeys = gears.table.join(
     -- Client jumping
     awful.key({ modkey, }, "Tab",
         function()
-            awful.client.focus.byidx(-1)
-            window_switcher_show(awful.screen.focused())
+            awful.client.focus.byidx(1)
+            showborder()
         end,
-        { description = "go back", group = "client" }),
+        { description = "focus next client", group = "client" }),
 
     -- Maximize
     awful.key({ modkey, }, "m",

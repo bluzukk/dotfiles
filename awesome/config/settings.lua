@@ -74,7 +74,7 @@ theme.inner_corners           = gears.shape.rect
 
 theme.opacity                 = 0.97
 theme.useless_gap             = dpi(15)
-theme.border_width            = dpi(2)
+theme.border_width            = dpi(3)
 
 theme.master_width_factor     = 0.689
 -- theme.tasklist_plain_task_name = false
@@ -168,8 +168,8 @@ theme.taglist_bg_urgent       = theme.color_critical
 -- Tasklsit
 theme.tasklist_fg_focus       = theme.accent_color
 theme.tasklist_fg_normal      = theme.main_color
-theme.tasklist_bg_focus       = theme.bg_color
-theme.tasklist_bg_normal      = theme.bg_color_light
+theme.tasklist_bg_focus       = theme.bg_color_light5
+theme.tasklist_bg_normal      = theme.bg_color
 
 -- Notifications
 theme.notification_shape      = theme.shape
