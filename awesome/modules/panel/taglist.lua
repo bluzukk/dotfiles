@@ -33,7 +33,7 @@ local taglist_buttons = gears.table.join(
 
 local function create_boxes(s)
     -- Helper function that updates a taglist item
-    local update_taglist_blocks = function(item, tag, index)
+    local update_taglist_blocks = function(item, tag, _)
         if tag.selected then
             item.bg = beautiful.accent_color
             item.opacity = 1
@@ -134,9 +134,8 @@ local function create(s)
             {
                 {
                     {
-                        id           = 'tag_element',
-                        widget       = wibox.widget.textbox,
-                        forced_width = dpi(20)
+                        id     = 'tag_element',
+                        widget = wibox.widget.textbox,
                     },
                     {
                         id     = 'tag_name',
@@ -146,8 +145,8 @@ local function create(s)
                     shape  = beautiful.corners,
                     widget = wibox.container.background,
                 },
-                left   = dpi(18),
-                right  = dpi(18),
+                left   = dpi(15),
+                right  = dpi(15),
                 top    = dpi(10),
                 bottom = dpi(10),
                 widget = wibox.container.margin
