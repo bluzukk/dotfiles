@@ -115,7 +115,6 @@ awesome.connect_signal("evil::cpu", function(evil_cpu_util, evil_cpu_temp)
     cpu_widget:update(color, evil_cpu_util .. "% " .. evil_cpu_temp .. "°C")
 end)
 
-
 local gpu_widget = createWidget("GPU ", CMD_GPU, beautiful.bg_color, beautiful.bg_color_light10, beautiful.font)
 awesome.connect_signal("evil::gpu", function(evil_gpu_util, evil_gpu_temp)
     local color = beautiful.accent_color

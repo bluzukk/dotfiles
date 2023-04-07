@@ -14,14 +14,14 @@ clientkeys        = gears.table.join(
             if c.fullscreen and c.class == "st" then
                 c.opacity = 1
             elseif c.fullscreen == false and c.class == "st" then
-                c.opacity = 0.8
+                c.opacity = 0.95
             end
             c:raise()
         end,
         { description = "toggle fullscreen", group = "client" }),
     awful.key({ modkey, }, "q", function(c) c:kill() end,
         { description = "close", group = "client" }),
-    awful.key({ modkey, "Control" }, "space", awful.client.floating.toggle,
+    awful.key({ modkey, }, "e", awful.client.floating.toggle,
         { description = "toggle floating", group = "client" }),
     awful.key({ modkey, "Control" }, "Return", function(c) c:swap(awful.client.getmaster()) end,
         { description = "move to master", group = "client" }),
@@ -66,28 +66,29 @@ awful.rules.rules = {
             keys = clientkeys,
             buttons = clientbuttons,
             screen = awful.screen.preferred,
-            placement = awful.placement.no_overlap + awful.placement.no_offscreen
+            placement = awful.placement.no_overlap + awful.placement.no_offscreen,
+            size_hints_honor = false
         }
     },
 
     -- Floating clients.
-    {
-        rule_any = {
-            instance = {
-                -- "example",
-            },
-            class = {
-                "Sxiv",
-            },
-            name = {
-                -- "example",
-            },
-            role = {
-                "pop-up",
-            }
-        },
-        properties = { floating = true }
-    },
+    -- {
+    --     rule_any = {
+    --         instance = {
+    --             -- "example",
+    --         },
+    --         class = {
+    --             "Sxiv",
+    --         },
+    --         name = {
+    --             -- "example",
+    --         },
+    --         role = {
+    --             "pop-up",
+    --         }
+    --     },
+    --     properties = { floating = true }
+    -- },
 
     -- Add titlebars to normal clients and dialogs
     {
@@ -98,7 +99,7 @@ awful.rules.rules = {
 
     {
         rule = { class = "st" },
-        properties = { opacity = 0.9 }
+        properties = { opacity = 0.95 }
     },
 }
 

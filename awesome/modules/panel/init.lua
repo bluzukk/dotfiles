@@ -31,10 +31,10 @@ local function create_screens()
                 height   = beautiful.bar_height,
                 bg       = beautiful.accent_color .. "0",
                 shape    = beautiful.corner,
-                margins = {
-                    top    = dpi(10),
-                    bottom = dpi(-8),
-                },
+                -- margins = {
+                --     top    = dpi(10),
+                --     bottom = dpi(-8),
+                -- },
                 widget = {
                     layout = wibox.layout.fixed.horizontal,
                     align = "top",
