@@ -18,7 +18,7 @@ local CMD_NET         = [[ echo "implement me =("  ]]
 local CMD_BAT         = [[ echo "implement me =("  ]]
 local CMD_WEATHER     = [[ echo "implement me =("  ]]
 local CMD_FILE_SYSTEM = [[ echo "implement me =("  ]]
-local CMD_CLOCK       = sideboard
+local CMD_CLOCK       = dashboard
 
 local notification
 local function notification_hide()
