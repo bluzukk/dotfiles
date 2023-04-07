@@ -223,7 +223,7 @@ local function create(s)
     local panel = awful.wibar({
         position = "top",
         screen = s,
-        height = dpi(20),
+        height = dpi(35),
         bg = beautiful.bg_color,
         opacity = beautiful.opacity
     })
