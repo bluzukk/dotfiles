@@ -46,7 +46,7 @@ theme.sidepanel_margin        = dpi(30)
 theme.sidepanel_height        = dpi(1388)
 
 theme.enable_tasklist         = false
-theme.enable_one_bar          = true -- Toggle continuous/splitted top panel
+theme.enable_one_bar          = false -- Toggle continuous/splitted top panel
 
 ---------------------------------------------------------------------------------
 -- Theme Variables
