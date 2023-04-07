@@ -153,7 +153,7 @@ end)
 
 local uptime    = createContainer(up)
 
-
+local tabbed = false
 local function update()
     awful.placement.top_right(sideboard, { offset = { y = dpi(35) } })
     sideboard.screen = awful.screen.focused()

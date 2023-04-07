@@ -15,3 +15,5 @@ pywalfox update
 
 nitrogen --restore
 nitrogen --set-zoom-fill $bg --head=0
+
+pywal-discord

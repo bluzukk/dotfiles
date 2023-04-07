@@ -38,7 +38,7 @@ require "evil.mail"
 require "evil.bat"
 
 ---- UI Components ------------------------------------------------------------
-dashboard = require "modules.sideboard.init"
+dashboard = require "modules.dashboard.init"
 panel     = require "modules.panel"
 powermenu = require "modules.powermenu"
 
