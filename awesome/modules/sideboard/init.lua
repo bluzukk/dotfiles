@@ -5,6 +5,8 @@ local wibox     = require("wibox")
 local markup    = require("helpers.markup")
 local dpi       = beautiful.xresources.apply_dpi
 
+local xresources = beautiful.xresources
+xresources.set_dpi(144)
 -- Dashboard Modules
 local greeter   = require("modules.sideboard.greeter")
 local sliders   = require("modules.sideboard.sliders")
@@ -281,6 +283,7 @@ local function toggleSticky()
     is_sticky = not is_sticky
 end
 
+xresources.set_dpi(96)
 return {
     toggle = toggle,
     show = show,

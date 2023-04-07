@@ -115,7 +115,7 @@ local function create()
                 widget = wibox.container.place,
                 halign = "left",
                 valign = "center",
-                forced_height = dpi(200),
+                forced_height = dpi(100),
                 -- forced_width = dpi(450),
             },
             widget = wibox.container.background,
