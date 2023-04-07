@@ -10,6 +10,8 @@ local lama                    = require("helpers.lama")
 local theme_assets            = require("beautiful.theme_assets")
 local theme                   = {}
 
+xresources.set_dpi(144)
+
 theme.uwu_map                 = {
     ["clear sky"] = "clear skywu",
     ["few clouds"] = "few cloudwu",
