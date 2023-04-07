@@ -71,10 +71,10 @@ local function createContainer(widget)
         },
         widget = wibox.container.margin,
         margins = {
-            left = beautiful.sideboard_margin,
-            right = beautiful.sideboard_margin,
-            bottom = beautiful.sideboard_margin,
-            top = beautiful.sideboard_margin,
+            left = beautiful.dashboard_margin,
+            right = beautiful.dashboard_margin,
+            -- bottom = beautiful.dashboard_margin,
+            -- top = beautiful.dashboard_margin,
         },
     }
 end
@@ -161,18 +161,25 @@ local function update()
     sideboard.widget = wibox.widget {
         {
             {
-                layout = wibox.layout.align.horizontal,
+                layout = wibox.layout.fixed.horizontal,
                 {
-                    greet,
-                    slider,
-                    htop,
+                    {
+                        layout = wibox.layout.fixed.horizontal,
+                        greet,
+                        powrmenu,
+                    },
+                    shortcut,
+                    weather_widget,
+                    cal,
+                    links,
+                    -- htop,
                     uptime,
                     stretcher,
                     layout = wibox.layout.fixed.vertical
                 },
             },
             layout = wibox.layout.fixed.horizontal,
-            forced_width = dpi(520),
+            forced_width = dpi(450),
             -- forced_height = dpi(800),
         },
         widget = wibox.container.place

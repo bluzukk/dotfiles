@@ -386,7 +386,7 @@ local function worker(user_args)
                     left = config.dashboard_margin,
                     right = config.dashboard_margin,
                     -- bottom = config.dashboard_margin,
-                    top = config.dashboard_margin,
+                    -- top = config.dashboard_margin,
                 },
             })
     end

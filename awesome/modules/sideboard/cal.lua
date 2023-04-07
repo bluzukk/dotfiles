@@ -66,8 +66,8 @@ local function create()
         margins = {
             left =  beautiful.dashboard_margin,
             right = beautiful.dashboard_margin,
-            bottom = beautiful.dashboard_margin,
-            top = beautiful.dashboard_margin,
+            -- bottom = beautiful.dashboard_margin,
+            top = beautiful.dashboard_margin/2,
         },
     }
 
@@ -81,11 +81,11 @@ local function create()
     container.buttons,
     awful.button({}, 1, function()
         switch_month(1)
-        awesome.emit_signal("dashboard::cal_redraw_needed")
+        awesome.emit_signal("sideboard::cal_redraw_needed")
     end),
     awful.button({}, 3, function()
         switch_month(-1)
-        awesome.emit_signal("dashboard::cal_redraw_needed")
+        awesome.emit_signal("sideboard::cal_redraw_needed")
     end)
     )
 

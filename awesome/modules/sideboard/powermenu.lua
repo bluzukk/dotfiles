@@ -136,18 +136,18 @@ local function create()
 
     local powermenu         = wibox.widget {
         {
-            layout = wibox.layout.fixed.horizontal,
-            forced_width = dpi(200),
-            spacing = dpi(15),
+            layout = wibox.layout.fixed.vertical,
+            -- forced_width = dpi(100),
+            spacing = dpi(10),
             lock_button,
             reboot_button,
             poweroff_button,
         },
         widget  = wibox.container.margin,
         margins = {
-            left   = beautiful.dashboard_margin,
+            -- left   = beautiful.dashboard_margin,
             right  = beautiful.dashboard_margin,
-            bottom = beautiful.dashboard_margin,
+            -- bottom = beautiful.dashboard_margin,
             top    = beautiful.dashboard_margin,
         }
     }
