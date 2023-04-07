@@ -39,6 +39,7 @@ require "evil.bat"
 
 ---- UI Components ------------------------------------------------------------
 dashboard = require "modules.dashboard.init"
+sideboard = require "modules.sideboard.init"
 panel     = require "modules.panel"
 powermenu = require "modules.powermenu"
 
