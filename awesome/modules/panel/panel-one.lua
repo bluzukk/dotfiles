@@ -189,7 +189,7 @@ local clock_widget = createWidget("", CMD_CLOCK, beautiful.bg_color, beautiful.b
 
 awful.widget.watch("date +'%R'", 20, function(_, stdout)
     clock_widget:get_children_by_id('text')[1].markup =
-                markup(beautiful.accent_color, markup.bold(stdout))
+                markup(beautiful.accent_alt_color, markup.bold(stdout))
 end)
 
 local tasklist_buttons = gears.table.join(

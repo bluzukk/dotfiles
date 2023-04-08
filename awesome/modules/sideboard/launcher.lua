@@ -111,13 +111,13 @@ local function create_button(task, icon_on, icon_off, cmd_on, cmd_off)
                     resize = true,
                     widget = wibox.widget.imagebox,
                     shape = gears.shape.circle,
-                    forced_height = dpi(48),
+                    forced_height = dpi(20),
                 },
                 widget = wibox.container.margin,
-                top = dpi(10),
-                left = dpi(10),
+                top = dpi(5),
+                left = dpi(5),
                 right = dpi(5),
-                bottom = dpi(10)
+                bottom = dpi(5)
             },
             widget   = wibox.container.background,
             bg       = beautiful.bg_color_light,
@@ -221,11 +221,11 @@ local function create()
     local launcher = {
         -- game_button,
         discord_button,
-        bluelight_button,
+        -- bluelight_button,
         wifi_button,
         sync_button,
-        spacing = dpi(10),
-        layout = wibox.layout.flex.horizontal,
+        spacing = dpi(3),
+        layout = wibox.layout.flex.vertical,
         align = 'center',
         widget = wibox.container.place,
     }
@@ -236,8 +236,8 @@ local function create()
                 widget        = wibox.container.place,
                 halign        = "center",
                 valign        = "center",
-                forced_height = dpi(100),
-                forced_width  = dpi(200),
+                -- forced_height = dpi(100),
+                -- forced_width  = dpi(200),
                 launcher
             },
             widget = wibox.container.margin,
@@ -264,9 +264,9 @@ gears.timer {
     callback = function()
         startup = true
         check_task(wifi_button)
-        check_task(game_button)
+        -- check_task(game_button)
         check_task(sync_button)
-        check_task(bluelight_button)
+        -- check_task(bluelight_button)
         check_task(discord_button)
     end
 }

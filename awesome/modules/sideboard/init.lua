@@ -6,7 +6,7 @@ local markup    = require("helpers.markup")
 local dpi       = beautiful.xresources.apply_dpi
 
 local xresources = beautiful.xresources
-xresources.set_dpi(144)
+xresources.set_dpi(200)
 -- Dashboard Modules
 local greeter   = require("modules.sideboard.greeter")
 local sliders   = require("modules.sideboard.sliders")
@@ -168,15 +168,15 @@ local function update()
                     {
                         layout = wibox.layout.fixed.horizontal,
                         greet,
-                        powrmenu,
+                        shortcut,
                     },
-                    shortcut,
+                    -- shortcut,
                     weather_widget,
                     cal,
-                    links,
+                    -- links,
                     -- htop,
-                    uptime,
-                    stretcher,
+                    -- uptime,
+                    -- stretcher,
                     layout = wibox.layout.fixed.vertical
                 },
             },
