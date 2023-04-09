@@ -17,7 +17,7 @@ fi
 ###############################################################
 export VISUAL=nvim;
 export EDITOR=nvim;
-xdg-settings set default-web-browser librewolf.desktop
+# xdg-settings set default-web-browser librewolf.desktop
 
 xset r rate 222 75 # Thanks Vim Diesel
 setxkbmap -option caps:swapescape # I <3 ESCAPE
@@ -79,6 +79,7 @@ alias dlr="ranger ~/Downloads"
 alias proj="cd ~/Sync/Projects"
 alias rice="cd ~/Sync/Rice"
 alias setup="neofetch --config ~/.config/neofetch/config-setup.conf"
+# alias neofetch="uwufetch"
 
 alias bss="nvim ~/Sync/Rice/zsh/zshrc"
 alias bs="nvim ~/Sync/Rice/_private/linux-aliasrc"
