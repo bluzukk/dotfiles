@@ -152,13 +152,13 @@ local function worker(user_args)
             for i, day in ipairs(forecast) do
                 local img = ICONS_DIR_UWU .. icon_map[day.weather[1].icon] .. icons_extension
                 img = gears.color.recolor_image(img, beautiful.accent_color)
-                if i > 7 then break end
+                if i > 5 then break end
 
                 local day_forecast = wibox.widget {
                     {
                         text = " ",
                         align = 'center',
-                        font = font_name .. ' 30',
+                        font = font_name .. ' 5',
                         widget = wibox.widget.textbox
                     },
                     {
@@ -271,13 +271,7 @@ local function worker(user_args)
 
     local spr = wibox.widget.textbox("  ")
     local current_weather_widget = wibox.widget {
-        spr,
-        {
-            text = " ",
-            align = 'center',
-            font = font_name .. ' 3',
-            widget = wibox.widget.textbox
-        },
+
         {
             spr,
             spr,
@@ -376,17 +370,17 @@ local function worker(user_args)
                         lower_widget,
                     },
                     widget = wibox.container.background,
-                    bg = beautiful.bg_color_light,
+                    -- bg = beautiful.bg_color_light,
                     shape = gears.shape.rounded_rect,
                 },
-                forced_height = dpi(220),
-                forced_width = dpi(500),
+                forced_height = dpi(150),
+                forced_width = dpi(360),
                 widget = wibox.container.margin,
                 margins = {
                     left = config.dashboard_margin,
                     right = config.dashboard_margin,
                     -- bottom = config.dashboard_margin,
-                    -- top = config.dashboard_margin,
+                    top = config.dashboard_margin,
                 },
             })
     end

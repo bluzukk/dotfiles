@@ -59,7 +59,7 @@ local function create()
             forced_height = dpi(350),
             forced_width = dpi(400),
             widget = wibox.container.background,
-            bg = beautiful.bg_color_light,
+            -- bg = beautiful.bg_color_light,
             shape = gears.shape.rounded_rect
         },
         widget = wibox.container.margin,

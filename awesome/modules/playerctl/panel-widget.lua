@@ -12,7 +12,7 @@ local gfs        = require("gears.filesystem")
 local markup     = require("helpers.markup")
 local ICONS_DIR  = gfs.get_configuration_dir() .. "assets/misc/"
 
-local CMD_MAIN   = [[ playerctl -i firefox --follow metadata --format '{{status}};{{xesam:artist}};{{xesam:title}}' ]]
+local CMD_MAIN   = [[ playerctl -i firefox --follow metadata --format '{{status}};{{artist}};{{title}}' ]]
 local CMD_LEN    = [[ playerctl -i firefox metadata mpris:length ]]
 local CMD_TOGGLE = [[ playerctl -i firefox play-pause ]]
 local CMD_POS    = [[ playerctl -i firefox position ]]

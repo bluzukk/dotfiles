@@ -162,6 +162,7 @@ local wal = awful.popup {
     border_width = 1,
     placement    = awful.placement.centered,
     border_color = beautiful.bg_focus,
+    opacity      = 0,
     widget       = {},
 }
 
@@ -205,9 +206,11 @@ end
 
 local function show()
     wal.visible = true
+    wal.opacity = 1
     get_keypress()
     wal:setup(update_widget())
 end
+
 
 return {
     show = show,

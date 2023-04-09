@@ -1,31 +1,30 @@
-local awful     = require("awful")
-local beautiful = require("beautiful")
-local gears     = require("gears")
-local wibox     = require("wibox")
-local markup    = require("helpers.markup")
-local dpi       = beautiful.xresources.apply_dpi
+local awful      = require("awful")
+local beautiful  = require("beautiful")
+local gears      = require("gears")
+local wibox      = require("wibox")
+local markup     = require("helpers.markup")
+local dpi        = beautiful.xresources.apply_dpi
 
 local xresources = beautiful.xresources
-xresources.set_dpi(200)
 -- Dashboard Modules
-local greeter   = require("modules.sideboard.greeter")
-local sliders   = require("modules.sideboard.sliders")
-local calendar  = require("modules.sideboard.cal")
-local weather   = require("modules.sideboard.weather")
-local notes     = require("modules.sideboard.notes")
-local system    = require("modules.sideboard.system")
-local powermenu = require("modules.sideboard.powermenu")
-local linkz     = require("modules.sideboard.links")
-local launcher  = require("modules.sideboard.launcher")
+local greeter    = require("modules.sideboard.greeter")
+local sliders    = require("modules.sideboard.sliders")
+local calendar   = require("modules.sideboard.cal")
+local weather    = require("modules.sideboard.weather")
+local notes      = require("modules.sideboard.notes")
+local system     = require("modules.sideboard.system")
+local powermenu  = require("modules.sideboard.powermenu")
+local linkz      = require("modules.sideboard.links")
+local launcher   = require("modules.sideboard.launcher")
 
-local slider    = sliders.create()
-local cal       = calendar.create()
-local todo      = notes.create()
-local greet     = greeter.create()
-local htop      = system.create()
-local powrmenu  = powermenu.create()
-local links     = linkz.create()
-local shortcut  = launcher.create()
+local slider     = sliders.create()
+local cal        = calendar.create()
+local todo       = notes.create()
+local greet      = greeter.create()
+local htop       = system.create()
+local powrmenu   = powermenu.create()
+local links      = linkz.create()
+local shortcut   = launcher.create()
 
 local weather_widget
 if weather ~= -1 then
@@ -102,7 +101,7 @@ local clock = wibox.widget {
 }
 
 
-local clock = createContainer(clock)
+local clock     = createContainer(clock)
 
 local tasklist  = awful.widget.tasklist {
     screen          = screen[1],
@@ -135,11 +134,11 @@ local tasklist  = awful.widget.tasklist {
         },
         id     = 'background_role',
         widget = wibox.container.background,
-        bg = beautiful.bg_color_light
+        bg     = beautiful.bg_color_light
     },
 }
 
-tasklist = createContainer(tasklist)
+tasklist        = createContainer(tasklist)
 
 local stretcher = {
     wibox.widget.textbox,
@@ -155,36 +154,26 @@ end)
 
 local uptime    = createContainer(up)
 
-local tabbed = false
+local tabbed    = false
 local function update()
     awful.placement.top_right(sideboard, { offset = { y = dpi(35) } })
     sideboard.screen = awful.screen.focused()
     greet = greeter.create()
     sideboard.widget = wibox.widget {
         {
-            {
-                layout = wibox.layout.fixed.horizontal,
-                {
-                    {
-                        layout = wibox.layout.fixed.horizontal,
-                        greet,
-                        shortcut,
-                    },
-                    -- shortcut,
-                    weather_widget,
-                    cal,
-                    -- links,
-                    -- htop,
-                    -- uptime,
-                    -- stretcher,
-                    layout = wibox.layout.fixed.vertical
-                },
-            },
             layout = wibox.layout.fixed.horizontal,
-            forced_width = dpi(450),
-            -- forced_height = dpi(800),
+            greet,
+            shortcut,
+            powrmenu,
         },
-        widget = wibox.container.place
+        {
+            layout = wibox.layout.fixed.vertical,
+            weather_widget,
+            cal,
+        },
+        links,
+        layout = wibox.layout.align.vertical,
+        forced_width = dpi(500),
     }
 end
 
@@ -283,7 +272,6 @@ local function toggleSticky()
     is_sticky = not is_sticky
 end
 
-xresources.set_dpi(96)
 return {
     toggle = toggle,
     show = show,
