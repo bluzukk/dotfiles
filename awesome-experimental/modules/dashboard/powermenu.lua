@@ -136,8 +136,8 @@ local function create()
 
     local powermenu         = wibox.widget {
         {
-            layout = wibox.layout.fixed.horizontal,
-            forced_width = dpi(200),
+            layout = wibox.layout.fixed.vertical,
+            forced_width = dpi(20),
             spacing = dpi(15),
             lock_button,
             reboot_button,

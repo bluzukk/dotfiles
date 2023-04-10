@@ -40,7 +40,7 @@ local dashboard_left = awful.popup {
     ontop        = true,
     visible      = false,
     opacity      = beautiful.opacity,
-    bg = "#0000000"
+    bg           = beautiful.bg_color .. "0"
 }
 
 local dashboard_right = awful.popup {
@@ -52,7 +52,7 @@ local dashboard_right = awful.popup {
     ontop        = true,
     visible      = false,
     opacity      = beautiful.opacity,
-    bg = "#0000000"
+    bg           = beautiful.bg_color .. "0"
 }
 
 local dashboard_center = awful.popup {
@@ -64,7 +64,7 @@ local dashboard_center = awful.popup {
     ontop        = true,
     visible      = false,
     opacity      = beautiful.opacity,
-    bg = "#0000000"
+    bg           = beautiful.bg_color .. "0"
 }
 
 local tasklist_buttons = gears.table.join(
@@ -90,7 +90,7 @@ local function createContainer(widget)
                 -- forced_width = dpi(450),
             },
             widget = wibox.container.background,
-            bg = beautiful.bg_color_light,
+            bg = beautiful.bg_color .. "0",
             shape = gears.shape.rounded_rect
         },
         widget = wibox.container.margin,
@@ -124,7 +124,9 @@ local clock = wibox.widget {
 }
 
 
-local clock = createContainer(clock)
+local clock     = createContainer(clock)
+
+
 
 local tasklist  = awful.widget.tasklist {
     screen          = screen[1],
@@ -152,16 +154,16 @@ local tasklist  = awful.widget.tasklist {
                 widget = wibox.widget.textbox,
                 align  = "center"
             },
-            forced_width = 300,
+            forced_width = 400,
             layout = wibox.layout.flex.vertical
         },
         id     = 'background_role',
         widget = wibox.container.background,
-        bg = beautiful.bg_color_light
+        bg     = beautiful.bg_color_light
     },
 }
 
-tasklist = createContainer(tasklist)
+tasklist        = createContainer(tasklist)
 
 local stretcher = {
     wibox.widget.textbox,
@@ -180,9 +182,9 @@ local uptime    = createContainer(up)
 
 
 local function update()
-    awful.placement.top_left(dashboard_left, { offset = { y = dpi(50) } })
-    awful.placement.top(dashboard_center, { offset = { y = dpi(50) } })
-    awful.placement.top_right(dashboard_right, { offset = { y = dpi(50) } })
+    awful.placement.top_left(dashboard_left, { offset = { y = dpi(30) } })
+    awful.placement.top(dashboard_center, { offset = { y = dpi(30) } })
+    awful.placement.top_right(dashboard_right, { offset = { y = dpi(30) } })
     dashboard_left.screen = awful.screen.focused()
     dashboard_center.screen = awful.screen.focused()
     dashboard_right.screen = awful.screen.focused()
@@ -199,8 +201,8 @@ local function update()
                 },
             },
             layout = wibox.layout.fixed.horizontal,
-            forced_width = dpi(500),
-            forced_height = dpi(800),
+            forced_width = dpi(520),
+            forced_height = dpi(900),
         },
         widget = wibox.container.place
     }
@@ -210,30 +212,29 @@ local function update()
                 layout = wibox.layout.align.horizontal,
                 {
                     greet,
-                    -- todo,
                     layout = wibox.layout.fixed.vertical
                 },
             },
             layout = wibox.layout.fixed.horizontal,
-            forced_width = dpi(500),
-            forced_height = dpi(800),
+            forced_width = dpi(380),
+            forced_height = dpi(900),
         },
         widget = wibox.container.place
     }
     dashboard_right.widget = wibox.widget {
         {
             {
-                layout = wibox.layout.align.horizontal,
+                layout = wibox.layout.fixed.horizontal,
+                links,
                 {
                     shortcut,
-                    -- tasklist,
-                    links,
                     powrmenu,
-                    layout = wibox.layout.align.vertical
+                    -- tasklist,
+                    layout = wibox.layout.fixed.vertical
                 },
             },
             layout = wibox.layout.fixed.horizontal,
-            forced_width = dpi(500),
+            forced_width = dpi(340),
             forced_height = dpi(900),
         },
         widget = wibox.container.place
@@ -249,12 +250,12 @@ local function show()
     cls = client.get(awful.screen.focused())
     for _, c in ipairs(cls) do
         -- c.hidden = true
-        c.opacity = 0
-        -- c.minimized = true
+        -- c.opacity = 0
+        c.minimized = true
     end
     update()
     dashboard_left.visible = true
-    dashboard_center.visible = true
+    -- dashboard_center.visible = true
     dashboard_right.visible = true
 end
 
@@ -262,11 +263,11 @@ local function hide()
     cls = client.get(awful.screen.selected_tag)
     for _, c in ipairs(cls) do
         -- c.hidden = false
-        c.opacity = 1
-        -- c.minimized = false
+        -- c.opacity = 1
+        c.minimized = false
     end
     dashboard_left.visible = false
-    dashboard_center.visible = false
+    -- dashboard_center.visible = false
     dashboard_right.visible = false
     calendar.reset()
     cal = calendar.create()
@@ -279,6 +280,11 @@ local function toggle()
         show()
     end
 end
+
+clock:connect_signal("button::press", function(c)
+    cal.visible = not cal.visible
+    update()
+end)
 
 -- Manage tabs and redraw callbacks
 awesome.connect_signal("dashboard::cal_redraw_needed", function()

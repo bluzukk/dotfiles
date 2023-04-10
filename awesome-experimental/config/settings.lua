@@ -47,7 +47,7 @@ theme.sidepanel_height        = dpi(1388)
 
 theme.enable_tasklist         = false
 theme.enable_one_bar          = true -- Toggle continuous/splitted top panel
-theme.transparent_bar         = true
+theme.transparent_bar         = false
 
 ---------------------------------------------------------------------------------
 -- Theme Variables
@@ -103,7 +103,7 @@ theme.music_player            = "youtube-music"
 theme.accent_color            = xrdb.color4 or "#0000FF"
 theme.accent_alt_color        = xrdb.color2 or "#00FF00"
 theme.main_color              = xrdb.foreground or "#FF0000"
-theme.bg_color                = lama.lighten(xrdb.background, 0) .. "0"
+theme.bg_color                = lama.lighten(xrdb.background, 0)
 
 -- Adjusted colors thanks to lama
 theme.bg_color_light          = lama.lighten(theme.bg_color, 2)

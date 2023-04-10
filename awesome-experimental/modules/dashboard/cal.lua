@@ -70,6 +70,7 @@ local function create()
             top = beautiful.dashboard_margin,
         },
     }
+    container.visible = false
 
     -- Mouse bindings
     local function switch_month(i)

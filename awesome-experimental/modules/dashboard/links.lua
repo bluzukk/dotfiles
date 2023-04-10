@@ -116,7 +116,7 @@ local function create()
                 halign = "center",
                 valign = "center",
                 -- forced_height = dpi(600),
-                forced_width = dpi(300)
+                forced_width = dpi(200)
             },
             widget = wibox.container.background,
             bg     = beautiful.bg_color_light,
@@ -125,7 +125,7 @@ local function create()
         widget  = wibox.container.margin,
         margins = {
             left  = beautiful.dashboard_margin,
-            right = beautiful.dashboard_margin,
+            -- right = beautiful.dashboard_margin,
             -- bottom = beautiful.dashboard_margin,
             top   = beautiful.dashboard_margin,
         },

@@ -376,7 +376,7 @@ local function worker(user_args)
                         lower_widget,
                     },
                     widget = wibox.container.background,
-                    bg = beautiful.bg_color_light,
+                    bg = beautiful.bg_color_light .. "0",
                     shape = gears.shape.rounded_rect,
                 },
                 forced_height = dpi(220),
