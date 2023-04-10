@@ -84,9 +84,9 @@ local function createContainer(widget)
         {
             widget,
             widget = wibox.container.place,
-            halign = "center",
+            halign = "left",
             valign = "center",
-            forced_height = dpi(100),
+            forced_height = dpi(200),
             -- forced_width = dpi(450),
         },
         widget = wibox.container.background,
@@ -108,7 +108,7 @@ local minutes = os.date("%M")
 local day = os.date("%A")
 
 
-local textclock = awful.widget.watch("date +'%R:%S'", 1, function(widget, stdout)
+local textclock = awful.widget.watch("date +'  %R:%S'", 1, function(widget, stdout)
     widget:set_markup(
         markup.fontfg(beautiful.font_name .. " 40", beautiful.accent_alt_color, markup.bold(stdout)))
 end)
@@ -118,7 +118,7 @@ local clock = wibox.widget {
     {
         widget = wibox.widget.textbox,
         font   = beautiful.font_name .. " 38",
-        markup = markup(beautiful.accent_color, markup.bold(day))
+        markup = markup(beautiful.accent_color, "\n  " .. markup.bold(day))
     },
     textclock,
 }
@@ -189,16 +189,10 @@ local function update()
     greet = greeter.create()
     dashboard_left.widget = wibox.widget {
         {
-            {
-                layout = wibox.layout.align.horizontal,
-                {
-                    clock,
-                    weather_widget,
-                    cal,
-                    layout = wibox.layout.fixed.vertical
-                },
-            },
-            layout = wibox.layout.fixed.horizontal,
+            clock,
+            weather_widget,
+            cal,
+            layout = wibox.layout.fixed.vertical,
             forced_width = dpi(520),
             forced_height = dpi(900),
         },
