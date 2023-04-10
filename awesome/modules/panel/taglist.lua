@@ -4,25 +4,23 @@ local gears           = require("gears")
 local wibox           = require("wibox")
 local dpi             = require("beautiful").xresources.apply_dpi
 
-local dashboard       = require("modules.dashboard.init")
+local color_default = beautiful.bg_color
+local color_hover   = beautiful.bg_color_light5
+if beautiful.transparent_bar then
+    color_default = beautiful.bg_color .. "0"
+    color_hover   = beautiful.bg_color
+end
 
-awful.layout.layouts  = {
-    awful.layout.suit.tile.right,
-    awful.layout.suit.tile.right,
-    awful.layout.suit.tile.right,
-}
-
-local modkey          = beautiful.modkey
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
     awful.button({}, 1, function(t) t:view_only() end),
-    awful.button({ modkey }, 1, function(t)
+    awful.button({ beautiful.modkey }, 1, function(t)
         if client.focus then
             client.focus:move_to_tag(t)
         end
     end),
     awful.button({}, 3, awful.tag.viewtoggle),
-    awful.button({ modkey }, 3, function(t)
+    awful.button({ beautiful.modkey }, 3, function(t)
         if client.focus then
             client.focus:toggle_tag(t)
         end
@@ -79,7 +77,7 @@ local function create_boxes(s)
         visible = true,
         ontop = false,
         type = "dock",
-        height = dpi(10),
+        height = dpi(20),
         position = "top",
         -- width = dpi(800),
         bg = "#0000000",
@@ -95,10 +93,10 @@ end
 
 local function update_taglist(widget, tag, _, _)
     widget:connect_signal('mouse::enter', function()
-        widget.bg = beautiful.bg_color_light10
+        widget.bg = color_hover
     end)
     widget:connect_signal('mouse::leave', function()
-        widget.bg = beautiful.bg_color
+        widget.bg = color_default
     end)
     if tag == awful.tag.selected() then
         -- color for currently active tag
@@ -153,6 +151,7 @@ local function create(s)
             },
             id              = 'background_role',
             widget          = wibox.container.background,
+            bg = "000000",
             update_callback = update_taglist,
             create_callback = update_taglist,
         },

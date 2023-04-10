@@ -2,14 +2,14 @@
 -- Main Panel including Taglist/Tasklist and Systeminformation               --
 -------------------------------------------------------------------------------
 
-local awful     = require("awful")
-local beautiful = require("beautiful")
-local gears     = require("gears")
-local naughty   = require("naughty")
+local awful           = require("awful")
+local beautiful       = require("beautiful")
+local gears           = require("gears")
+local naughty         = require("naughty")
 -- local gfs       = require("gears.filesystem")
-local wibox     = require("wibox")
-local dpi       = require("beautiful").xresources.apply_dpi
-local markup    = require("helpers.markup")
+local wibox           = require("wibox")
+local dpi             = require("beautiful").xresources.apply_dpi
+local markup          = require("helpers.markup")
 
 local CMD_PROC_CPU    = [[ bash -c "ps -Ao pcpu,comm,pid --sort=-pcpu | head -n 30" ]]
 local CMD_PROC_MEM    = [[ bash -c "ps -Ao pmem,comm,pid --sort=-pmem | head -n 30" ]]
@@ -19,6 +19,14 @@ local CMD_BAT         = [[ echo "implement me =("  ]]
 local CMD_WEATHER     = [[ echo "implement me =("  ]]
 local CMD_FILE_SYSTEM = [[ echo "implement me =("  ]]
 local CMD_CLOCK       = dashboard
+
+
+local color_default = beautiful.bg_color
+local color_hover   = beautiful.bg_color_light5
+if beautiful.transparent_bar then
+    color_default = beautiful.bg_color .. "0"
+    color_hover   = beautiful.bg_color
+end
 
 local notification
 local function notification_hide()
@@ -50,7 +58,7 @@ local function notification_show(str, bg_color)
 end
 
 -- Widgets
-local function createWidget(title, onclick_cmd, color_default, color_accent, font, is_elemental)
+local function createWidget(title, onclick_cmd, _color_default, color_accent, font, is_elemental)
     local container = wibox.widget {
         {
             {
@@ -71,7 +79,7 @@ local function createWidget(title, onclick_cmd, color_default, color_accent, fon
         -- shape         = gears.shape.powerline,
         onclick       = onclick_cmd,
         title         = title,
-        color_default = color_default,
+        color_default = _color_default,
         color_accent  = color_accent,
         update        = function(self, color, content)
             self:get_children_by_id('text')[1].markup =
@@ -106,7 +114,7 @@ local function createWidget(title, onclick_cmd, color_default, color_accent, fon
 end
 
 
-local cpu_widget = createWidget("CPU ", CMD_PROC_CPU, beautiful.bg_color, beautiful.bg_color_light10, beautiful.font)
+local cpu_widget = createWidget("CPU ", CMD_PROC_CPU, color_default, color_hover, beautiful.font)
 awesome.connect_signal("evil::cpu", function(evil_cpu_util, evil_cpu_temp)
     local color = beautiful.accent_color
     if evil_cpu_util > 75 or evil_cpu_temp > 50 then
@@ -115,7 +123,7 @@ awesome.connect_signal("evil::cpu", function(evil_cpu_util, evil_cpu_temp)
     cpu_widget:update(color, evil_cpu_util .. "% " .. evil_cpu_temp .. "°C")
 end)
 
-local gpu_widget = createWidget("GPU ", CMD_GPU, beautiful.bg_color, beautiful.bg_color_light10, beautiful.font)
+local gpu_widget = createWidget("GPU ", CMD_GPU, color_default, color_hover, beautiful.font)
 awesome.connect_signal("evil::gpu", function(evil_gpu_util, evil_gpu_temp)
     local color = beautiful.accent_color
     if evil_gpu_temp > 45 then
@@ -126,7 +134,7 @@ awesome.connect_signal("evil::gpu", function(evil_gpu_util, evil_gpu_temp)
     end
 end)
 
-local ram_widget = createWidget("MEM ", CMD_PROC_MEM, beautiful.bg_color, beautiful.bg_color_light10, beautiful.font)
+local ram_widget = createWidget("MEM ", CMD_PROC_MEM, color_default, color_hover, beautiful.font)
 awesome.connect_signal("evil::ram", function(evil)
     local color = beautiful.accent_color
     if evil > 25000 then
@@ -136,18 +144,18 @@ awesome.connect_signal("evil::ram", function(evil)
     ram_widget:update(color, val .. "mb")
 end)
 
-local disk_widget = createWidget("FS ", CMD_FILE_SYSTEM, beautiful.bg_color, beautiful.bg_color_light10, beautiful.font)
+local disk_widget = createWidget("FS ", CMD_FILE_SYSTEM, color_default, color_hover, beautiful.font)
 awesome.connect_signal("evil::disk_free", function(evil)
     disk_widget:update(beautiful.accent_color, evil .. "gb")
 end)
 
-local weather_widget = createWidget("IRL ", CMD_WEATHER, beautiful.bg_color, beautiful.bg_color_light10, beautiful.font)
+local weather_widget = createWidget("IRL ", CMD_WEATHER, color_default, color_hover, beautiful.font)
 awesome.connect_signal("evil::weather", function(evil)
     local temp = string.format("%.0f", evil.temp)
     weather_widget:update(beautiful.accent_color, beautiful.uwu_map[evil.weather[1].description] .. " " .. temp .. "°C")
 end)
 
-local bat_widget = createWidget("BAT ", CMD_BAT, beautiful.bg_color, beautiful.bg_color_light10)
+local bat_widget = createWidget("BAT ", CMD_BAT,  color_default, color_hover, beautiful.font)
 awesome.connect_signal("evil::bat", function(evil_bat_perc)
     local color = beautiful.accent_color
     if evil_bat_perc then
@@ -160,7 +168,7 @@ awesome.connect_signal("evil::bat", function(evil_bat_perc)
     end
 end)
 
-local net_widget = createWidget("", CMD_NET, beautiful.bg_color, beautiful.bg_color_light10, beautiful.font)
+local net_widget = createWidget("", CMD_NET, color_default, color_hover, beautiful.font)
 awesome.connect_signal("evil::net_now", function(evil)
     if evil then
         evil = string.format("%04.0f", evil / 1024)
@@ -181,15 +189,16 @@ local systray = wibox.widget {
         widget = wibox.container.margin
     },
     widget = wibox.container.background,
-    bg     = beautiful.bg_color_light5,
+    bg     = beautiful.bg_color_light5 .. "0",
     shape  = gears.shape.powerline,
 }
 
-local clock_widget = createWidget("", CMD_CLOCK, beautiful.bg_color, beautiful.bg_color_light10, beautiful.font_name .. " 16", true)
+local clock_widget = createWidget("", CMD_CLOCK, color_default, color_hover,
+    beautiful.font_name .. " 16", true)
 
 awful.widget.watch("date +'%R'", 20, function(_, stdout)
     clock_widget:get_children_by_id('text')[1].markup =
-                markup(beautiful.accent_alt_color, markup.bold(stdout))
+        markup(beautiful.accent_alt_color, markup.bold(stdout))
 end)
 
 local tasklist_buttons = gears.table.join(
@@ -223,7 +232,7 @@ local function create(s)
         position = "top",
         screen = s,
         height = dpi(35),
-        bg = beautiful.bg_color,
+        bg = color_default,
         opacity = beautiful.opacity
     })
     local taglist = require("modules.panel.taglist").create(s)

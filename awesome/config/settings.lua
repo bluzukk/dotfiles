@@ -47,6 +47,7 @@ theme.sidepanel_height        = dpi(1388)
 
 theme.enable_tasklist         = false
 theme.enable_one_bar          = true -- Toggle continuous/splitted top panel
+theme.transparent_bar         = true
 
 ---------------------------------------------------------------------------------
 -- Theme Variables
@@ -73,7 +74,7 @@ theme.inner_corners           = gears.shape.rect
 -- end
 
 theme.opacity                 = 0.97
-theme.useless_gap             = 10
+theme.useless_gap             = dpi(30)
 theme.size_hint_honor         = false
 theme.border_width            = dpi(2)
 
@@ -141,41 +142,56 @@ theme.bg_normal               = theme.bg_color
 theme.bg_focus                = theme.bg_color
 theme.bg_urgent               = theme.bg_color
 theme.bg_minimize             = theme.bg_color
-theme.bg_systray              = theme.bg_color_light5
-theme.bg_bar_outer            = theme.bg_color
-theme.bg_bar_inner            = theme.bg_color
+
+if theme.transparent_bar then
+    theme.bg_systray = theme.accent_color
+else
+    theme.bg_systray = theme.bg_color_light5
+end
+
+theme.bg_bar_outer        = theme.bg_color
+theme.bg_bar_inner        = theme.bg_color
 
 -- Default FG colors
-theme.fg_normal               = theme.main_color
-theme.fg_focus                = theme.accent_color
-theme.fg_urgent               = theme.color_critical
-theme.fg_minimize             = theme.main_color
+theme.fg_normal           = theme.main_color
+theme.fg_focus            = theme.accent_color
+theme.fg_urgent           = theme.color_critical
+theme.fg_minimize         = theme.main_color
 
 -- Border Color
-theme.border_color_normal     = theme.bg_color
-theme.border_color_active     = theme.bg_color
-theme.border_color_marked     = theme.bg_color
+theme.border_color_normal = theme.bg_color
+theme.border_color_active = theme.bg_color
+theme.border_color_marked = theme.bg_color
 
 -- Taglist
-theme.taglist_bg_focus        = theme.bg_bar_inner
-theme.taglist_fg_focus        = theme.accent_color
-theme.taglist_fg_empty        = theme.main_color
-theme.taglist_fg_occupied     = theme.main_color
-theme.taglist_fg_urgent       = theme.main_color
-theme.taglist_bg_urgent       = theme.color_critical
--- theme.taglist_fg_focus    = theme.accent_alt_color
--- theme.taglist_bg_occupied = theme.bg_color
+if theme.transparent_bar then
+    theme.taglist_fg_focus    = theme.accent_color
+    theme.taglist_fg_empty    = "0000000"
+    theme.taglist_fg_occupied = theme.accent_color .. "50"
+    theme.taglist_fg_occupied = theme.main_color
+    theme.taglist_fg_urgent   = theme.main_color
+    theme.taglist_bg_urgent   = theme.color_critical
+    theme.taglist_bg_occupied = "0000000"
+else
+    theme.taglist_fg_focus    = theme.accent_color
+    theme.taglist_fg_empty    = theme.main_color
+    theme.taglist_fg_occupied = theme.main_color
+    theme.taglist_fg_urgent   = theme.main_color
+    theme.taglist_bg_urgent   = theme.color_critical
+    -- theme.taglist_fg_focus    = theme.accent_alt_color
+    -- theme.taglist_bg_occupied = theme.bg_color
+end
 
 -- Tasklsit
-theme.tasklist_fg_focus       = theme.accent_color
-theme.tasklist_fg_normal      = theme.main_color
-theme.tasklist_bg_focus       = theme.bg_color_light5
-theme.tasklist_bg_normal      = theme.bg_color
+theme.tasklist_fg_focus  = theme.accent_color
+theme.tasklist_fg_normal = theme.main_color
+theme.tasklist_bg_focus  = theme.bg_color_light5
+theme.tasklist_bg_normal = theme.bg_color
 
 -- Notifications
-theme.notification_shape      = theme.shape
-theme.notification_bg         = theme.bg_color
-theme.notification_fg         = theme.main_color
+theme.notification_shape = theme.shape
+theme.notification_bg    = theme.bg_color
+theme.notification_fg    = theme.main_color
 
 ---------------------------------------------------------------------------------
 -- Taglist Squares

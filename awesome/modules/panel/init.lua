@@ -7,7 +7,7 @@ local dpi       = require("beautiful").xresources.apply_dpi
 awful.layout.layouts = {
     awful.layout.suit.tile.right,
     awful.layout.suit.tile.right,
-    awful.layout.suit.floating,
+    awful.layout.suit.tile.right,
 }
 
 local tags = {" ", " ", " "}
@@ -23,7 +23,7 @@ local function create_screens()
         s.zenmode = false
 
         if beautiful.enable_one_bar then
-            s.panel = require("modules.panel.panel-one").create(s)
+            s.panel = require("modules.panel.panel").create(s)
         else -- Split panels
             s.mywibox = awful.wibar {
                 screen   = s,
