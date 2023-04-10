@@ -228,15 +228,13 @@ local function update()
                     shortcut,
                     -- tasklist,
                     links,
-                    -- tasklist,
-                    uptime,
                     powrmenu,
                     layout = wibox.layout.align.vertical
                 },
             },
             layout = wibox.layout.fixed.horizontal,
             forced_width = dpi(500),
-            forced_height = dpi(800),
+            forced_height = dpi(900),
         },
         widget = wibox.container.place
     }
