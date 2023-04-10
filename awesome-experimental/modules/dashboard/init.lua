@@ -192,9 +192,9 @@ local function update()
             {
                 layout = wibox.layout.align.horizontal,
                 {
-                    greet,
-                    slider,
-                    uptime,
+                    clock,
+                    weather_widget,
+                    cal,
                     layout = wibox.layout.fixed.vertical
                 },
             },
@@ -209,9 +209,7 @@ local function update()
             {
                 layout = wibox.layout.align.horizontal,
                 {
-                    clock,
-                    weather_widget,
-                    cal,
+                    greet,
                     -- todo,
                     layout = wibox.layout.fixed.vertical
                 },
@@ -231,6 +229,7 @@ local function update()
                     -- tasklist,
                     links,
                     -- tasklist,
+                    uptime,
                     powrmenu,
                     layout = wibox.layout.align.vertical
                 },
