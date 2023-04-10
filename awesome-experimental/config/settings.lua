@@ -74,7 +74,7 @@ theme.inner_corners           = gears.shape.rect
 -- end
 
 theme.opacity                 = 0.97
-theme.useless_gap             = dpi(30)
+theme.useless_gap             = dpi(20)
 theme.size_hint_honor         = false
 theme.border_width            = dpi(2)
 

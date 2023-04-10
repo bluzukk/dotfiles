@@ -14,7 +14,7 @@ clientkeys        = gears.table.join(
             if c.fullscreen and c.class == "st" then
                 c.opacity = 1
             elseif c.fullscreen == false and c.class == "st" then
-                c.opacity = 0.95
+                c.opacity = 0.9
             end
             c:raise()
         end,
@@ -99,7 +99,7 @@ awful.rules.rules = {
 
     {
         rule = { class = "st" },
-        properties = { opacity = 0.95 }
+        properties = { opacity = 0.90 }
     },
 }
 

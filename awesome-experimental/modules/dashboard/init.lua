@@ -80,26 +80,26 @@ local tasklist_buttons = gears.table.join(
 
 local function createContainer(widget)
     return wibox.widget {
+        -- {
         {
-            {
-                widget,
-                widget = wibox.container.place,
-                halign = "center",
-                valign = "center",
-                forced_height = dpi(100),
-                -- forced_width = dpi(450),
-            },
-            widget = wibox.container.background,
-            bg = beautiful.bg_color .. "0",
-            shape = gears.shape.rounded_rect
+            widget,
+            widget = wibox.container.place,
+            halign = "center",
+            valign = "center",
+            forced_height = dpi(100),
+            -- forced_width = dpi(450),
         },
-        widget = wibox.container.margin,
-        margins = {
-            left = beautiful.dashboard_margin,
-            right = beautiful.dashboard_margin,
-            bottom = beautiful.dashboard_margin,
-            top = beautiful.dashboard_margin,
-        },
+        widget = wibox.container.background,
+        bg = beautiful.bg_color .. "0",
+        shape = gears.shape.rounded_rect
+        -- },
+        -- widget = wibox.container.margin,
+        -- margins = {
+        --     left = beautiful.dashboard_margin,
+        --     right = beautiful.dashboard_margin,
+        --     bottom = beautiful.dashboard_margin,
+        --     top = beautiful.dashboard_margin,
+        -- },
     }
 end
 
@@ -125,8 +125,6 @@ local clock = wibox.widget {
 
 
 local clock     = createContainer(clock)
-
-
 
 local tasklist  = awful.widget.tasklist {
     screen          = screen[1],
@@ -225,7 +223,7 @@ local function update()
         {
             {
                 layout = wibox.layout.fixed.horizontal,
-                links,
+                -- links,
                 {
                     shortcut,
                     powrmenu,
@@ -234,7 +232,7 @@ local function update()
                 },
             },
             layout = wibox.layout.fixed.horizontal,
-            forced_width = dpi(340),
+            forced_width = dpi(120),
             forced_height = dpi(900),
         },
         widget = wibox.container.place
@@ -250,7 +248,7 @@ local function show()
     cls = client.get(awful.screen.focused())
     for _, c in ipairs(cls) do
         -- c.hidden = true
-        -- c.opacity = 0
+        c.opacity = 0
         c.minimized = true
     end
     update()
@@ -263,7 +261,13 @@ local function hide()
     cls = client.get(awful.screen.selected_tag)
     for _, c in ipairs(cls) do
         -- c.hidden = false
-        -- c.opacity = 1
+        --
+        if c.class == "st" then
+            c.opacity = 0.9
+        else
+            c.opacity = 1
+        end
+
         c.minimized = false
     end
     dashboard_left.visible = false
@@ -285,6 +289,18 @@ clock:connect_signal("button::press", function(c)
     cal.visible = not cal.visible
     update()
 end)
+clock:connect_signal("mouse::enter", function(c)
+    c.bg = beautiful.bg_color
+end)
+clock:connect_signal("mouse::leave", function(c)
+    c.bg = "0000000"
+end)
+-- dashboard_right:connect_signal("mouse::enter", function(c)
+--     dashboard_right.visible = true
+-- end)
+-- dashboard_right:connect_signal("mouse::leave", function(c)
+--     dashboard_right.visible = false
+-- end)
 
 -- Manage tabs and redraw callbacks
 awesome.connect_signal("dashboard::cal_redraw_needed", function()
