@@ -86,7 +86,7 @@ local function createContainer(widget)
             widget = wibox.container.place,
             halign = "left",
             valign = "center",
-            forced_height = dpi(200),
+            -- forced_height = dpi(200),
             -- forced_width = dpi(450),
         },
         widget = wibox.container.background,
@@ -103,80 +103,91 @@ local function createContainer(widget)
     }
 end
 
-local hour = os.date("%H")
-local minutes = os.date("%M")
-local day = os.date("%A")
+local hour      = os.date("%H")
+local minutes   = os.date("%M")
+local weekday   = os.date("%A")
+local day       = os.date("%d")
+local month     = os.date("%B")
 
-
-local textclock = awful.widget.watch("date +'  %R:%S'", 1, function(widget, stdout)
+local textclock = awful.widget.watch("", 1, function(widget, stdout)
     widget:set_markup(
-        markup.fontfg(beautiful.font_name .. " 40", beautiful.accent_alt_color, markup.bold(stdout)))
+        markup.fontfg(beautiful.font_name .. " 52", beautiful.accent_alt_color, markup.bold(stdout)))
 end)
 
-local clock = wibox.widget {
-    layout = wibox.layout.fixed.vertical,
-    {
-        widget = wibox.widget.textbox,
-        font   = beautiful.font_name .. " 38",
-        markup = markup(beautiful.accent_color, "\n  " .. markup.bold(day))
-    },
-    textclock,
+local date      = wibox.widget {
+    widget = wibox.widget.textbox,
+    font   = beautiful.font_name .. " 32",
+    markup = markup(beautiful.accent_color, " " .. markup.bold(weekday .. ", " .. day .. " " .. month))
 }
 
+local clock     = wibox.widget {
+    layout = wibox.layout.fixed.vertical,
+    textclock,
+    date
+}
 
 local clock     = createContainer(clock)
 
-local tasklist  = awful.widget.tasklist {
-    screen          = screen[1],
-    filter          = awful.widget.tasklist.filter.allscreen,
-    buttons         = tasklist_buttons,
-    style           = {
-        shape = gears.shape.rect,
-    },
-    layout          = {
-        spacing        = 15,
-        spacing_widget = {
-            {
-                forced_width = 10,
-                widget       = wibox.widget.separator,
-            },
-            opacity = 0,
-            widget = wibox.container.place,
-        },
-        layout         = wibox.layout.flex.vertical
-    },
-    widget_template = {
-        {
-            {
-                id     = 'text_role',
-                widget = wibox.widget.textbox,
-                align  = "center"
-            },
-            forced_width = 400,
-            layout = wibox.layout.flex.vertical
-        },
-        id     = 'background_role',
-        widget = wibox.container.background,
-        bg     = beautiful.bg_color_light
-    },
+local mail_main = wibox.widget.textbox()
+awesome.connect_signal("evil::mail_main", function(evil)
+    mail_main:set_markup(markup(beautiful.color_critical, evil))
+end)
+
+local mail_ims = wibox.widget.textbox()
+awesome.connect_signal("evil::mail_ims", function(evil)
+    mail_ims:set_markup(markup(beautiful.color_critical, evil))
+end)
+
+local mail   = wibox.widget {
+    mail_ims,
+    mail_main,
+    layout = wibox.layout.fixed.vertical
 }
+mail         = createContainer(mail)
 
-tasklist        = createContainer(tasklist)
+-- local tasklist  = awful.widget.tasklist {
+--     screen          = screen[1],
+--     filter          = awful.widget.tasklist.filter.allscreen,
+--     buttons         = tasklist_buttons,
+--     style           = {
+--         shape = gears.shape.rect,
+--     },
+--     layout          = {
+--         spacing        = 15,
+--         spacing_widget = {
+--             {
+--                 forced_width = 10,
+--                 widget       = wibox.widget.separator,
+--             },
+--             opacity = 0,
+--             widget = wibox.container.place,
+--         },
+--         layout         = wibox.layout.flex.vertical
+--     },
+--     widget_template = {
+--         {
+--             {
+--                 id     = 'text_role',
+--                 widget = wibox.widget.textbox,
+--                 align  = "center"
+--             },
+--             forced_width = 400,
+--             layout = wibox.layout.flex.vertical
+--         },
+--         id     = 'background_role',
+--         widget = wibox.container.background,
+--         bg     = beautiful.bg_color_light
+--     },
+-- }
+--
+-- tasklist        = createContainer(tasklist)
 
-local stretcher = {
-    wibox.widget.textbox,
-    widget = wibox.container.place,
-    forced_height = dpi(100),
-    content_fill_vertical = false
-}
-
-local markup    = require("helpers.markup")
-local up        = awful.widget.watch("uptime -p", 180, function(widget, stdout)
+local up     = awful.widget.watch("uptime -p", 180, function(widget, stdout)
     widget:set_markup(
         markup.fontfg(beautiful.font_name .. " 16", beautiful.accent_color, stdout))
 end)
 
-local uptime    = createContainer(up)
+local uptime = createContainer(up)
 
 
 local function update()
@@ -191,9 +202,11 @@ local function update()
         {
             clock,
             weather_widget,
+            mail,
             cal,
+            -- uptime,
             layout = wibox.layout.fixed.vertical,
-            forced_width = dpi(520),
+            forced_width = dpi(600),
             forced_height = dpi(900),
         },
         widget = wibox.container.place
@@ -283,12 +296,12 @@ clock:connect_signal("button::press", function(c)
     cal.visible = not cal.visible
     update()
 end)
-clock:connect_signal("mouse::enter", function(c)
-    c.bg = beautiful.bg_color
-end)
-clock:connect_signal("mouse::leave", function(c)
-    c.bg = "0000000"
-end)
+-- clock:connect_signal("mouse::enter", function(c)
+--     c.bg = beautiful.bg_color
+-- end)
+-- clock:connect_signal("mouse::leave", function(c)
+--     c.bg = "0000000"
+-- end)
 -- dashboard_right:connect_signal("mouse::enter", function(c)
 --     dashboard_right.visible = true
 -- end)
@@ -310,28 +323,32 @@ awesome.connect_signal("dashboard::mouse3", function()
 end)
 
 
--- dashboard:connect_signal("mouse::leave", function() hide() end)
+local stretcher = {
+    wibox.widget.textbox,
+    widget = wibox.container.place,
+    content_fill_vertical = true
+}
+local sidebar_activator = awful.popup({
+    -- forced_height = dpi(30),
+    visible = true,
+    ontop = true,
+    opacity = 0,
+    below = true,
+    widget = stretcher,
+    -- screen = screen.primary,
+    bg = beautiful.accent_color,
+    placement = awful.placement.top_right
+})
 
--- local sidebar_activator = wibox({
---     width = 20,
---     visible = true,
---     ontop = true,
---     opacity = 0,
---     below = true,
---     screen = screen.primary,
---     bg = beautiful.accent_color,
---     placement = awful.placement.top,
--- })
---
--- sidebar_activator.height = dpi(35)
--- sidebar_activator:connect_signal("mouse::enter", function()
---     if dashboard.visible == false then
---         show()
---     else
---         hide()
---     end
--- end)
---
+awful.placement.stretch_down(sidebar_activator)
+
+dashboard_right:connect_signal("mouse::leave", function()
+    dashboard_right.visible = false
+end)
+sidebar_activator:connect_signal("mouse::enter", function()
+    dashboard_right.visible = true
+end)
+
 -- sidebar_activator:buttons(
 --     gears.table.join(
 --         awful.button({}, 1, function()
@@ -341,7 +358,8 @@ end)
 --             awful.tag.viewnext()
 --         end)
 --     ))
---
+
+
 local function isVisible()
     return dashboard.visible
 end
@@ -353,6 +371,8 @@ end
 local function toggleSticky()
     is_sticky = not is_sticky
 end
+
+dashboard_right.visible = false
 
 return {
     toggle = toggle,

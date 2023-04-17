@@ -77,7 +77,7 @@ local function create_boxes(s)
         visible = true,
         ontop = false,
         type = "dock",
-        height = dpi(20),
+        height = dpi(10),
         position = "top",
         -- width = dpi(800),
         bg = "#0000000",

@@ -79,8 +79,8 @@ local function createContainer(widget)
     }
 end
 
-local hour = os.date("%H")
-local minutes = os.date("%M")
+-- local hour = os.date("%H")
+-- local minutes = os.date("%M")
 local day = os.date("%A")
 
 

@@ -60,7 +60,7 @@ local function create_button(text, icon_name)
                         image         = img,
                         resize        = true,
                         widget        = wibox.widget.imagebox,
-                        forced_height = dpi(42),
+                        forced_height = dpi(48),
                     },
                     -- {
                     --     id = "text",
@@ -78,8 +78,8 @@ local function create_button(text, icon_name)
                 },
                 widget  = wibox.container.margin,
                 margins = {
-                    left   = dpi(25),
-                    right  = dpi(25),
+                    left   = dpi(5),
+                    right  = dpi(5),
                     bottom = dpi(10),
                     top    = dpi(10),
                 }

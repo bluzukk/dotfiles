@@ -95,7 +95,7 @@ local function create_widget_container(header, graph)
                 widget = wibox.container.place,
                 halign = "center",
                 valign = "center",
-                forced_height = dpi(175),
+                forced_height = dpi(150),
                 widget,
             },
             widget = wibox.container.background,
@@ -128,8 +128,8 @@ local function create()
         layout = wibox.layout.fixed.vertical,
         cpu_widget,
         mem_widget,
-        -- gpu_widget,
-        -- net_widget,
+        gpu_widget,
+        net_widget,
     }
 end
 
