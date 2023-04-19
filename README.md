@@ -1,9 +1,4 @@
 
-
-<div align="center">
-    <h1>Home of my Dotfiles :)</h1>
-</div>
-
 > This setup is heavily focused on only using colors defined by [Pywal](https://github.com/dylanaraps/pywal).
 
 <image align="center" src="awesome/assets/screenshots/screen.png"/>
