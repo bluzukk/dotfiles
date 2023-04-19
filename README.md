@@ -4,13 +4,10 @@
     <h1>Home of my Dotfiles :)</h1>
 </div>
 
-> I figured [Pywal](https://github.com/dylanaraps/pywal) is better at choosing colorschemes than me.<br>
-> This setup is heavily focused on only using `.Xresources` colors defined by Pywal.
+> This setup is heavily focused on only using colors defined by [Pywal](https://github.com/dylanaraps/pywal).
 
-⚠️ Screenshots might be outdated.
-<image align="center" src="awesome/assets/screenshots/screenshots.gif"/>
+<image align="center" src="awesome/assets/screenshots/screen.png"/>
 
-## 
 
 <image align="right" width="400" src="awesome/assets/screenshots/fetch.png"/>
 
