@@ -189,7 +189,7 @@ local systray = wibox.widget {
         widget = wibox.container.margin
     },
     widget = wibox.container.background,
-    bg     = beautiful.bg_color_light5 .. "0",
+    bg     = beautiful.bg_color_light5,
     shape  = gears.shape.powerline,
 }
 

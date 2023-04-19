@@ -47,7 +47,7 @@ theme.sidepanel_height        = dpi(1388)
 
 theme.enable_tasklist         = false
 theme.enable_one_bar          = true -- Toggle continuous/splitted top panel
-theme.transparent_bar         = true
+theme.transparent_bar         = false
 
 ---------------------------------------------------------------------------------
 -- Theme Variables
@@ -74,7 +74,7 @@ theme.inner_corners           = gears.shape.rect
 -- end
 
 theme.opacity                 = 0.97
-theme.useless_gap             = dpi(30)
+theme.useless_gap             = dpi(10)
 theme.size_hint_honor         = false
 theme.border_width            = dpi(2)
 

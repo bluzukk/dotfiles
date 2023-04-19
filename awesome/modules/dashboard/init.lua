@@ -102,42 +102,42 @@ local clock = wibox.widget {
 
 local clock = createContainer(clock)
 
-local tasklist  = awful.widget.tasklist {
-    screen          = screen[1],
-    filter          = awful.widget.tasklist.filter.allscreen,
-    buttons         = tasklist_buttons,
-    style           = {
-        shape = gears.shape.rect,
-    },
-    layout          = {
-        spacing        = 15,
-        spacing_widget = {
-            {
-                forced_width = 10,
-                widget       = wibox.widget.separator,
-            },
-            opacity = 0,
-            widget = wibox.container.place,
-        },
-        layout         = wibox.layout.flex.vertical
-    },
-    widget_template = {
-        {
-            {
-                id     = 'text_role',
-                widget = wibox.widget.textbox,
-                align  = "center"
-            },
-            forced_width = 300,
-            layout = wibox.layout.flex.vertical
-        },
-        id     = 'background_role',
-        widget = wibox.container.background,
-        bg = beautiful.bg_color_light
-    },
-}
-
-tasklist = createContainer(tasklist)
+-- local tasklist  = awful.widget.tasklist {
+--     screen          = screen[1],
+--     filter          = awful.widget.tasklist.filter.allscreen,
+--     buttons         = tasklist_buttons,
+--     style           = {
+--         shape = gears.shape.rect,
+--     },
+--     layout          = {
+--         spacing        = 15,
+--         spacing_widget = {
+--             {
+--                 forced_width = 10,
+--                 widget       = wibox.widget.separator,
+--             },
+--             opacity = 0,
+--             widget = wibox.container.place,
+--         },
+--         layout         = wibox.layout.flex.vertical
+--     },
+--     widget_template = {
+--         {
+--             {
+--                 id     = 'text_role',
+--                 widget = wibox.widget.textbox,
+--                 align  = "center"
+--             },
+--             forced_width = 300,
+--             layout = wibox.layout.flex.vertical
+--         },
+--         id     = 'background_role',
+--         widget = wibox.container.background,
+--         bg = beautiful.bg_color_light
+--     },
+-- }
+--
+-- tasklist = createContainer(tasklist)
 
 local stretcher = {
     wibox.widget.textbox,
@@ -157,7 +157,7 @@ local uptime    = createContainer(up)
 
 local function update()
     awful.placement.centered(dashboard, { offset = { y = dpi(10) } })
-    dashboard.screen = awful.screen.focused()
+    -- dashboard.screen = awful.screen.focused()
     greet = greeter.create()
     dashboard.widget = wibox.widget {
         {
