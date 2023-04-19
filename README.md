@@ -7,6 +7,7 @@
 > I figured [Pywal](https://github.com/dylanaraps/pywal) is better at choosing colorschemes than me.<br>
 > This setup is heavily focused on only using `.Xresources` colors defined by Pywal.
 
+⚠️ Screenshots might be outdated.
 <image align="center" src="awesome/assets/screenshots/screenshots.gif"/>
 
 ## 
@@ -90,31 +91,13 @@ yay -S awesome-git alsa-utils python-pywal ttf-cascadia-code
 | ... | ... |
 
 ## Gallery
-⚠️ Screenshots might be outdated.
 
 <image align="center" src="awesome/assets/screenshots/screen.png"/>
 
 ### Dashboard
-Left Click on Avatar will switch between Tabs.<br>
-Left Click on Weather will Toggle Current and Forecast Mode.
-
-
-   Default Tab             |  System Info Tab
-:-------------------------:|:-------------------------:
-<image width="400" src="awesome/assets/screenshots/dashboard1.png"/>  |  <image width="400" src="awesome/assets/screenshots/dashboard2.png"/>
+<image align="center" src="awesome/assets/screenshots/dashboard.png"/>
 
 ### Theme Changer (Select Wallpaper and call pywal+pyfox etc.)
 <image src="awesome/assets/screenshots/wallpaper-selector.png"/> 
-
-### Volume / Mic / (Brightness) OSD
-<image src="awesome/assets/screenshots/osd.png"/> 
-
-### Zenmode Panel
-Removes all panels and use very simple taglist similar to [Elenapan's](https://github.com/elenapan/dotfiles) taglist.
-<image src="awesome/assets/screenshots/default.png"/> 
-<image src="awesome/assets/screenshots/zenmode.png"/> 
-
-### Alternative (Continuous) Panel
-<image src="awesome/assets/screenshots/default-full.png"/> 
 
 
