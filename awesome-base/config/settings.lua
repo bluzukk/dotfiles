@@ -7,29 +7,28 @@ local xrdb                    = xresources.get_current_theme()
 local dpi                     = xresources.apply_dpi
 local rnotification           = require("ruled.notification")
 local lama                    = require("helpers.lama")
-local theme_assets            = require("beautiful.theme_assets")
 local theme                   = {}
 
 theme.uwu_map                 = {
-    ["clear sky"] = "clear skywu",
-    ["few clouds"] = "few cloudwu",
-    ["scattered clouds"] = "little cloudwu",
-    ["broken clouds"] = "much cloudwu",
-    ["overcast clouds"] = "only cloudwu",
-    ["light rain"] = "little rainwu",
-    ["heavy intensity rain"] = "heavy rainwu",
-    ["moderate rain"] = "moderate rainwu",
-    ["shower rain"] = "shower rainwu",
-    ["rain"] = "rainwu",
-    ["light intensity shower rain"] = "lil shower rainwu",
-    ["light shower snow"] = "lil shower snowu",
-    ["light intensity drizzle"] = "lil drizzle rainwu",
-    ["thunderstorm"] = "thunderstormwu!",
-    ["snow"] = "snowu",
-    ["light snow"] = "little snowu",
-    ["rain and snow"] = "rainwu snowu",
-    ["mist"] = "mistwu",
-    ["fog"] = "fogwu",
+  ["clear sky"] = "Clear Skywu",
+  ["few clouds"] = "Few Cloudwu",
+  ["scattered clouds"] = "Little Cloudwu",
+  ["broken clouds"] = "Much Cloudwu",
+  ["overcast clouds"] = "Only Cloudwu",
+  ["light rain"] = "Little Rainwu",
+  ["heavy intensity rain"] = "Heavy Rainwu!!",
+  ["moderate rain"] = "Moderate Rainwu",
+  ["shower rain"] = "Shower Rainwu",
+  ["rain"] = "rainwu",
+  ["light intensity shower rain"] = "Lil Shower Rainwu",
+  ["light shower snow"] = "Lil Shower Snowu",
+  ["light intensity drizzle"] = "Lil Drizzle Rainwu",
+  ["thunderstorm"] = "Thunderstormwu!!!!",
+  ["snow"] = "Snowu :)",
+  ["light snow"] = "Little Snowu",
+  ["rain and snow"] = "Rainwu, maybe little Snowu",
+  ["mist"] = "Mistwu",
+  ["fog"] = "Fogwu uww",
 }
 
 ---------------------------------------------------------------------------------
@@ -46,7 +45,7 @@ theme.sidepanel_margin        = dpi(30)
 theme.sidepanel_height        = dpi(1388)
 
 theme.enable_tasklist         = false
-theme.enable_one_bar          = true -- Toggle continuous/splitted top panel
+theme.enable_one_bar          = false -- Toggle continuous/splitted top panel
 theme.transparent_bar         = false
 
 ---------------------------------------------------------------------------------
@@ -58,19 +57,19 @@ theme.font                    = theme.font_name .. " " .. theme.font_size
 
 theme.corners                 = gears.shape.rect
 -- If not using picom
--- theme.shape = function(cr,w,h)
---     gears.shape.rounded_rect(cr,w,h,8)
+-- theme.shape                   = function(cr, w, h)
+--   gears.shape.rounded_rect(cr, w, h, 8)
 -- end
 
 theme.corners                 = gears.shape.rect
--- theme.corners = function(cr,w,h)
--- gears.shape.rounded_rect(cr,w,h,8)
+-- theme.corners                 = function(cr, w, h)
+--   gears.shape.rounded_rect(cr, w, h, 8)
 -- end
 
 -- Mostly used in bars
 theme.inner_corners           = gears.shape.rect
--- theme.inner_corners = function(cr,w,h)
---     gears.shape.rounded_rect(cr,w,h,8)
+-- theme.inner_corners           = function(cr, w, h)
+--   gears.shape.rounded_rect(cr, w, h, 8)
 -- end
 
 theme.opacity                 = 0.97
@@ -119,12 +118,30 @@ theme.bg_color_light9         = lama.lighten(theme.bg_color, 9)
 theme.bg_color_light10        = lama.lighten(theme.bg_color, 10)
 
 theme.accent_color_light      = lama.lighten(theme.accent_color, 3)
-theme.accent_color_light2     = lama.lighten(theme.accent_color, 3)
+theme.accent_color_light1     = lama.lighten(theme.accent_color, 1)
+theme.accent_color_light2     = lama.lighten(theme.accent_color, 2)
+theme.accent_color_light3     = lama.lighten(theme.accent_color, 3)
+theme.accent_color_light4     = lama.lighten(theme.accent_color, 4)
+theme.accent_color_light5     = lama.lighten(theme.accent_color, 5)
+theme.accent_color_light6     = lama.lighten(theme.accent_color, 6)
+theme.accent_color_light7     = lama.lighten(theme.accent_color, 7)
+theme.accent_color_light8     = lama.lighten(theme.accent_color, 8)
+theme.accent_color_light9     = lama.lighten(theme.accent_color, 9)
+
+theme.accent_alt_color_light  = lama.lighten(theme.accent_alt_color, 3)
+theme.accent_alt_color_light1 = lama.lighten(theme.accent_alt_color, 1)
+theme.accent_alt_color_light2 = lama.lighten(theme.accent_alt_color, 2)
+theme.accent_alt_color_light3 = lama.lighten(theme.accent_alt_color, 3)
+theme.accent_alt_color_light4 = lama.lighten(theme.accent_alt_color, 4)
+theme.accent_alt_color_light5 = lama.lighten(theme.accent_alt_color, 5)
+theme.accent_alt_color_light6 = lama.lighten(theme.accent_alt_color, 6)
+theme.accent_alt_color_light7 = lama.lighten(theme.accent_alt_color, 7)
+theme.accent_alt_color_light8 = lama.lighten(theme.accent_alt_color, 8)
+theme.accent_alt_color_light9 = lama.lighten(theme.accent_alt_color, 9)
+
 theme.accent_color_dark       = lama.lighten(theme.accent_color, -6)
 theme.accent_color_dark2      = lama.lighten(theme.accent_color, -10)
 
-theme.accent_alt_color_light  = lama.lighten(theme.accent_alt_color, 3)
-theme.accent_alt_color_light2 = lama.lighten(theme.accent_alt_color, 6)
 theme.accent_alt_color_dark   = lama.lighten(theme.accent_alt_color, -3)
 theme.accent_alt_color_dark2  = lama.lighten(theme.accent_alt_color, -20)
 
@@ -144,9 +161,9 @@ theme.bg_urgent               = theme.bg_color
 theme.bg_minimize             = theme.bg_color
 
 if theme.transparent_bar then
-    theme.bg_systray = theme.accent_color
+  theme.bg_systray = theme.accent_color
 else
-    theme.bg_systray = theme.bg_color_light5
+  theme.bg_systray = theme.bg_color_light5
 end
 
 theme.bg_bar_outer        = theme.bg_color
@@ -165,21 +182,21 @@ theme.border_color_marked = theme.bg_color
 
 -- Taglist
 if theme.transparent_bar then
-    theme.taglist_fg_focus    = theme.accent_color
-    theme.taglist_fg_empty    = "0000000"
-    theme.taglist_fg_occupied = theme.accent_color .. "50"
-    theme.taglist_fg_occupied = theme.main_color
-    theme.taglist_fg_urgent   = theme.main_color
-    theme.taglist_bg_urgent   = theme.color_critical
-    theme.taglist_bg_occupied = "0000000"
+  theme.taglist_fg_focus    = theme.accent_color
+  theme.taglist_fg_empty    = "0000000"
+  theme.taglist_fg_occupied = theme.accent_color .. "50"
+  theme.taglist_fg_occupied = theme.main_color
+  theme.taglist_fg_urgent   = theme.main_color
+  theme.taglist_bg_urgent   = theme.color_critical
+  theme.taglist_bg_occupied = "0000000"
 else
-    theme.taglist_fg_focus    = theme.accent_color
-    theme.taglist_fg_empty    = theme.main_color
-    theme.taglist_fg_occupied = theme.main_color
-    theme.taglist_fg_urgent   = theme.main_color
-    theme.taglist_bg_urgent   = theme.color_critical
-    -- theme.taglist_fg_focus    = theme.accent_alt_color
-    -- theme.taglist_bg_occupied = theme.bg_color
+  theme.taglist_fg_focus    = theme.accent_color
+  theme.taglist_fg_empty    = theme.main_color
+  theme.taglist_fg_occupied = theme.main_color
+  theme.taglist_fg_urgent   = theme.main_color
+  theme.taglist_bg_urgent   = theme.color_critical
+  -- theme.taglist_fg_focus    = theme.accent_alt_color
+  -- theme.taglist_bg_occupied = theme.bg_color
 end
 
 -- Tasklsit
@@ -193,26 +210,12 @@ theme.notification_shape = theme.shape
 theme.notification_bg    = theme.bg_color
 theme.notification_fg    = theme.main_color
 
----------------------------------------------------------------------------------
--- Taglist Squares
----------------------------------------------------------------------------------
--- local taglist_square_size = dpi(10)
--- theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
---     taglist_square_size, theme.accent_color
--- )
--- theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
---     taglist_square_size, theme.accent_color
--- )
--- theme.awesome_icon            = theme_assets.awesome_icon(
---     100, theme.bg_focus, theme.fg_focus
--- )
-
 -- Set different colors for urgent notifications.
 rnotification.connect_signal('request::rules', function()
-    rnotification.append_rule {
-        rule       = { urgency = 'critical' },
-        properties = { bg = theme.bg_color, fg = theme.color_critical }
-    }
+  rnotification.append_rule {
+    rule       = { urgency = 'critical' },
+    properties = { bg = theme.bg_color, fg = theme.color_critical }
+  }
 end)
 
 ---------------------------------------------------------------------------------
@@ -227,14 +230,14 @@ naughty.config.defaults.margin = dpi(10)
 
 -- For debugging
 function Print(title, text)
-    naughty.notify {
-        title    = title,
-        text     = text,
-        bg       = theme.bg_color,
-        height   = dpi(100),
-        width    = dpi(200),
-        position = "top_left"
-    }
+  naughty.notify {
+    title    = title,
+    text     = text,
+    bg       = theme.bg_color,
+    height   = dpi(100),
+    width    = dpi(200),
+    position = "bottom"
+  }
 end
 
 return theme
