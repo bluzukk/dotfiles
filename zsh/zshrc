@@ -2,6 +2,7 @@
 # Scriptz
 ###############################################################
 export PATH="/home/$USER/Sync/Rice/awesome/scripts:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 ###############################################################
 # ... StartX ...
@@ -22,6 +23,9 @@ export EDITOR=nvim;
 xset r rate 222 75 # Thanks Vim Diesel
 setxkbmap -option caps:swapescape # I <3 ESCAPE
 xmodmap $HOME/.Xmodmap
+
+## Tensorflow
+export TF_CPP_MIN_LOG_LEVEL=3
 
 ###############################################################
 # LF Working Directory and Image preview (ueberzug)
@@ -136,3 +140,20 @@ export HSTR_CONFIG=hicolor
 # Personal aliases I wont share kek
 ################################################################
 source ~/Sync/Rice/_private/linux-aliasrc
+
+# source ~/anaconda3/bin/activate
+# # >>> conda initialize >>>
+# # !! Contents within this block are managed by 'conda init' !!
+# # __conda_setup="$('/home/bluzuk/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# # if [ $? -eq 0 ]; then
+# #     eval "$__conda_setup"
+# # else
+# #     if [ -f "/home/bluzuk/miniconda3/etc/profile.d/conda.sh" ]; then
+# #         . "/home/bluzuk/miniconda3/etc/profile.d/conda.sh"
+# #     else
+# #         export PATH="/home/bluzuk/miniconda3/bin:$PATH"
+# #     fi
+# # fi
+# # unset __conda_setup
+# # <<< conda initialize <<<
+#
