@@ -11,40 +11,39 @@
 ---- Variables ----------------------------------------------------------------
 local PRIVATE = os.getenv("HOME") .. "/Sync/Rice/_private"
 -- Path to your
-AVATAR        = PRIVATE .. "/assets/korin.jpg"  -- ... Avatar
-WALLS_DIR     = PRIVATE .. "/assets/wallpaper/" -- ... Wallpaper collection
-LAT           = PRIVATE .. "/gps-latitude"      -- ... Latitude
-LONG          = PRIVATE .. "/gps-longtiude"     -- ... Longtiude
-API_KEY       = PRIVATE .. "/gps-owm-api-key"   -- ... OWM API key
+AVATAR = PRIVATE .. "/assets/korin.jpg" -- ... Avatar
+WALLS_DIR = PRIVATE .. "/assets/wallpaper/" -- ... Wallpaper collection
+LAT = PRIVATE .. "/gps-latitude" -- ... Latitude
+LONG = PRIVATE .. "/gps-longtiude" -- ... Longtiude
+API_KEY = PRIVATE .. "/gps-owm-api-key" -- ... OWM API key
 
 ---- Error Handling -----------------------------------------------------------
-require "helpers.errors"
+require("helpers.errors")
 
 ---- Init BEAUTIFUL -----------------------------------------------------------
 local feels_like = os.getenv("HOME")
-require "beautiful".init(feels_like .. "/.config/awesome/config/settings.lua")
+require("beautiful").init(feels_like .. "/.config/awesome/config/settings.lua")
 
 ---- Load Keybinds ------------------------------------------------------------
-require "config.keybinds"
-require "config.clients"
+require("config.keybinds")
+require("config.clients")
 
 ---- Start Evil Monitoring ----------------------------------------------------
-require "evil.cpu"
-require "evil.gpu"
-require "evil.netw"
-require "evil.disk"
-require "evil.ram"
-require "evil.mail"
-require "evil.bat"
+require("evil.cpu")
+require("evil.gpu")
+require("evil.netw")
+require("evil.disk")
+require("evil.ram")
+require("evil.mail")
+require("evil.bat")
 
 ---- UI Components ------------------------------------------------------------
-dashboard  = require "modules.dashboard.init"
-panel      = require "modules.panel"
+dashboard = require("modules.dashboard.init")
+panel = require("modules.panel")
 -- powermenu = require "modules.powermenu"
 left_popup = require("modules.dashboard.left-sidepanel")
 
 panel.create_screens()
 
-
 ---- Autostart Apps -----------------------------------------------------------
-require "helpers.autostart"
+require("helpers.autostart")
