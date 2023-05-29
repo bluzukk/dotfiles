@@ -50,13 +50,13 @@ local function createWidget(title, onclick_cmd, color_default, color_accent)
               text = "Error: status",
               forced_width = dpi(80)
             },
-            -- {
-            --     id = "scroller",
-            --     layout = wibox.container.scroll.horizontal,
-            --     step_function = wibox.container.scroll.step_functions
-            --         .linear_increase,
-            --     speed = 25,
             {
+              id = "scroller",
+              layout = wibox.container.scroll.horizontal,
+              step_function = wibox.container.scroll.step_functions
+                  .linear_increase,
+              speed = 25,
+              -- {
               {
                 widget = wibox.widget.textbox,
                 id = "text",
@@ -160,6 +160,7 @@ local function createWidget(title, onclick_cmd, color_default, color_accent)
       layout = wibox.layout.fixed.horizontal
     },
     widget        = wibox.container.background,
+    forced_width  = dpi(400),
     bg            = color_default,
     -- shape         = gears.shape.powerline,
     onclick       = onclick_cmd,
@@ -175,28 +176,28 @@ local function createWidget(title, onclick_cmd, color_default, color_accent)
     end
 
   }
-  -- container:get_children_by_id("scroller")[1]:pause()
+  container:get_children_by_id("scroller")[1]:pause()
 
   container:connect_signal("mouse::enter", function(self)
     self.bg = self.color_accent
-    -- container:get_children_by_id("scroller")[1]:continue()
-    container:get_children_by_id("play_button")[1].visible = true
-    container:get_children_by_id("next_button")[1].visible = true
-    container:get_children_by_id("prev_button")[1].visible = true
-    container:get_children_by_id("play_button_bg")[1].bg = color_accent
-    container:get_children_by_id("next_button_bg")[1].bg = color_accent
-    container:get_children_by_id("prev_button_bg")[1].bg = color_accent
+    container:get_children_by_id("scroller")[1]:continue()
+    -- container:get_children_by_id("play_button")[1].visible = true
+    -- container:get_children_by_id("next_button")[1].visible = true
+    -- container:get_children_by_id("prev_button")[1].visible = true
+    -- container:get_children_by_id("play_button_bg")[1].bg = color_accent
+    -- container:get_children_by_id("next_button_bg")[1].bg = color_accent
+    -- container:get_children_by_id("prev_button_bg")[1].bg = color_accent
   end)
   container:connect_signal("mouse::leave", function(self)
     self.bg = self.color_default
-    -- container:get_children_by_id("scroller")[1]:reset_scrolling()
-    -- container:get_children_by_id("scroller")[1]:pause()
-    container:get_children_by_id("play_button")[1].visible = false
-    container:get_children_by_id("next_button")[1].visible = false
-    container:get_children_by_id("prev_button")[1].visible = false
-    container:get_children_by_id("play_button_bg")[1].bg = color_default
-    container:get_children_by_id("next_button_bg")[1].bg = color_default
-    container:get_children_by_id("prev_button_bg")[1].bg = color_default
+    container:get_children_by_id("scroller")[1]:reset_scrolling()
+    container:get_children_by_id("scroller")[1]:pause()
+    -- container:get_children_by_id("play_button")[1].visible = false
+    -- container:get_children_by_id("next_button")[1].visible = false
+    -- container:get_children_by_id("prev_button")[1].visible = false
+    -- container:get_children_by_id("play_button_bg")[1].bg = color_default
+    -- container:get_children_by_id("next_button_bg")[1].bg = color_default
+    -- container:get_children_by_id("prev_button_bg")[1].bg = color_default
   end)
 
   local function setupButtons(CMD, button_id)

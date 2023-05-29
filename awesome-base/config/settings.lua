@@ -90,7 +90,7 @@ theme.altkey                  = "Mod1"
 ---------------------------------------------------------------------------------
 theme.terminal                = "st -f '" .. theme.font_name .. ":size=" .. theme.font_size .. "'"
 theme.shell                   = "zsh"
-theme.browser                 = "librewolf"
+theme.browser                 = "firefox"
 theme.browser_alt             = "firefox"
 theme.editor                  = "nvim"
 theme.music_player            = "youtube-music"

@@ -47,6 +47,8 @@ local volume_widget = wibox.widget {
       local vol = tonumber(volume:sub(1, #volume - 2))
       if vol == 100 then
         self:get_children_by_id('volume_bar')[1].color = beautiful.color_critical
+      else
+        self:get_children_by_id('volume_bar')[1].color = beautiful.accent_color
       end
       self:get_children_by_id('volume_bar')[1].value = vol
     end)

@@ -6,15 +6,15 @@ local markup    = require("helpers.markup")
 local dpi       = beautiful.xresources.apply_dpi
 
 -- Dashboard Modules
-local greeter   = require("modules.dashboard.greeter")
-local sliders   = require("modules.dashboard.sliders")
-local calendar  = require("modules.dashboard.cal")
-local weather   = require("modules.dashboard.weather")
-local notes     = require("modules.dashboard.notes")
-local system    = require("modules.dashboard.system")
-local powermenu = require("modules.dashboard.powermenu")
-local linkz     = require("modules.dashboard.links")
-local launcher  = require("modules.dashboard.launcher")
+local greeter   = require("modules.popups.widgets.greeter")
+local sliders   = require("modules.popups.widgets.sliders")
+local calendar  = require("modules.popups.widgets.cal")
+local weather   = require("modules.popups.widgets.weather")
+local notes     = require("modules.popups.widgets.notes")
+local system    = require("modules.popups.widgets.system")
+local powermenu = require("modules.popups.widgets.powermenu")
+local linkz     = require("modules.popups.widgets.links")
+local launcher  = require("modules.popups.widgets.launcher")
 
 local slider    = sliders.create()
 local cal       = calendar.create()
@@ -31,7 +31,7 @@ if weather ~= -1 then
 end
 
 local is_sticky = false
-local dashboard = awful.popup {
+local board = awful.popup {
   widget       = {},
   border_color = beautiful.border_focus,
   border_width = 0 or beautiful.border_width,
@@ -111,7 +111,7 @@ local uptime = createContainer(up)
 
 local function update()
   greet = greeter.create()
-  dashboard.widget = wibox.widget {
+  board.widget = wibox.widget {
     {
       {
         cal,
@@ -131,17 +131,17 @@ update()
 
 local function show()
   update()
-  dashboard.visible = true
+  board.visible = true
 end
 
 local function hide()
-  dashboard.visible = false
+  board.visible = false
   calendar.reset()
   cal = calendar.create()
 end
 
 local function toggle()
-  if dashboard.visible then
+  if board.visible then
     hide()
   else
     show()
@@ -149,10 +149,6 @@ local function toggle()
 end
 
 -- Manage tabs and redraw callbacks
-awesome.connect_signal("dashboard::cal_redraw_needed", function()
-  update()
-end)
-
 awesome.connect_signal("dashboard::redraw_needed", function()
   update()
 end)
@@ -162,7 +158,7 @@ awesome.connect_signal("dashboard::mouse3", function()
 end)
 
 local function isVisible()
-  return dashboard.visible
+  return board.visible
 end
 
 local function isSticky()

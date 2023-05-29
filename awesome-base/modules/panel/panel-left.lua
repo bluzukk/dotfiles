@@ -134,18 +134,9 @@ local function create(s)
     placement = function(c) awful.placement.top_left(c, { margins = { left = dpi(20), top = dpi(10) } }) end,
     shape     = beautiful.corners,
     widget    = {
-      {
-        layout = wibox.layout.fixed.horizontal,
-        clock_widget,
-        weather_widget,
-      },
-      {
-        playerctl_widget,
-        mail_main,
-        mail_ims,
-        widget = wibox.layout.fixed.horizontal
-      },
-      layout = wibox.layout.align.horizontal,
+      layout = wibox.layout.fixed.horizontal,
+      clock_widget,
+      weather_widget,
     }
   }
   return panel

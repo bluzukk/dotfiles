@@ -98,6 +98,7 @@ local function createWidget(title, onclick_cmd, _color_default, color_accent, fo
         end)
     end
   end)
+
   return container
 end
 
@@ -119,6 +120,8 @@ awesome.connect_signal("evil::gpu", function(evil_gpu_util, evil_gpu_temp)
   end
   if evil_gpu_temp > 0 then
     gpu_widget:update(color, evil_gpu_util .. "% " .. evil_gpu_temp .. "°C")
+    -- else
+    --   gpu_widget:hide()
   end
 end)
 
