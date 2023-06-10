@@ -37,7 +37,7 @@ local function create_screens()
         -- },
         widget = {
           layout = wibox.layout.fixed.horizontal,
-          align = "top",
+          align = "bottom",
           forced_height = beautiful.bar_height,
           shape = gears.shape.rect,
         }

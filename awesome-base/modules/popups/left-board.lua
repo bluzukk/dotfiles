@@ -39,8 +39,8 @@ local board = awful.popup {
   shape        = beautiful.corners,
   ontop        = true,
   visible      = false,
-  opacity      = beautiful.opacity,
-  -- bg = "#0000000"
+  opacity      = 1,
+  bg           = beautiful.bg_color
 }
 
 local tasklist_buttons = gears.table.join(

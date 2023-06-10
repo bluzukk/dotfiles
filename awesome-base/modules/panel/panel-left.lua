@@ -102,7 +102,6 @@ awesome.connect_signal("evil::weather", function(evil)
     temp .. "°C " .. beautiful.uwu_map[evil.weather[1].description] .. "")
 end)
 
-
 local clock_widget = createWidget("", CMD_CLOCK, color_default, color_hover,
   beautiful.font_name .. " 16", true)
 
@@ -111,19 +110,6 @@ awful.widget.watch("date +'%R'", 1, function(_, stdout)
   clock_widget:get_children_by_id('text')[1].markup =
       markup(beautiful.accent_alt_color, markup.bold(day .. ", " .. stdout:gsub("\n", "")))
 end)
-
-
-local mail_main = wibox.widget.textbox()
-awesome.connect_signal("evil::mail_main", function(evil)
-  mail_main:set_markup(markup(beautiful.color_critical, evil))
-end)
-
-local mail_ims = wibox.widget.textbox()
-awesome.connect_signal("evil::mail_ims", function(evil)
-  mail_ims:set_markup(markup(beautiful.color_critical, evil))
-end)
-
-local playerctl_widget = require("modules.playerctl.panel-widget")
 
 local function create(s)
   local panel = awful.popup {
