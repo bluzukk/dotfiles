@@ -44,5 +44,6 @@ panel = require("modules.panel")
 
 panel.create_screens()
 
+
 ---- Autostart Apps -----------------------------------------------------------
 require("helpers.autostart")

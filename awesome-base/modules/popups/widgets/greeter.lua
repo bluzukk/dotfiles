@@ -12,13 +12,13 @@ local markup    = require("helpers.markup")
 
 local USER_IMAGE = gfs.get_configuration_dir() .. "assets/fallback/avatar.png"
 if util.file_exists(AVATAR) then
-    USER_IMAGE = AVATAR
+  USER_IMAGE = AVATAR
 else
-    naughty.notify { title = "Avatar Missing" }
+  naughty.notify { title = "Avatar Missing" }
 end
-local uwu = wibox.widget.textbox()
+local uwu   = wibox.widget.textbox()
 
-local uwuww                = "" ..
+local uwuww = "" ..
     '⢕⢕⢕⢕⢕⢕⣕⢕⢕⠕⠁⢕⢕⢕⢕⢕⢕⢕⢕⠅⡄⢕⢕⢕⢕⢕⢕⢕⢕⢕\n' ..
     '⢕⢕⢕⢕⢕⠅⢗⢕⠕⣠⠄⣗⢕⢕⠕⢕⢕⢕⠕⢠⣿⠐⢕⢕⢕⠑⢕⢕⠵⢕\n' ..
     '⢕⢕⢕⢕⠁⢜⠕⢁⣴⣿⡇⢓⢕⢵⢐⢕⢕⠕⢁⣾⢿⣧⠑⢕⢕⠄⢑⢕⠅⢕\n' ..
@@ -52,97 +52,97 @@ local greeter
 -- end)
 
 local function create()
-    local hour = os.date("%H")
-    local minutes = os.date("%M")
-    local day = os.date("%A")
+  local hour = os.date("%H")
+  local minutes = os.date("%M")
+  local day = os.date("%A")
 
-    local user = {
+  local user = {
+    {
+      markup =
+          markup.fontfg(font_name .. " 42", beautiful.accent_color, "" .. markup.bold(hour .. ":" .. minutes)) ..
+          markup.fontfg(font_name .. " 30", beautiful.accent_color_dark, "\n" .. markup.bold(day)),
+      widget = wibox.widget.textbox,
+    },
+    widget = wibox.container.margin,
+    margins = {
+      left = dpi(50),
+      right = dpi(20),
+      top = dpi(10),
+    },
+  }
+
+  local image = {
+    uwu,
+    widget = wibox.container.margin,
+    margins = {
+      left = dpi(20),
+      -- top = dpi(10),
+      bottom = dpi(10)
+    },
+  }
+
+  local clock = wibox.widget {
+    {
+      id     = "clock",
+      markup =
+          markup.bold(markup.fontfg(font_name .. " 24", beautiful.accent_color,
+            "     " .. markup.bold(day))),
+      align  = 'center',
+      valign = 'center',
+      widget = wibox.widget.textbox,
+    },
+    widget = wibox.container.margin,
+    margins = {
+      left = dpi(20),
+      right = dpi(00),
+      top = dpi(10)
+    },
+  }
+
+  greeter = wibox.widget {
+    {
+      {
         {
-            markup =
-                markup.fontfg(font_name .. " 16", beautiful.accent_color, "" .. USERNAME) ..
-                markup.fontfg(font_name .. " 14", beautiful.accent_color_dark, " @" .. HOSTNAME),
-            widget = wibox.widget.textbox,
+          layout = wibox.layout.fixed.horizontal,
+          image,
+          user,
+          {
+            layout = wibox.layout.align.vertical,
+            -- clock,
+            -- textclock,
+          },
         },
-        widget = wibox.container.margin,
-        margins = {
-            left = dpi(10),
-            right = dpi(20),
-            top = dpi(12),
-        },
-    }
+        widget = wibox.container.place,
+        halign = "left",
+        valign = "center",
+        forced_height = dpi(150),
+        forced_width = dpi(450),
+      },
+      widget = wibox.container.background,
+      -- bg = beautiful.bg_color_light,
+      shape = gears.shape.rounded_rect
+    },
+    widget = wibox.container.margin,
+    margins = {
+      left = beautiful.dashboard_margin,
+      right = beautiful.dashboard_margin,
+      -- bottom = beautiful.dashboard_margin,
+      top = beautiful.dashboard_margin,
+    },
+  }
 
-    local image = {
-        uwu,
-        widget = wibox.container.margin,
-        margins = {
-            left = dpi(20),
-            -- top = dpi(10),
-            bottom = dpi(10)
-        },
-    }
+  greeter.buttons = gears.table.join(
+    greeter.buttons,
+    awful.button({}, 1, function()
+      awesome.emit_signal("dashboard::mouse1")
+    end),
+    awful.button({}, 3, function()
+      awesome.emit_signal("dashboard::mouse3")
+    end))
 
-    local clock = wibox.widget {
-        {
-            id     = "clock",
-            markup =
-                markup.bold(markup.fontfg(font_name .. " 24", beautiful.accent_color,
-                    "     " .. markup.bold(day))),
-            align  = 'center',
-            valign = 'center',
-            widget = wibox.widget.textbox,
-        },
-        widget = wibox.container.margin,
-        margins = {
-            left = dpi(20),
-            right = dpi(00),
-            top = dpi(10)
-        },
-    }
-
-    greeter = wibox.widget {
-        {
-            {
-                {
-                    layout = wibox.layout.fixed.horizontal,
-                    image,
-                    user,
-                    {
-                        layout = wibox.layout.align.vertical,
-                        -- clock,
-                        -- textclock,
-                    },
-                },
-                widget = wibox.container.place,
-                halign = "left",
-                valign = "center",
-                forced_height = dpi(200),
-                forced_width = dpi(450),
-            },
-            widget = wibox.container.background,
-            bg = beautiful.bg_color_light,
-            shape = gears.shape.rounded_rect
-        },
-        widget = wibox.container.margin,
-        margins = {
-            left = beautiful.dashboard_margin,
-            right = beautiful.dashboard_margin,
-            -- bottom = beautiful.dashboard_margin,
-            top = beautiful.dashboard_margin,
-        },
-    }
-
-    greeter.buttons = gears.table.join(
-        greeter.buttons,
-        awful.button({}, 1, function()
-            awesome.emit_signal("dashboard::mouse1")
-        end),
-        awful.button({}, 3, function()
-            awesome.emit_signal("dashboard::mouse3")
-        end))
-
-    return greeter
+  return greeter
 end
 
 return {
-    create = create
+  create = create
 }

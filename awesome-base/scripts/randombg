@@ -16,3 +16,6 @@ nitrogen --restore
 nitrogen --set-zoom-fill $bg --head=0
 
 pywal-discord
+killall picom
+picom &
+setxkbmap de

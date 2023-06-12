@@ -5,43 +5,23 @@
 local awful           = require("awful")
 local beautiful       = require("beautiful")
 local gears           = require("gears")
-local naughty         = require("naughty")
 local wibox           = require("wibox")
 local dpi             = require("beautiful").xresources.apply_dpi
 local markup          = require("helpers.markup")
+local notify          = require("helpers.notify")
 
 local CMD_PROC_CPU    = [[ bash -c "ps -Ao pcpu,comm,pid --sort=-pcpu | head -n 30" ]]
 local CMD_PROC_MEM    = [[ bash -c "ps -Ao pmem,comm,pid --sort=-pmem | head -n 30" ]]
 local CMD_GPU         = [[ nvidia-smi  ]]
-local CMD_NET         = [[ echo "implement me =("  ]]
-local CMD_BAT         = [[ echo "implement me =("  ]]
-local CMD_WEATHER     = [[ echo "implement me =("  ]]
-local CMD_FILE_SYSTEM = [[ echo "implement me =("  ]]
-local CMD_CLOCK       = dashboard
+local CMD_NET         = [[ bash -c ". ~/.config/awesome/scripts/net-info" ]]
+local CMD_BAT         = [[ acpi  ]]
+local CMD_FILE_SYSTEM = [[ df --output=target,pcent,used,avail /home /tmp /run -h  ]]
 
 local color_default   = beautiful.bg_color
 local color_hover     = beautiful.bg_color_light5
 if beautiful.transparent_bar then
   color_default = beautiful.bg_color .. "0"
   color_hover   = beautiful.bg_color
-end
-
-local notification
-local function notification_hide()
-  if notification then
-    naughty.destroy(notification)
-  end
-end
-
-local function notification_show(str, bg_color)
-  naughty.destroy(notification)
-  notification = naughty.notify({
-    font = beautiful.font_name .. " 16",
-    fg = beautiful.main_color,
-    bg = bg_color,
-    title = "",
-    text = str,
-  })
 end
 
 -- Widgets
@@ -68,7 +48,7 @@ local function createWidget(title, onclick_cmd, _color_default, color_accent, fo
     title         = title,
     color_default = _color_default,
     color_accent  = color_accent,
-    forced_height = dpi(40),
+    forced_height = dpi(48),
     update        = function(self, color, content)
       self:get_children_by_id('text')[1].markup =
           markup(color, title) .. "" ..
@@ -81,10 +61,18 @@ local function createWidget(title, onclick_cmd, _color_default, color_accent, fo
 
   }
   container:connect_signal("mouse::enter", function(self)
+    if is_elemental then
+      self.onclick.toggle()
+    else
+      awful.spawn.easy_async(self.onclick,
+        function(evil)
+          notify.show("", evil)
+        end)
+    end
     self.bg = self.color_accent
   end)
   container:connect_signal("mouse::leave", function(self)
-    notification_hide()
+    notify.hide()
     self.bg = self.color_default
   end)
 
@@ -94,7 +82,7 @@ local function createWidget(title, onclick_cmd, _color_default, color_accent, fo
     else
       awful.spawn.easy_async(self.onclick,
         function(evil)
-          notification_show(evil, self.color_default)
+          notify.show("", evil)
         end)
     end
   end)
@@ -187,7 +175,10 @@ local function create(s)
     opacity = beautiful.opacity,
     -- forced_height = dpi(100),
     bg = beautiful.bg_bar_outer,
-    placement = function(c) awful.placement.top_right(c, { margins = { right = dpi(20), top = dpi(10) } }) end,
+    placement = function(c)
+      awful.placement.top_right(c,
+        { margins = { right = dpi(beautiful.useless_gap * 2), top = dpi(beautiful.useless_gap) } })
+    end,
     shape = beautiful.corners,
     widget = {
       layout = wibox.layout.fixed.horizontal,

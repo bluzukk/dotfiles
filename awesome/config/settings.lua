@@ -76,7 +76,7 @@ theme.inner_corners           = gears.shape.rect
 theme.opacity                 = 0.97
 theme.useless_gap             = dpi(10)
 theme.size_hint_honor         = false
-theme.border_width            = dpi(2)
+theme.border_width            = dpi(10)
 
 theme.master_width_factor     = 0.689
 -- theme.tasklist_plain_task_name = false

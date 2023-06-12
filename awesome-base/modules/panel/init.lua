@@ -28,7 +28,7 @@ local function create_screens()
       s.mywibox      = awful.wibar {
         screen = s,
         width  = dpi(100),
-        height = beautiful.bar_height,
+        height = dpi(50),
         bg     = beautiful.accent_color .. "0",
         shape  = beautiful.corner,
         -- margins = {
