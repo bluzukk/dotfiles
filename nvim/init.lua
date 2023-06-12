@@ -1,449 +1,71 @@
-require("plugins")
-require("sets")
-require("binds")
-require("lsp")
--- require("dashboard-cfg")
+-- bootstrap lazy.nvim, LazyVim and your plugins
+-- vim.opt.termguicolors = false
+require("config.lazy")
 
-local api = vim.api
+vim.g.mapleader = " "
+vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
-vim.cmd [[let g:mkdp_theme = 'dark']]
-vim.cmd [[let g:mkdp_browser = 'librewolf']]
-vim.cmd [[let g:mkdp_auto_start = 1]]
+-- VimTex
+vim.keymap.set({ "n", "v" }, "<C-a>", "<cmd>wincmd p<CR>")
+vim.keymap.set({ "n", "v" }, "<F25>", "<cmd>VimtexTocToggle<CR>")
+vim.keymap.set({ "n", "v" }, "<F26>", "<cmd>SessionManager load_session<CR>")
 
--- Highlight on yank
-local yankGrp = api.nvim_create_augroup("YankHighlight", { clear = true })
-api.nvim_create_autocmd("TextYankPost", {
-    command = "silent! lua vim.highlight.on_yank()",
-    group = yankGrp,
-})
--- go to last loc when opening a buffer
-api.nvim_create_autocmd("BufReadPost", {
-    command = [[if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif]] }
-)
--- remove whitespace
-api.nvim_create_autocmd({ "BufWritePre" }, {
-    pattern = { "*" },
-    command = [[%s/\s\+$//e]],
-})
+-- LSP
+vim.keymap.set("n", "<F7>", "<cmd>LspStop<CR><cmd>echo 'Stopped LSP =('<CR>")
+vim.keymap.set("n", "<F8>", "<cmd>LspStart<CR><cmd>echo 'Started LSP :)' <CR>")
 
-vim.cmd [[let g:vimtex_view_method = 'mupdf']]
-vim.cmd [[let g:vimtex_view_general_viewer = 'mupdf']]
-vim.cmd [[let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex']]
+-- VSplit Settings / Resize
+vim.keymap.set({ "n", "v" }, "<C-a>", "<cmd>wincmd p<CR>")
+vim.keymap.set({ "n", "v" }, "<C-Left>", "<cmd>2winc <<CR>")
+vim.keymap.set({ "n", "v" }, "<C-Right>", "<cmd>2winc ><CR>")
 
+-- NvimTree
+vim.keymap.set({ "n", "v", "i" }, "<F1>", "<cmd>Neotree<CR>")
 
-local config_group = vim.api.nvim_create_augroup('MyConfigGroup', {}) -- A global group for all your config autocommands
-vim.api.nvim_create_autocmd({ 'User' }, {
-    pattern = "SessionLoadPost",
-    group = config_group,
-    callback = function()
-        require('nvim-tree').toggle(false, true)
-    end,
-})
+-- ZenMode
+vim.keymap.set("n", "<F5>", "<cmd>ZenMode<CR>")
 
-require('nvim-highlight-colors').setup {}
--- Set barbar's options
--- require'bufferline'.setup {
---   -- -- Enable/disable animations
---   -- animation = true,
---   --
---   -- -- Enable/disable auto-hiding the tab bar when there is a single buffer
---   -- auto_hide = false,
---   --
---   -- -- Enable/disable current/total tabpages indicator (top right corner)
---   -- tabpages = true,
---
---   -- Enable/disable close button
---   closable = true,
---
---   -- -- Enables/disable clickable tabs
---   -- --  - left-click: go to buffer
---   -- --  - middle-click: delete buffer
---   -- clickable = true,
---   --
---   -- -- Enables / disables diagnostic symbols
---   -- diagnostics = {
---   --   -- you can use a list
---   --   {enabled = true, icon = 'ﬀ'}, -- ERROR
---   --   {enabled = false}, -- WARN
---   --   {enabled = false}, -- INFO
---   --   {enabled = true},  -- HINT
---   --
---   --   -- OR `vim.diagnostic.severity`
---   --   [vim.diagnostic.severity.ERROR] = {enabled = true, icon = 'ﬀ'},
---   --   [vim.diagnostic.severity.WARN] = {enabled = false},
---   --   [vim.diagnostic.severity.INFO] = {enabled = false},
---   --   [vim.diagnostic.severity.HINT] = {enabled = true},
---   -- },
---   --
---   -- -- Excludes buffers from the tabline
---   -- exclude_ft = {'javascript'},
---   -- exclude_name = {'package.json'},
---   --
---   -- -- A buffer to this direction will be focused (if it exists) when closing the current buffer.
---   -- -- Valid options are 'left' (the default) and 'right'
---   -- focus_on_close = 'left',
---   --
---   -- -- Hide inactive buffers and file extensions. Other options are `alternate`, `current`, and `visible`.
---   -- hide = {extensions = true, inactive = true},
---   --
---   -- -- Disable highlighting alternate buffers
---   highlight_alternate = false,
---   --
---   -- -- Disable highlighting file icons in inactive buffers
---   -- highlight_inactive_file_icons = false,
---
---   -- Enable highlighting visible buffers
---   highlight_visible = true,
---
---   -- Enable/disable icons
---   -- if set to 'numbers', will show buffer index in the tabline
---   -- if set to 'both', will show buffer index and icons in the tabline
---   icons = false,
---
---   -- If set, the icon color will follow its corresponding buffer
---   -- highlight group. By default, the Buffer*Icon group is linked to the
---   -- Buffer* group (see Highlighting below). Otherwise, it will take its
---   -- default value as defined by devicons.
---   icon_custom_colors = false,
---
---   -- Configure icons on the bufferline.
---   icon_separator_active = '',
---   icon_separator_inactive = '',
---   icon_close_tab = '',
---   icon_close_tab_modified = '●',
---   icon_pinned = '車',
---
---   -- -- If true, new buffers will be inserted at the start/end of the list.
---   -- -- Default is to insert after current buffer.
---   -- insert_at_end = false,
---   -- insert_at_start = false,
---   --
---   -- -- Sets the maximum padding width with which to surround each tab
---   -- maximum_padding = 1,
---   --
---   -- -- Sets the minimum padding width with which to surround each tab
---   -- minimum_padding = 1,
---   --
---   -- -- Sets the maximum buffer name length.
---   -- maximum_length = 30,
---   --
---   -- -- If set, the letters for each buffer in buffer-pick mode will be
---   -- -- assigned based on their name. Otherwise or in case all letters are
---   -- -- already assigned, the behavior is to assign letters in order of
---   -- -- usability (see order below)
---   -- semantic_letters = true,
---   --
---   -- -- New buffer letters are assigned in this order. This order is
---   -- -- optimal for the qwerty keyboard layout but might need adjustement
---   -- -- for other layouts.
---   -- letters = 'asdfjkl;ghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERUTYQP',
---   --
---   -- -- Sets the name of unnamed buffers. By default format is "[Buffer X]"
---   -- -- where X is the buffer number. But only a static string is accepted here.
---   -- no_name_title = nil,
--- }
+-- xd
+vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")
+vim.keymap.set("n", "<F12>", "<cmd>Mason<CR>")
 
+vim.keymap.set({ "n", "v" }, "<Tab>", "<cmd>bnext<CR>")
+vim.keymap.set({ "n", "v" }, "<C-Tab>", "<cmd>split<CR>")
 
-------------------------------------------------------------
--- nvim-tree
-------------------------------------------------------------
--- disable netrw at the very start of your init.lua (strongly advised)
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
--- set termguicolors to enable highlight groups
-vim.opt.termguicolors = false
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-vim.g.nvim_tree_show_icons = {
-    git = 0,
-    folders = 0,
-    files = 0,
-    folder_arrows = 0,
-}
-local nvim_tree = require('nvim-tree')
+vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 
-nvim_tree.setup({
-    view = {
-        side = "left",
-        --adaptive_size = true,
-        width = 25,
-    },
-    actions = {
-        open_file = {
-            resize_window = true,
-        }
-    }
-})
+vim.keymap.set("x", "<leader>p", [["_dP]])
 
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
 
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
-------------------------------------------------------------
--- nvim-treesitter
-------------------------------------------------------------
-require('nvim-treesitter.configs').setup {
-    ensure_installed = {
-        'python',
-        'comment',
-        'lua',
-    },
-    sync_install = false,
-    highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-    },
-}
+vim.keymap.set("i", "<C-c>", "<Esc>")
+vim.keymap.set("i", "<C-c>", "<Esc>")
 
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
+vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-require('lualine').setup {
-    options = {
-        icons_enabled = true,
-        theme = 'pywal-nvim',
-        component_separators = { left = '|', right = '|' },
-        section_separators = { left = '', right = '' },
-        disabled_filetypes = {
-            statusline = {},
-            winbar = {},
-        },
-        ignore_focus = {},
-        always_divide_middle = true,
-        globalstatus = false,
-        refresh = {
-            statusline = 1000,
-            tabline = 1000,
-            winbar = 1000,
-        }
-    },
-    sections = {
-        lualine_a = { 'mode' },
-        lualine_b = { 'branch', 'diff', 'diagnostics' },
-        lualine_c = { 'filename' },
-        lualine_x = { 'encoding', 'fileformat', 'filetype' },
-        lualine_y = { 'progress' },
-        lualine_z = { 'location' }
-    },
-    inactive_sections = {
-        lualine_a = {},
-        lualine_b = { 'branch' },
-        lualine_c = { 'filename' },
-        lualine_x = { 'location' },
-        lualine_y = {},
-        lualine_z = {}
-    },
-    tabline = {},
-    winbar = {},
-    inactive_winbar = {},
-    extensions = {}
-}
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
-local colors = require("tokyonight.colors").setup()
-require("scrollbar").setup({
-    handle = {
-        color = "#1B1B29",
-    },
-    marks = {
-        Cursor = { color = "#1B1B29",
-            text = "." },
-        Search = { color = colors.orange },
-        Error  = { color = colors.error },
-        Warn   = { color = colors.warning },
-        Info   = { color = "#8577D9" },
-        Hint   = { color = colors.hint },
-        Misc   = { color = colors.purple },
-    }
-})
-
--- local get_hex = require('cokeline/utils').get_hex
--- require('cokeline').setup({
---     default_hl = {
---         fg = function(buffer)
---             return buffer.is_focused
---                 and get_hex('SpellRare', 'fg')
---                 -- and get_hex('NvimTreeNormal', "fg")
---                 or get_hex('NvimTreeNormal', "fg")
---         end,
---         bg = function(buffer)
---             return buffer.is_focused
---                 and get_hex("CursorLine", "bg")
---                 or get_hex('NvimTreeNormal', "bg")
---         end,
---     },
---     sidebar = {
---         filetype = 'NvimTree',
---         components = {
---             {
---                 text = '',
---                 style = 'bold',
---             },
---         }
---     },
---     components = {
---         {
---             text = '    ',
---         },
---         {
---             text = function(buffer) return buffer.unique_prefix or "!" end,
---             fg = get_hex('SpellRare', 'fg'),
---             style = "underline",
---         },
---         {
---             text = function(buffer) return buffer.filename .. ' ' end,
---         },
---         {
---             text = '    ',
---         }
---     },
--- })
-
-require("noice").setup({
-    lsp = {
-        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-        override = {
-            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-            ["vim.lsp.util.stylize_markdown"] = true,
-            ["cmp.entry.get_documentation"] = true,
-        },
-    },
-    -- you can enable a preset for easier configuration
-    presets = {
-        bottom_search = true, -- use a classic bottom cmdline for search
-        command_palette = false, -- position the cmdline and popupmenu together
-        long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = false, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = false, -- add a border to hover docs and signature help
-    },
-})
-
-require("notify").setup({
-    -- Animation style (see below for details)
-    stages = "static",
-    -- Render function for notifications. See notify-render()
-    render = "minimal",
-    -- Default timeout for notifications
-    timeout = 5000,
-    -- For stages that change opacity this is treated as the highlight behind the window
-    -- Set this to either a highlight group, an RGB hex value e.g. "#000000" or a function returning an RGB code for dynamic values
-    background_colour = "Normal",
-    -- Minimum width for notification windows
-    minimum_width = 50,
-    -- Icons for the different levels
-    icons = {
-        ERROR = "",
-        WARN = "",
-        INFO = "",
-        DEBUG = "",
-        TRACE = "✎",
-    },
-})
-
-local alpha = require("alpha")
-local dashboard = require("alpha.themes.dashboard")
-
--- Set header
--- dashboard.section.header.val = {
---     "                                                     ",
---     "  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
---     "  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
---     "  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
---     "  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
---     "  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
---     "  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
---     "                                                     ",
--- }
-
-dashboard.section.header.val = {
-    '⡆⣐⢕⢕⢕⢕⢕⢕⢕⢕⠅⢗⢕⢕⢕⢕⢕⢕⢕⠕⠕⢕⢕⢕⢕⢕⢕⢕⢕⢕',
-    '⢐⢕⢕⢕⢕⢕⣕⢕⢕⠕⠁⢕⢕⢕⢕⢕⢕⢕⢕⠅⡄⢕⢕⢕⢕⢕⢕⢕⢕⢕',
-    '⢕⢕⢕⢕⢕⠅⢗⢕⠕⣠⠄⣗⢕⢕⠕⢕⢕⢕⠕⢠⣿⠐⢕⢕⢕⠑⢕⢕⠵⢕',
-    '⢕⢕⢕⢕⠁⢜⠕⢁⣴⣿⡇⢓⢕⢵⢐⢕⢕⠕⢁⣾⢿⣧⠑⢕⢕⠄⢑⢕⠅⢕',
-    '⢕⢕⠵⢁⠔⢁⣤⣤⣶⣶⣶⡐⣕⢽⠐⢕⠕⣡⣾⣶⣶⣶⣤⡁⢓⢕⠄⢑⢅⢑',
-    '⠍⣧⠄⣶⣾⣿⣿⣿⣿⣿⣿⣷⣔⢕⢄⢡⣾⣿⣿⣿⣿⣿⣿⣿⣦⡑⢕⢤⠱⢐',
-    '⢠⢕⠅⣾⣿⠋⢿⣿⣿⣿⠉⣿⣿⣷⣦⣶⣽⣿⣿⠈⣿⣿⣿⣿⠏⢹⣷⣷⡅⢐',
-    '⣔⢕⢥⢻⣿⡀⠈⠛⠛⠁⢠⣿⣿⣿⣿⣿⣿⣿⣿⡀⠈⠛⠛⠁⠄⣼⣿⣿⡇⢔',
-    '⢕⢕⢽⢸⢟⢟⢖⢖⢤⣶⡟⢻⣿⡿⠻⣿⣿⡟⢀⣿⣦⢤⢤⢔⢞⢿⢿⣿⠁⢕',
-    '⢕⢕⠅⣐⢕⢕⢕⢕⢕⣿⣿⡄⠛⢀⣦⠈⠛⢁⣼⣿⢗⢕⢕⢕⢕⢕⢕⡏⣘⢕',
-    '⢕⢕⠅⢓⣕⣕⣕⣕⣵⣿⣿⣿⣾⣿⣿⣿⣿⣿⣿⣿⣷⣕⢕⢕⢕⢕⡵⢀⢕⢕',
-    '⢑⢕⠃⡈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢃⢕⢕⢕',
-    '⣆⢕⠄⢱⣄⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⢁⢕⢕⠕⢁',
-    '⣿⣦⡀⣿⣿⣷⣶⣬⣍⣛⣛⣛⡛⠿⠿⠿⠛⠛⢛⣛⣉⣭⣤⣂⢜⠕⢑⣡⣴⣿',
-}
---
--- -- Set menu
-dashboard.section.buttons.val = {
-    dashboard.button( "f", "FuzzZzzy", ":Telescope find_files<CR>"),
-    dashboard.button( "e", "New file", ":ene <BAR> startinsert <CR>"),
-    dashboard.button( "r", "Reeecent", ":Telescope oldfiles<CR>"),
-    dashboard.button( "s", "luarocks", ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
-}
---
--- -- Send config to alpha
-alpha.setup(dashboard.opts)
-
--- Disable folding on alpha buffer
-vim.cmd([[
-    autocmd FileType alpha setlocal nofoldenable
-]])
-
-
-vim.cmd [[let g:signify_sign_add = '+']]
-vim.cmd [[let g:signify_sign_delete = '-']]
-vim.cmd [[let g:signify_sign_change = '?']]
-
-vim.cmd [[let g:indentLine_setConceal = 1]]
-
-vim.cmd [[set completeopt=menu,menuone]]
-vim.cmd [[let g:cursorhold_updatetime = 100]]
-
--- vim.cmd [[colorscheme pywal]]
-vim.cmd [[colorscheme xresources]]
-
--- color tweaking
--- vim.cmd [[highlight WinSeparator gui=NONE guibg=NONE guifg=#0C0C14 cterm=NONE ctermbg=NONE ctermfg=None]]
--- vim.cmd [[highlight VertSplit gui=NONE guibg=NONE guifg=None cterm=NONE ctermbg=NONE ctermfg=gray]]
--- vim.cmd [[highlight link TelescopeBorder Constant]]
--- vim.cmd [[hi Normal guibg=NONE ctermbg=NONE]]
---
--- vim.cmd [[hi ModeMsg cterm=bold gui=bold guifg=#8577D9 guibg=NONE]]
--- vim.cmd [[hi LineNr guifg=#414160]]
--- vim.cmd [[hi EndOfBuffer guifg=black ctermfg=black]]
--- vim.cmd [[hi NvimTreeNormal guifg=#8677D9]]
--- vim.cmd [[highlight link NotifyINFOBorder Normal]]
---
--- vim.cmd [[highlight NotifyINFOBorder  guifg=#8677D9]]
--- vim.cmd [[highlight NotifyINFOTitle   guifg=#8677D9]]
--- vim.cmd [[highlight NotifyINFOBody    guifg=#8677D9]]
--- vim.cmd [[highlight NotifyINFOIcon    guifg=#8677D9]]
---
--- vim.cmd [[highlight NotifyERRORBorder guifg=#FF7AB2]]
--- vim.cmd [[highlight NotifyERRORTitle  guifg=#FF7AB2]]
--- vim.cmd [[highlight NotifyERRORBody   guifg=#FF7AB2]]
--- vim.cmd [[highlight NotifyERRORIcon   guifg=#FF7AB2]]
---
--- vim.cmd [[hi Normal guifg=#000000 guibg=NONE]]
---
--- --vim.cmd [[let g:indentLine_defaultGroup = 'NonText']]
--- --vim.cmd [[let g:indentLine_setColors = 1]]
---
--- vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = borderColor })
---
---
--- vim.cmd [[hi Cursor guifg=#000000 ctermfg=black]]
--- vim.cmd [[hi CursorLine guibg=None]]
--- vim.cmd [[hi CursorLineNR ctermfg=black guifg=#5D5DAF]]
--- vim.cmd [[hi TabLineFill gui=NONE]]
--- vim.cmd[[highlight Search ctermbg=0 guibg=#444444]]
--- vim.cmd[[highlight Visual ctermbg=0 guibg=#444444]]
--- vim.cmd[[highlight Todo   ctermbg=0 guifg=#df73ff]]
--- vim.cmd[[highlight StatusLine ctermbg=0 guibg=Normal]]
--- vim.cmd[[highlight StatusLineNC ctermbg=0 guibg=#444444]]
--- vim.cmd[[highlight Visual ctermbg=0 guibg=#444444]]
-
---vim.cmd[[hi Normal guibg=none ctermbg=none]]
-
--- hi Folded guibg=none ctermbg=none
--- hi NonText guibg=none ctermbg=none
--- hi SpecialKey guibg=none ctermbg=none
--- hi VertSplit guibg=none ctermbg=none
--- hi SignColumn guibg=none ctermbg=none]]
-
-
+-- Telescope
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>fg", builtin.find_files, {})
+vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
