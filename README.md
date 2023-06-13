@@ -25,25 +25,31 @@ Details about my setup:
 ```shell
 yay -S awesome-git alsa-utils python-pywal ttf-cascadia-code
 ```
+> Note that this repo includes three awesomeWM configs: awesome, awesome-base and awesome-experimental. 
+> 
+> (Screenshot is from awesome-base)
+> 
+> (In the experimental version I try to remove the top panel completely displaying information scattered on the screen...)
+
+
 2. Configure important Variables. You should adjust the variables in `awesome/rc.lua` to make everything work as expected.
 3. Optional: Configure `awesome/config/settings.lua`. (Default Apps, Font, Panels, Gaps, Shapes, ...)
 
 ## Notable Features
 #### 
-- [x]  **[Dashboard including](#dashboard)**
+- [x]  **[Dashboard including]**
     - [x] Clock + Greeter
     - [x] Volume Control
     - [x] Microphone Control
-    - [ ] Brightness Control
     - [x] Weather (Current + 5 Day Forecast)
     - [x] Calendar
     - [x] Notes/To-Do List
     - [x] Powermenu
     - [x] System Info/Graphs (Temps/Usage/Processes/Clocks/...)
 ####
-- [x] **[Zenmode Panel](#zenmode-panel)**
-- [x] **[Theme Changer](#theme-changer-select-wallpaper-and-call-pywalpyfox-etc)**
-- [x] **[Alternative Panel](#alternative-continuous-panel)**
+- [x] **[Zenmode Panel]**
+- [x] **[Theme Changer]**
+- [x] **[Alternative Panel]**
 
 
 ## Keybinds
