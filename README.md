@@ -1,7 +1,7 @@
 
 > This setup is heavily focused on only using colors defined by [Pywal](https://github.com/dylanaraps/pywal).
 
-<image align="center" src="awesome/assets/screenshots/screen.png"/>
+<image align="center" src="awesome-base/assets/screenshots/screen.png"/>
 
 
 <image align="right" width="400" src="awesome/assets/screenshots/fetch.png"/>
