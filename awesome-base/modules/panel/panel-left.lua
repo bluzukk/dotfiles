@@ -10,8 +10,8 @@ local wibox = require("wibox")
 local dpi = require("beautiful").xresources.apply_dpi
 local markup = require("helpers.markup")
 
-local CMD_WEATHER = left_popup
-local CMD_CLOCK = left_popup
+local CMD_WEATHER = LEFT_POPUP
+local CMD_CLOCK = LEFT_POPUP
 
 local color_default = beautiful.bg_color
 local color_hover = beautiful.bg_color_light5

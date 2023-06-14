@@ -38,11 +38,11 @@ require("evil.mail")
 require("evil.bat")
 
 ---- UI Components ------------------------------------------------------------
-left_popup = require("modules.popups.left-board")
-panel = require("modules.panel")
+LEFT_POPUP = require("modules.popups.left-board")
+PANEL = require("modules.panel")
 -- powermenu = require "modules.powermenu"
 
-panel.create_screens()
+PANEL.create_screens()
 
 
 ---- Autostart Apps -----------------------------------------------------------
