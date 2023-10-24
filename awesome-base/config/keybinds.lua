@@ -80,7 +80,7 @@ globalkeys = gears.table.join(
     { descaauription = "checkmail", group = "launcher" }),
   awful.key({ modkey }, "F2", function() awful.spawn(mail_st) end,
     { description = "checkmail", group = "launcher" }),
-  awful.key({ modkey }, "F4", function() panel.toggle_zenmode() end,
+  awful.key({ modkey }, "F4", function() PANEL.toggle_zenmode() end,
     { description = "toggle zenmode", group = "launcher" }),
   awful.key({ modkey, }, "space", function() uwuprompt.launch() end,
     { description = "change wallpaper and theme", group = "hotkeys" }),

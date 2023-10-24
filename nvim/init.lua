@@ -2,6 +2,11 @@
 -- vim.opt.termguicolors = false
 require("config.lazy")
 
+vim.g.vimtex_view_method = "mupdf"
+vim.g.vimtex_compiler_method = "latexrun"
+
+
+
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
@@ -28,6 +33,7 @@ vim.keymap.set("n", "<F5>", "<cmd>ZenMode<CR>")
 -- xd
 vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")
 vim.keymap.set("n", "<F12>", "<cmd>Mason<CR>")
+vim.keymap.set("n", "<F11>", "<cmd>Masonlog<CR>")
 
 vim.keymap.set({ "n", "v" }, "<Tab>", "<cmd>bnext<CR>")
 vim.keymap.set({ "n", "v" }, "<C-Tab>", "<cmd>split<CR>")

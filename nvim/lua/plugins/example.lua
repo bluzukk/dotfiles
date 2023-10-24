@@ -19,7 +19,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "xresources",
+      colorscheme = "shado",
     },
     -- opts = {
     --   colorscheme = "xresources",
@@ -34,7 +34,9 @@ return {
   },
 
   -- disable trouble
-  { "folke/trouble.nvim",                             enabled = false },
+  { "folke/trouble.nvim", enabled = false },
+
+  { "lervag/vimtex" },
 
   -- add symbols-outline
   {

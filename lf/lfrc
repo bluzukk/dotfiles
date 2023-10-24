@@ -5,10 +5,10 @@ set ignorecase true
 
 cmd open ${{
     case $(file --mime-type "$(readlink -f $f)" -b) in
-    text/*) $EDITOR $fx;;
+    text/*) nvim $fx;;
 	image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
 	image/svg+xml) display -- $f ;;
-    application/pdf) librewolf $fx >/dev/null 2>&1 ;;
+    application/pdf) mupdf $fx >/dev/null 2>&1 &;;
 	image/*) feh $f ;;
 	audio/*|video/x-ms-asf) mpv --audio-display=no $f ;;
 	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
