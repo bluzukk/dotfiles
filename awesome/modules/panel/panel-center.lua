@@ -1,68 +1,104 @@
-local awful     = require("awful")
-local beautiful = require("beautiful")
-local gears     = require("gears")
-local wibox     = require("wibox")
-local dpi       = require("beautiful").xresources.apply_dpi
+local awful             = require("awful")
+local beautiful         = require("beautiful")
+local wibox             = require("wibox")
+local dpi               = require("beautiful").xresources.apply_dpi
+local gears             = require("gears")
+local markup            = require("helpers.markup")
 
-local markup    = require("helpers.markup")
-local dashboard = require("modules.dashboard.init")
+local CMD_MAIL_IMS      = beautiful.terminal .. " -e neomutt -F ~/Sync/Rice/_private/mail-muttrcIMS"
+local CMD_MAIL_MAIN     = beautiful.terminal .. " -e neomutt -F ~/Sync/Rice/_private/mail-muttrcUni"
 
-local mail_main = wibox.widget.textbox()
+local mail_main         = wibox.widget.textbox()
+mail_main.forced_height = dpi(48)
+mail_main.visible       = false
+mail_main:connect_signal("button::press", function()
+  awful.spawn(CMD_MAIL_MAIN)
+  mail_main.visible = false
+end)
 awesome.connect_signal("evil::mail_main", function(evil)
-    mail_main:set_markup(markup(beautiful.color_critical, evil))
+  if evil ~= "nop" then
+    mail_main:set_markup(markup(beautiful.accent_color, evil))
+    mail_main.visible = true
+  else
+    mail_main.visible = false
+  end
 end)
 
 local mail_ims = wibox.widget.textbox()
+mail_ims.forced_height = dpi(48)
+mail_ims.visible = false
+mail_ims:connect_signal("button::press", function()
+  awful.spawn(CMD_MAIL_IMS)
+  mail_ims.visible = false
+end)
 awesome.connect_signal("evil::mail_ims", function(evil)
-    mail_ims:set_markup(markup(beautiful.color_critical, evil))
+  if evil ~= "nop" then
+    mail_ims:set_markup(markup(beautiful.accent_color, evil))
+    mail_ims.visible = true
+  else
+    mail_ims.visible = false
+  end
 end)
 
-local spr = wibox.widget.textbox("   ")
-
-local tasklist_creator = require("modules.panel.tasklist")
-
 local function create(s)
-    local tasklist = tasklist_creator.create(s)
+  local spr      = wibox.widget.textbox(" ")
+  local tasklist = awful.widget.tasklist {
+    screen          = s,
+    filter          = awful.widget.tasklist.filter.minimizedcurrenttags,
+    style           = {
+      shape = gears.shape.rect,
+    },
+    layout          = {
+      spacing        = 15,
+      spacing_widget = {
+        {
+          forced_width = 10,
+          widget       = wibox.widget.separator,
+        },
+        opacity = 0,
+        widget = wibox.container.place,
+      },
+      layout         = wibox.layout.flex.horizontal
+    },
+    widget_template = {
+      {
+        -- spr,
+        {
+          id           = 'text_role',
+          forced_width = 300,
+          widget       = wibox.widget.textbox,
+          align        = "center"
+        },
+        -- spr,
+        forced_width = 300,
+        forced_height = dpi(48),
+        layout = wibox.layout.flex.horizontal
+      },
+      id     = 'background_role',
+      widget = wibox.container.background,
+    },
+  }
 
-    local center_panel = awful.popup {
-        screen = s,
-        ontop = true,
-        bg = beautiful.bg_color .. "0",
-        -- bg = beautiful.bg_bar_outer,
-        visible = true,
-        opacity = 1,
-        maximum_height = beautiful.bar_height,
-        maximum_width = dpi(800),
-        placement = function(c) awful.placement.top(c, { margins = { top = dpi(10) }}) end,
-        shape = beautiful.corners,
-        widget = {
-            -- {
-                {
-                    {
-                        layout = wibox.layout.fixed.horizontal,
-                        mail_ims, mail_main,
-                        tasklist,
-                    },
-                    layout = wibox.layout.align.horizontal,
-                    align = "center",
-                    forced_height = beautiful.bar_height,
-                    shape = gears.shape.rect,
-                },
-                -- bg = beautiful.bg_bar_inner .. "0",
-                shape  = beautiful.inner_corners,
-                widget = wibox.container.background,
-                -- },
-                -- left   = dpi(5),
-                -- right  = dpi(5),
-                -- top    = dpi(5),
-                -- bottom = dpi(5),
-                -- widget = wibox.container.margin
-            }
-        }
-        return center_panel
-    end
 
-    return {
-        create = create
-    }
+  local panel = awful.popup({
+    screen = s,
+    ontop = true,
+    opacity = beautiful.opacity,
+    -- bg        = bg_color,
+    placement = function(c)
+      awful.placement.top(c, { margins = { top = dpi(20) } })
+    end,
+    shape = beautiful.corners,
+    widget = {
+      tasklist,
+      mail_main,
+      mail_ims,
+      widget = wibox.layout.fixed.horizontal,
+    },
+  })
+  return panel
+end
 
+return {
+  create = create,
+}

@@ -12,9 +12,12 @@ local function file_exists(file)
 end
 
 function helpers.file_exists(file)
-    local f = io.open(file, "rb")
-    if f then f:close() end
-    return f ~= nil
+    if file then
+      local f = io.open(file, "rb")
+      if f then f:close() end
+      return f ~= nil
+    end
+    --return false
 end
 
 function helpers.read_line(path)

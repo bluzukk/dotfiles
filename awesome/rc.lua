@@ -8,41 +8,30 @@
 --                                                                           --
 -------------------------------------------------------------------------------
 
----- Variables ----------------------------------------------------------------
 local PRIVATE = os.getenv("HOME") .. "/Sync/Rice/_private"
--- Path to your
-AVATAR        = PRIVATE .. "/assets/korin.jpg"  -- ... Avatar
-WALLS_DIR     = PRIVATE .. "/assets/wallpaper/" -- ... Wallpaper collection
-LAT           = PRIVATE .. "/gps-latitude"      -- ... Latitude
-LONG          = PRIVATE .. "/gps-longtiude"     -- ... Longtiude
-API_KEY       = PRIVATE .. "/gps-owm-api-key"   -- ... OWM API key
+WALLS_DIR = PRIVATE .. "/assets/wallpaper/"
+LAT = PRIVATE .. "/gps-latitude"
+LONG = PRIVATE .. "/gps-longtiude"
+API_KEY = PRIVATE .. "/gps-owm-api-key"
 
----- Error Handling -----------------------------------------------------------
-require "helpers.errors"
+require("helpers.errors")
 
----- Init BEAUTIFUL -----------------------------------------------------------
-local feels_like = os.getenv("HOME")
-require "beautiful".init(feels_like .. "/.config/awesome/config/settings.lua")
+THEME = "/.config/awesome/config/settings.lua"
+require("beautiful").init(os.getenv("HOME") .. THEME)
 
----- Load Keybinds ------------------------------------------------------------
-require "config.keybinds"
-require "config.clients"
+require("config.keybinds")
+require("config.clients")
 
----- Start Evil Monitoring ----------------------------------------------------
-require "evil.cpu"
-require "evil.gpu"
-require "evil.netw"
-require "evil.disk"
-require "evil.ram"
-require "evil.mail"
-require "evil.bat"
+require("evil.cpu")
+require("evil.gpu")
+require("evil.netw")
+require("evil.disk")
+require("evil.ram")
+require("evil.mail")
+require("evil.bat")
 
----- UI Components ------------------------------------------------------------
-dashboard = require "modules.dashboard.init"
-panel     = require "modules.panel"
--- powermenu = require "modules.powermenu"
+LEFT_POPUP = require("modules.popups.left-board")
+PANEL = require("modules.panel")
+PANEL.create_screens()
 
-panel.create_screens()
-
----- Autostart Apps -----------------------------------------------------------
-require "helpers.autostart"
+require("helpers.autostart")

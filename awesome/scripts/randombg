@@ -1,10 +1,9 @@
 #!/bin/bash
-if [ -z "$1" ]
-  then
-    echo "INFO: Using random wallpaper"
-    bg="$(shuf -n1 -e ~/.config/awesome/assets/wallpaper/*)"
-  else
-    bg=$1
+if [ -z "$1" ]; then
+	echo "INFO: Using random wallpaper"
+	bg="$(shuf -n1 -e ~/.config/awesome/assets/wallpaper/*)"
+else
+	bg=$1
 
 fi
 
@@ -14,6 +13,9 @@ pywalfox update
 . ~/Sync/Projects/Youwal/youwal
 
 nitrogen --restore
-nitrogen --set-zoom-fill $bg --head=0
+nitrogen --set-zoom-fill $bg --head=1
 
 pywal-discord
+killall picom
+picom &
+setxkbmap de

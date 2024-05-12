@@ -20,12 +20,9 @@ export VISUAL=leafpad;
 export EDITOR=nvim;
 xdg-settings set default-web-browser firefox.desktop
 
-xset r rate 222 75 # Thanks Vim Diesel
-setxkbmap -option caps:swapescape # I <3 ESCAPE
+xset r rate 222 75
+setxkbmap -option caps:swapescape
 xmodmap $HOME/.Xmodmap
-
-## Tensorflow
-export TF_CPP_MIN_LOG_LEVEL=3
 
 ###############################################################
 # LF Working Directory and Image preview (ueberzug)
@@ -83,7 +80,7 @@ alias dlr="ranger ~/Downloads"
 alias proj="cd ~/Sync/Projects"
 alias rice="cd ~/Sync/Rice"
 alias setup="neofetch --config ~/.config/neofetch/config-setup.conf"
-# alias neofetch="uwufetch"
+alias neofetch="uwufetch"
 
 alias bss="nvim ~/Sync/Rice/zsh/zshrc"
 alias bs="nvim ~/Sync/Rice/_private/linux-aliasrc"
@@ -126,7 +123,7 @@ ENABLE_CORRECTION="false"
 
 plugins=(
   git
-  web-search
+  # web-search
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
@@ -137,9 +134,7 @@ export HSTR_CONFIG=hicolor
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ################################################################
-# Personal aliases I wont share kek
-################################################################
-source ~/Sync/Rice/_private/linux-aliasrc
+# CONDA
 
 # source ~/anaconda3/bin/activate
 # >>> conda initialize >>>
@@ -157,3 +152,10 @@ source ~/Sync/Rice/_private/linux-aliasrc
 # unset __conda_setup
 # <<< conda initialize <<<
 
+## Tensorflow
+export TF_CPP_MIN_LOG_LEVEL=3
+
+################################################################
+source ~/Sync/Rice/_private/linux-aliasrc
+
+~/Sync/Rice/scripts/bunny
