@@ -86,7 +86,7 @@ local function create(s)
     opacity = beautiful.opacity,
     -- bg        = bg_color,
     placement = function(c)
-      awful.placement.top(c, { margins = { top = dpi(20) } })
+      awful.placement.top(c, { margins = { top = dpi(15) } })
     end,
     shape = beautiful.corners,
     widget = {

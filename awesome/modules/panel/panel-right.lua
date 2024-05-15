@@ -177,7 +177,7 @@ local function create(s)
     bg = beautiful.bg_bar_outer,
     placement = function(c)
       awful.placement.top_right(c,
-        { margins = { right = dpi(20), top = dpi(20) } })
+        { margins = { right = dpi(20), top = dpi(15) } })
     end,
     shape = beautiful.corners,
     widget = {

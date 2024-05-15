@@ -1,3 +1,4 @@
+# zmodload zsh/zprof
 ###############################################################
 # Scriptz
 ###############################################################
@@ -119,12 +120,10 @@ autoload -Uz compinit
 compinit
 _comp_options+=(globdots)
 
-ENABLE_CORRECTION="false"
-
 plugins=(
   git
   # web-search
-  zsh-autosuggestions
+  # zsh-autosuggestions
   zsh-syntax-highlighting
 )
 
@@ -158,4 +157,5 @@ export TF_CPP_MIN_LOG_LEVEL=3
 ################################################################
 source ~/Sync/Rice/_private/linux-aliasrc
 
-~/Sync/Rice/scripts/bunny
+# ~/Sync/Rice/scripts/bunny
+# zprof

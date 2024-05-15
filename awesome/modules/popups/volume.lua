@@ -15,7 +15,7 @@ local volume_popup  = awful.popup {
   widget       = {},
   border_color = beautiful.border_focus,
   border_width = 0 or beautiful.border_width,
-  placement    = function(c) awful.placement.top(c, { margins = { top = dpi(100) } }) end,
+  placement    = function(c) awful.placement.top(c, { margins = { top = dpi(15) } }) end,
   shape        = beautiful.corners,
   ontop        = true,
   visible      = false,
