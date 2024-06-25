@@ -1,4 +1,4 @@
-ls ~/.config/awesome || ln -s ~/Sync/Rice/awesome ~/.config/awesome
+ls ~/.config/awesome || ln -s ~/Sync/Rice/awesome-default ~/.config/awesome
 ls ~/.config/nvim || ln -s ~/Sync/Rice/nvim ~/.config/nvim
 ls ~/.config/lf || ln -s ~/Sync/Rice/lf ~/.config/lf
 ls ~/.config/neomutt || ln -s ~/Sync/Rice/neomutt ~/.config/neomutt
