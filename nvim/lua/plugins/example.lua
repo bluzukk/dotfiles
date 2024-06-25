@@ -7,17 +7,18 @@ return {
   { "ellisonleao/gruvbox.nvim" },
   { "nekonako/xresources-nvim" },
   { "EdenEast/nightfox.nvim" },
+  { "folke/tokyonight.nvim" },
   { "Shadorain/shadotheme" },
-  -- { "dylanaraps/wal.vim" },
-  -- { "atalazer/wally.nvim" },
+  { "dylanaraps/wal.vim" },
+  { "atalazer/wally.nvim" },
   {
     "LazyVim/LazyVim",
-    -- opts = {
-    --   colorscheme = "shado",
-    -- },
     opts = {
-      colorscheme = "xresources",
+      colorscheme = "shado",
     },
+    -- opts = {
+    --   colorscheme = "xresources",
+    -- },
   },
 
   -- change trouble config
@@ -28,7 +29,7 @@ return {
   },
 
   -- disable trouble
-  { "folke/trouble.nvim",                             enabled = false },
+  -- { "folke/trouble.nvim", enabled = false },
 
   {
     "lervag/vimtex",
