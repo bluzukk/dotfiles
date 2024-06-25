@@ -2,7 +2,7 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
-vim.g.vimtex_view_method = "mupdf"
+vim.g.vimtex_view_method = "zathura"
 vim.g.vimtex_compiler_method = "latexrun"
 
 vim.g.mapleader = " "

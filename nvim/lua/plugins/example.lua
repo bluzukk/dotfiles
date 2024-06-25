@@ -12,12 +12,12 @@ return {
   -- { "atalazer/wally.nvim" },
   {
     "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "shado",
-    },
     -- opts = {
-    --   colorscheme = "xresources",
+    --   colorscheme = "shado",
     -- },
+    opts = {
+      colorscheme = "xresources",
+    },
   },
 
   -- change trouble config
@@ -28,9 +28,16 @@ return {
   },
 
   -- disable trouble
-  { "folke/trouble.nvim", enabled = false },
+  { "folke/trouble.nvim",                             enabled = false },
 
-  { "lervag/vimtex" },
+  {
+    "lervag/vimtex",
+    lazy = false, -- we don't want to lazy load VimTeX
+    -- tag = "v2.15", -- uncomment to pin to a specific release
+    init = function()
+      vim.g.vimtex_view_method = "zathura"
+    end,
+  },
 
   -- add symbols-outline
   {
