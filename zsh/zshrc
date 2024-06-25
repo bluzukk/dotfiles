@@ -81,16 +81,12 @@ alias bs="nvim ~/Sync/Rice/_private/linux-aliasrc"
 alias 30min="sudo shutdown -P 30"
 alias 45min="sudo shutdown -P 45"
 
-<<<<<<< HEAD
-alias mp3="yt-dlp --extract-audio --audio-format mp3 --add-metadata "
 alias wttr="curl wttr.in"
 
 alias todo="vim ~/Sync/.todo"
 alias todoc="cat ~/Sync/.todo"
 alias wp="cd ~/Sync/Rice/_private/assets/wallpaper/"
 
-=======
->>>>>>> d03f1ff (up)
 ################################################################
 # GIT
 ################################################################
