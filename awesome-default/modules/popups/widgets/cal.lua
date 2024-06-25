@@ -53,7 +53,7 @@ local function create()
         bg = beautiful.accent_color,
         cal,
       },
-      forced_height = dpi(350),
+      forced_height = dpi(300),
       forced_width = dpi(400),
       widget = wibox.container.background,
       -- bg = beautiful.bg_color_light,
@@ -64,7 +64,7 @@ local function create()
       left = beautiful.dashboard_margin,
       right = beautiful.dashboard_margin,
       bottom = beautiful.dashboard_margin,
-      top = beautiful.dashboard_margin,
+      -- top = beautiful.dashboard_margin,
     },
   }
 

@@ -105,11 +105,13 @@ awesome.connect_signal("evil::gpu", function(evil_gpu_util, evil_gpu_temp)
   local color = beautiful.accent_color
   if evil_gpu_temp > 50 then
     color = beautiful.color_critical
+    gpu_widget.visible = true
   end
   if evil_gpu_temp > 0 then
     gpu_widget:update(color, evil_gpu_util .. "% " .. evil_gpu_temp .. "°C")
-    -- else
-    --   gpu_widget:hide()
+    gpu_widget.visible = true
+  else
+    gpu_widget.visible = false
   end
 end)
 

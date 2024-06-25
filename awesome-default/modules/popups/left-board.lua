@@ -100,12 +100,11 @@ local function update()
         weather_widget,
         cal,
         links,
-        uptime,
         layout = wibox.layout.fixed.vertical,
       },
       layout = wibox.layout.fixed.horizontal,
       forced_width = dpi(500),
-      forced_height = dpi(1000),
+      forced_height = dpi(650),
     },
     widget = wibox.container.place,
   })

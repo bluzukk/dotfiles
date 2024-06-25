@@ -93,6 +93,7 @@ alias wttr="curl wttr.in"
 
 alias todo="vim ~/Sync/.todo"
 alias todoc="cat ~/Sync/.todo"
+alias wp="cd ~/Sync/Rice/_private/assets/wallpaper/"
 
 ################################################################
 # GIT
@@ -130,7 +131,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 export HSTR_CONFIG=hicolor
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 
 ################################################################
 # CONDA

@@ -129,7 +129,7 @@ local function worker(user_args)
           {
             text = " ",
             align = 'center',
-            font = font_name .. ' 30',
+            font = font_name .. ' 2',
             widget = wibox.widget.textbox
           },
           {
@@ -169,7 +169,7 @@ local function worker(user_args)
             },
             layout = wibox.layout.fixed.vertical
           },
-          spacing = dpi(5),
+          spacing = dpi(0),
           layout = wibox.layout.fixed.vertical
         }
         table.insert(self, day_forecast)
@@ -242,7 +242,7 @@ local function worker(user_args)
 
   local spr = wibox.widget.textbox("  ")
   local current_weather_widget = wibox.widget {
-    spr,
+    -- spr,
     {
       text = " ",
       align = 'center',
@@ -250,7 +250,7 @@ local function worker(user_args)
       widget = wibox.widget.textbox
     },
     {
-      spr,
+      -- spr,
       spr,
       {
         id = 'icon',
@@ -350,7 +350,7 @@ local function worker(user_args)
           -- bg = beautiful.bg_color_light,
           shape = gears.shape.rounded_rect,
         },
-        forced_height = dpi(220),
+        forced_height = dpi(150),
         forced_width = dpi(500),
         widget = wibox.container.margin,
         margins = {

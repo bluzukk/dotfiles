@@ -45,7 +45,7 @@ local function create()
     margins = {
       left = dpi(50),
       right = dpi(20),
-      top = dpi(10),
+      top = dpi(00),
     },
   }
 

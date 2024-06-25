@@ -3,6 +3,7 @@ ls ~/.config/nvim || ln -s ~/Sync/Rice/nvim ~/.config/nvim
 ls ~/.config/lf || ln -s ~/Sync/Rice/lf ~/.config/lf
 ls ~/.config/neomutt || ln -s ~/Sync/Rice/neomutt ~/.config/neomutt
 ls ~/.config/picom || ln -s ~/Sync/Rice/picom ~/.config/picom
+ls ~/.config/kitty || ln -s ~/Sync/Rice/kitty ~/.config/kitty
 
 ln -s ~/Sync/Rice/zsh/zshtheme ~/.oh-my-zsh/themes/mh2.zsh-theme
 ln -s ~/Sync/Rice/zsh/zshrc ~/.zshrc

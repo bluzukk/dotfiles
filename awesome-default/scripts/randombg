@@ -10,10 +10,10 @@ fi
 # Update colors
 wal -n -i $bg
 pywalfox update
-. ~/Sync/Projects/Youwal/youwal
+# . ~/Sync/Projects/Youwal/youwal
 
 nitrogen --restore
-nitrogen --set-zoom-fill $bg --head=1
+nitrogen --set-zoom-fill $bg
 
 pywal-discord
 killall picom
