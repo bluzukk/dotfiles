@@ -186,7 +186,7 @@ local function create(s)
     bg = bg_color,
     placement = function(c)
       awful.placement.top_right(c,
-        { margins = { right = dpi(20), top = dpi(10) } })
+        { margins = { right = dpi(20), top = dpi(15) } })
     end,
     shape = beautiful.corners,
     widget = {

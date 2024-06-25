@@ -1,6 +1,5 @@
-# zmodload zsh/zprof
 ###############################################################
-# Scriptz
+# Scripts
 ###############################################################
 export PATH="/home/$USER/Sync/Rice/awesome/scripts:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -48,7 +47,6 @@ lf () {
 alias ..="cd .."
 alias ...="cd ../.."
 
-alias t="st &"
 alias c="clear"
 alias q="exit"
 alias ka="killall"
@@ -65,22 +63,17 @@ alias orphans="pacman -Qdtq"
 alias installed="pacman -Qi | egrep '^(Name|Installed)' | cut -f2 -d':' | paste - - | column -t | sort -nrk 2 | grep MiB | less "
 
 alias h="htop"
-alias f="librewolf"
+alias f="firefox"
 alias r="lf"
 alias sr="sudo . ranger"
 alias m="mupdf"
 alias vim="nvim"
 alias v="nvim"
 
-alias dl="cd ~/Downloads"
-alias dlr="ranger ~/Downloads"
-
 ################################################################
 # SHORTCUTS
 ################################################################
-alias proj="cd ~/Sync/Projects"
 alias rice="cd ~/Sync/Rice"
-alias setup="neofetch --config ~/.config/neofetch/config-setup.conf"
 alias neofetch="uwufetch"
 
 alias bss="nvim ~/Sync/Rice/zsh/zshrc"
@@ -88,6 +81,7 @@ alias bs="nvim ~/Sync/Rice/_private/linux-aliasrc"
 alias 30min="sudo shutdown -P 30"
 alias 45min="sudo shutdown -P 45"
 
+<<<<<<< HEAD
 alias mp3="yt-dlp --extract-audio --audio-format mp3 --add-metadata "
 alias wttr="curl wttr.in"
 
@@ -95,13 +89,15 @@ alias todo="vim ~/Sync/.todo"
 alias todoc="cat ~/Sync/.todo"
 alias wp="cd ~/Sync/Rice/_private/assets/wallpaper/"
 
+=======
+>>>>>>> d03f1ff (up)
 ################################################################
 # GIT
 ################################################################
 alias gstat="git status"
 alias gcheck="git checkout"
 alias pull="git pull"
-alias push="git commit -m 'Code changes from time to time...'; git push origin main"
+alias push="git commit -m 'Fast push...'; git push origin main"
 alias log='git log --format="%C(yellow) %h %C(reset) %d %s %Cblue<%an, %cr>" --graph --all'
 
 ################################################################
@@ -135,6 +131,7 @@ source <(fzf --zsh)
 
 ################################################################
 # CONDA
+################################################################
 
 # source ~/anaconda3/bin/activate
 # >>> conda initialize >>>
@@ -157,6 +154,7 @@ export TF_CPP_MIN_LOG_LEVEL=3
 
 ################################################################
 source ~/Sync/Rice/_private/linux-aliasrc
-
-# ~/Sync/Rice/scripts/bunny
+echo ""
+~/Sync/Rice/scripts/bunny
+echo ""
 # zprof
