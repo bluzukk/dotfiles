@@ -10,25 +10,25 @@ local lama = require("helpers.lama")
 local theme = {}
 
 theme.uwu_map = {
-  ["clear sky"] = "Clear Skywu",
-  ["few clouds"] = "Fewu Cloudwu",
-  ["scattered clouds"] = "Little Cloudwu",
-  ["broken clouds"] = "Much Cloudwu",
-  ["overcast clouds"] = "Only Cloudwu",
-  ["light rain"] = "Little Rainwu",
-  ["heavy intensity rain"] = "Heavy Rainwu!!",
-  ["moderate rain"] = "Moderate Rainwu",
-  ["shower rain"] = "Shower Rainwu",
-  ["rain"] = "rainwu",
-  ["light intensity shower rain"] = "Lil Shower Rainwu",
-  ["light shower snow"] = "Lil Shower Snowu",
-  ["light intensity drizzle"] = "Lil Drizzle Rainwu",
-  ["thunderstorm"] = "Thunderstormwu!!!!",
-  ["snow"] = "Snowu :)",
-  ["light snow"] = "Little Snowu",
-  ["rain and snow"] = "Rainwu, maybe little Snowu",
-  ["mist"] = "Mistwu",
-  ["fog"] = "Fogwu uww",
+	["clear sky"] = "Clear Skywu",
+	["few clouds"] = "Fewu Cloudwu",
+	["scattered clouds"] = "Little Cloudwu",
+	["broken clouds"] = "Much Cloudwu",
+	["overcast clouds"] = "Only Cloudwu",
+	["light rain"] = "Little Rainwu",
+	["heavy intensity rain"] = "Heavy Rainwu!!",
+	["moderate rain"] = "Moderate Rainwu",
+	["shower rain"] = "Shower Rainwu",
+	["rain"] = "rainwu",
+	["light intensity shower rain"] = "Lil Shower Rainwu",
+	["light shower snow"] = "Lil Shower Snowu",
+	["light intensity drizzle"] = "Lil Drizzle Rainwu",
+	["thunderstorm"] = "Thunderstormwu!!!!",
+	["snow"] = "Snowu :)",
+	["light snow"] = "Little Snowu",
+	["rain and snow"] = "Rainwu, maybe little Snowu",
+	["mist"] = "Mistwu",
+	["fog"] = "Fogwu uww",
 }
 
 ---------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ theme.inner_corners = gears.shape.rect
 -- end
 
 theme.opacity = 1
-theme.useless_gap = dpi(10)
+theme.useless_gap = dpi(55)
 theme.size_hint_honor = false
 theme.border_width = dpi(10)
 
@@ -161,9 +161,9 @@ theme.bg_urgent = theme.bg_color
 theme.bg_minimize = theme.bg_color
 
 if theme.transparent_bar then
-  theme.bg_systray = theme.bg_color
+	theme.bg_systray = theme.bg_color
 else
-  theme.bg_systray = theme.bg_color_light .. "0"
+	theme.bg_systray = theme.bg_color_light .. "0"
 end
 
 theme.bg_bar_outer = theme.bg_color
@@ -187,10 +187,10 @@ theme.notification_fg = theme.main_color
 
 -- Set different colors for urgent notifications.
 rnotification.connect_signal("request::rules", function()
-  rnotification.append_rule({
-    rule = { urgency = "critical" },
-    properties = { bg = theme.bg_color, fg = theme.color_critical },
-  })
+	rnotification.append_rule({
+		rule = { urgency = "critical" },
+		properties = { bg = theme.bg_color, fg = theme.color_critical },
+	})
 end)
 
 ---------------------------------------------------------------------------------

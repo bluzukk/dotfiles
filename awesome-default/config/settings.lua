@@ -9,42 +9,48 @@ local rnotification = require("ruled.notification")
 local lama = require("helpers.lama")
 local theme = {}
 
+---------------------------------------------------------------------------------
+-- Default Apps
+---------------------------------------------------------------------------------
+theme.terminal = "kitty"
+theme.shell = "zsh"
+theme.browser = "firefox"
+theme.editor = "nvim"
+theme.music_player = "youtube-music"
+
+theme.mail_ims = theme.terminal .. " -e neomutt -F ~/Sync/Rice/_private/mail-muttrcIMS"
+theme.mail_st = theme.terminal .. " -e neomutt -F ~/Sync/Rice/_private/mail-muttrcUni"
+
+-- Other Settings
+theme.modkey = "Mod4"
+theme.altkey = "Mod1"
 theme.uwu_map = {
-  ["clear sky"] = "Clear Skywu",
-  ["few clouds"] = "Few Cloudwu",
-  ["scattered clouds"] = "Little Cloudwu",
-  ["broken clouds"] = "Much Cloudwu",
-  ["overcast clouds"] = "Only Cloudwu",
-  ["light rain"] = "Little Rainwu",
-  ["heavy intensity rain"] = "Heavy Rainwu!!",
-  ["moderate rain"] = "Moderate Rainwu",
-  ["shower rain"] = "Shower Rainwu",
-  ["rain"] = "rainwu",
-  ["light intensity shower rain"] = "Lil Shower Rainwu",
-  ["light shower snow"] = "Lil Shower Snowu",
-  ["light intensity drizzle"] = "Lil Drizzle Rainwu",
-  ["thunderstorm"] = "Thunderstormwu!!!!",
-  ["snow"] = "Snowu :)",
-  ["light snow"] = "Little Snowu",
-  ["rain and snow"] = "Rainwu, maybe little Snowu",
-  ["mist"] = "Mistwu",
-  ["fog"] = "Fogwu uww",
+	["clear sky"] = "Clear Skywu",
+	["few clouds"] = "Few Cloudwu",
+	["scattered clouds"] = "Little Cloudwu",
+	["broken clouds"] = "Much Cloudwu",
+	["overcast clouds"] = "Only Cloudwu",
+	["light rain"] = "Little Rainwu",
+	["heavy intensity rain"] = "Heavy Rainwu!!",
+	["moderate rain"] = "Moderate Rainwu",
+	["shower rain"] = "Shower Rainwu",
+	["rain"] = "rainwu",
+	["light intensity shower rain"] = "Lil Shower Rainwu",
+	["light shower snow"] = "Lil Shower Snowu",
+	["light intensity drizzle"] = "Lil Drizzle Rainwu",
+	["thunderstorm"] = "Thunderstormwu!!!!",
+	["snow"] = "Snowu :)",
+	["light snow"] = "Little Snowu",
+	["rain and snow"] = "Rainwu, maybe little Snowu",
+	["mist"] = "Mistwu",
+	["fog"] = "Fogwu uww",
 }
 
 ---------------------------------------------------------------------------------
 -- Panel and Dashboard Settings
 ---------------------------------------------------------------------------------
-theme.bar_height = dpi(10)
 theme.panel_right_width = dpi(550)
-theme.dashboard_width = dpi(500)
-theme.dashboard_margin = dpi(20)
-theme.dashboard_height = dpi(1388)
-
-theme.sidepanel_width = dpi(500)
 theme.sidepanel_margin = dpi(20)
-theme.sidepanel_height = dpi(1388)
-
-theme.transparent_bar = false
 
 ---------------------------------------------------------------------------------
 -- Theme Variables
@@ -53,46 +59,11 @@ theme.font_name = "Cascadia Code"
 theme.font_size = "14"
 theme.font = theme.font_name .. " " .. theme.font_size
 
-theme.corners = gears.shape.rect
--- If not using picom
--- theme.shape = function(cr, w, h)
--- 	gears.shape.rounded_rect(cr, w, h, 8)
--- end
-
-theme.corners = gears.shape.rect
--- theme.corners = function(cr, w, h)
--- 	gears.shape.rounded_rect(cr, w, h, 8)
--- end
-
--- Mostly used in bars
-theme.inner_corners = gears.shape.rect
--- theme.inner_corners = function(cr, w, h)
--- 	gears.shape.rounded_rect(cr, w, h, 8)
--- end
-
-theme.opacity = 1
-theme.useless_gap = dpi(10)
+theme.useless_gap = dpi(48)
 theme.size_hint_honor = false
 theme.border_width = dpi(10)
 
-theme.master_width_factor = 0.689
--- theme.tasklist_plain_task_name = false
-theme.tasklist_disable_icon = true
-
--- Other Settings
-theme.modkey = "Mod4"
-theme.altkey = "Mod1"
-
----------------------------------------------------------------------------------
--- Default Apps
----------------------------------------------------------------------------------
--- theme.terminal                = "st -f '" .. theme.font_name .. ":size=" .. theme.font_size .. "'"
-theme.terminal = "kitty"
-theme.shell = "zsh"
-theme.browser = "firefox"
-theme.browser_alt = "firefox"
-theme.editor = "nvim"
-theme.music_player = "youtube-music"
+theme.master_width_factor = 0.669
 
 ---------------------------------------------------------------------------------
 -- Colors
@@ -160,9 +131,9 @@ theme.bg_urgent = theme.bg_color
 theme.bg_minimize = theme.bg_color
 
 if theme.transparent_bar then
-  theme.bg_systray = theme.accent_color
+	theme.bg_systray = theme.accent_color
 else
-  theme.bg_systray = theme.bg_color
+	theme.bg_systray = theme.bg_color
 end
 
 theme.bg_bar_outer = theme.bg_color
@@ -181,21 +152,21 @@ theme.border_color_marked = theme.bg_color
 
 -- Taglist
 if theme.transparent_bar then
-  theme.taglist_fg_focus = theme.accent_color
-  theme.taglist_fg_empty = "0000000"
-  theme.taglist_fg_occupied = theme.accent_color .. "50"
-  theme.taglist_fg_occupied = theme.main_color
-  theme.taglist_fg_urgent = theme.main_color
-  theme.taglist_bg_urgent = theme.color_critical
-  theme.taglist_bg_occupied = "0000000"
+	theme.taglist_fg_focus = theme.accent_color
+	theme.taglist_fg_empty = "0000000"
+	theme.taglist_fg_occupied = theme.accent_color .. "50"
+	theme.taglist_fg_occupied = theme.main_color
+	theme.taglist_fg_urgent = theme.main_color
+	theme.taglist_bg_urgent = theme.color_critical
+	theme.taglist_bg_occupied = "0000000"
 else
-  theme.taglist_fg_focus = theme.accent_color
-  theme.taglist_fg_empty = theme.main_color
-  theme.taglist_fg_occupied = theme.main_color
-  theme.taglist_fg_urgent = theme.main_color
-  theme.taglist_bg_urgent = theme.color_critical
-  -- theme.taglist_fg_focus    = theme.accent_alt_color
-  -- theme.taglist_bg_occupied = theme.bg_color
+	theme.taglist_fg_focus = theme.accent_color
+	theme.taglist_fg_empty = theme.main_color
+	theme.taglist_fg_occupied = theme.main_color
+	theme.taglist_fg_urgent = theme.main_color
+	theme.taglist_bg_urgent = theme.color_critical
+	-- theme.taglist_fg_focus    = theme.accent_alt_color
+	-- theme.taglist_bg_occupied = theme.bg_color
 end
 
 -- Tasklsit
@@ -211,10 +182,10 @@ theme.notification_fg = theme.main_color
 
 -- Set different colors for urgent notifications.
 rnotification.connect_signal("request::rules", function()
-  rnotification.append_rule({
-    rule = { urgency = "critical" },
-    properties = { bg = theme.bg_color, fg = theme.color_critical },
-  })
+	rnotification.append_rule({
+		rule = { urgency = "critical" },
+		properties = { bg = theme.bg_color, fg = theme.color_critical },
+	})
 end)
 
 ---------------------------------------------------------------------------------
@@ -229,14 +200,14 @@ naughty.config.defaults.margin = dpi(10)
 
 -- For debugging
 function Print(title, text)
-  naughty.notify({
-    title = title,
-    text = text,
-    bg = theme.bg_color,
-    height = dpi(100),
-    width = dpi(200),
-    position = "bottom",
-  })
+	naughty.notify({
+		title = title,
+		text = text,
+		bg = theme.bg_color,
+		height = dpi(100),
+		width = dpi(200),
+		position = "bottom",
+	})
 end
 
 return theme

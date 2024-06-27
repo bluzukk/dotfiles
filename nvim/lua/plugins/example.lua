@@ -9,12 +9,12 @@ return {
   { "EdenEast/nightfox.nvim" },
   { "folke/tokyonight.nvim" },
   { "Shadorain/shadotheme" },
-  { "dylanaraps/wal.vim" },
-  { "atalazer/wally.nvim" },
+  { "Mofiqul/dracula.nvim" },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "shado",
+      colorscheme = "duskfox",
     },
     -- opts = {
     --   colorscheme = "xresources",
@@ -126,6 +126,17 @@ return {
       servers = {
         -- tsserver will be automatically installed with mason and loaded with lspconfig
         tsserver = {},
+        lua_ls = {
+          -- mason = false, -- set to false if you don't want this server to be installed with mason
+          settings = {
+            Lua = {
+              diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { "vim", "awesome", "root", "globalkeys", "client", "clientkeys", "clientbuttons" },
+              },
+            },
+          },
+        },
       },
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig

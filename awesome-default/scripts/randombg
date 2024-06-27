@@ -13,7 +13,7 @@ pywalfox update
 # . ~/Sync/Projects/Youwal/youwal
 
 nitrogen --restore
-nitrogen --set-zoom-fill $bg
+nitrogen --set-zoom-fill $bg --head=1
 
 pywal-discord
 killall picom
