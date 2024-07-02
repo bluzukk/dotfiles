@@ -148,12 +148,6 @@ awesome.connect_signal("evil::net_now", function(evil)
 	end
 end)
 
-if beautiful.transparent_bar then
-	bg_color = beautiful.accent_color .. "0"
-else
-	bg_color = beautiful.bg_color
-end
-
 local systray = wibox.widget({
 	{
 		{
@@ -169,7 +163,7 @@ local systray = wibox.widget({
 	forced_height = dpi(10),
 	forced_width = dpi(50),
 	widget = wibox.container.background,
-	bg = bg_color_light,
+	bg = beautiful.bg_color_light,
 	shape = gears.shape.powerline,
 })
 
@@ -185,15 +179,26 @@ local function create(s)
 		end,
 		shape = beautiful.corners,
 		widget = {
-			layout = wibox.layout.fixed.horizontal,
-			cpu_widget,
-			gpu_widget,
-			ram_widget,
-			disk_widget,
-			bat_widget,
-			net_widget,
-			systray,
-			-- CONTROL_CENTER,
+			{
+				{
+					layout = wibox.layout.fixed.horizontal,
+					cpu_widget,
+					gpu_widget,
+					ram_widget,
+					disk_widget,
+					bat_widget,
+					net_widget,
+					systray,
+					-- CONTROL_CENTER,
+				},
+				widget = wibox.container.margin,
+				top = dpi(3),
+				left = dpi(3),
+				right = dpi(3),
+				bottom = dpi(3),
+			},
+			widget = wibox.container.background,
+			bg = beautiful.border_color,
 		},
 	})
 	return panel

@@ -8,8 +8,7 @@ export PATH="$HOME/.local/bin:$PATH"
 # ... StartX ...
 ###############################################################
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-    sleep 1
-    randombg
+    ~/.config/awesome/scripts/startup
     exec startx
 fi
 

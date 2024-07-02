@@ -1,0 +1,20 @@
+#!/bin/bash
+if [ -z "$1" ]; then
+	bg="Sync/Rice/_private/assets/wallpaper/perfect-blue-final.png"
+else
+	bg=$1
+fi
+
+echo $bg
+# Update colors
+wal -n -i $bg
+pywalfox update
+# . ~/Sync/Projects/Youwal/youwal
+
+nitrogen --set-zoom-fill $bg --head=1
+nitrogen --restore
+
+pywal-discord
+killall picom
+picom &
+setxkbmap de

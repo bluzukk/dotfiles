@@ -51,6 +51,7 @@ theme.uwu_map = {
 ---------------------------------------------------------------------------------
 theme.panel_right_width = dpi(550)
 theme.sidepanel_margin = dpi(20)
+theme.dashboard_margin = dpi(10)
 
 ---------------------------------------------------------------------------------
 -- Theme Variables
@@ -60,8 +61,9 @@ theme.font_size = "14"
 theme.font = theme.font_name .. " " .. theme.font_size
 
 theme.useless_gap = dpi(48)
+-- theme.useless_gap = dpi(10)
 theme.size_hint_honor = false
-theme.border_width = dpi(10)
+theme.border_width = dpi(5)
 
 theme.master_width_factor = 0.669
 
@@ -73,6 +75,8 @@ theme.accent_color = xrdb.color4 or "#0000FF"
 theme.accent_alt_color = xrdb.color2 or "#00FF00"
 theme.main_color = xrdb.foreground or "#FF0000"
 theme.bg_color = lama.lighten(xrdb.background, 0)
+-- theme.border_color = theme.accent_alt_color
+theme.border_color = theme.bg_color
 
 -- Adjusted colors thanks to lama
 theme.bg_color_light = lama.lighten(theme.bg_color, 2)
@@ -118,6 +122,8 @@ theme.accent_alt_color_dark2 = lama.lighten(theme.accent_alt_color, -20)
 theme.main_color_light = lama.lighten(theme.main_color, 2)
 theme.main_color_dark = lama.lighten(theme.main_color, -2)
 
+theme.bg_dashboard_item = theme.bg_color_light
+
 -- Reactive colors
 theme.color_default = theme.main_color
 theme.color_moderate = xrdb.color6
@@ -146,8 +152,8 @@ theme.fg_urgent = theme.color_critical
 theme.fg_minimize = theme.main_color
 
 -- Border Color
-theme.border_color_normal = theme.bg_color
-theme.border_color_active = theme.bg_color
+theme.border_color_normal = theme.border_color
+theme.border_color_active = theme.border_color
 theme.border_color_marked = theme.bg_color
 
 -- Taglist

@@ -132,7 +132,7 @@ return {
             Lua = {
               diagnostics = {
                 -- Get the language server to recognize the `vim` global
-                globals = { "vim", "awesome", "root", "globalkeys", "client", "clientkeys", "clientbuttons" },
+                globals = { "vim", "awesome", "root", "globalkeys", "client", "clientkeys", "clientbuttons", "screen" },
               },
             },
           },
