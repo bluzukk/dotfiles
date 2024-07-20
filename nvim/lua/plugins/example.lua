@@ -4,18 +4,24 @@
 -- * override the configuration of LazyVim plugins
 return {
   -- add gruvbox
-  { "ellisonleao/gruvbox.nvim" },
-  { "nekonako/xresources-nvim" },
-  { "EdenEast/nightfox.nvim" },
-  { "folke/tokyonight.nvim" },
+  -- { "ellisonleao/gruvbox.nvim" },
+  -- { "nekonako/xresources-nvim" },
+  -- { "EdenEast/nightfox.nvim" },
+  -- { "folke/tokyonight.nvim" },
   { "Shadorain/shadotheme" },
-  { "Mofiqul/dracula.nvim" },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  -- { "Mofiqul/dracula.nvim" },
+  { "rebelot/kanagawa.nvim" },
+  { "oxfist/night-owl.nvim" },
+  {
+    "catppuccin/nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd([[colorscheme catppuccin-mocha]])
+    end,
+  },
   {
     "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "duskfox",
-    },
     -- opts = {
     --   colorscheme = "xresources",
     -- },
@@ -39,8 +45,6 @@ return {
       vim.g.vimtex_view_method = "zathura"
     end,
   },
-
-  -- add symbols-outline
   {
     "simrat39/symbols-outline.nvim",
     cmd = "SymbolsOutline",

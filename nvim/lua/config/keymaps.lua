@@ -7,6 +7,10 @@ vim.g.vimtex_compiler_method = "latexrun"
 
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+vim.keymap.set("n", "<F4>", vim.lsp.buf.format)
+
+-- Remove trailing space
+vim.keymap.set({ "n", "v" }, "<F5>", "<cmd>%s/\\s\\+$//e<CR>")
 
 -- VimTex
 vim.keymap.set({ "n", "v" }, "<C-a>", "<cmd>wincmd p<CR>")
@@ -26,7 +30,7 @@ vim.keymap.set({ "n", "v" }, "<C-Right>", "<cmd>2winc ><CR>")
 vim.keymap.set({ "n", "v", "i" }, "<F1>", "<cmd>Neotree<CR>")
 
 -- ZenMode
-vim.keymap.set("n", "<F5>", "<cmd>ZenMode<CR>")
+-- vim.keymap.set("n", "<F5>", "<cmd>ZenMode<CR>")
 
 -- xd
 vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")

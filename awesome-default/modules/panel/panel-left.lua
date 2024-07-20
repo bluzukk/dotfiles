@@ -110,6 +110,12 @@ awful.widget.watch("date +'%R'", 1, function(_, stdout)
 		markup(beautiful.accent_alt_color, markup.bold(day .. ", " .. stdout:gsub("\n", "")))
 end)
 
+if beautiful.transparent_bar then
+	bg_color = beautiful.accent_color .. "0"
+else
+	bg_color = beautiful.accent_alt_color
+end
+
 local function create(s)
 	local panel = awful.popup({
 		screen = s,

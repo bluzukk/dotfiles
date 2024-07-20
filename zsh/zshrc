@@ -19,7 +19,7 @@ export VISUAL=leafpad;
 export EDITOR=nvim;
 xdg-settings set default-web-browser firefox.desktop
 
-xset r rate 222 75
+xset r rate 222 85
 setxkbmap -option caps:swapescape
 xmodmap $HOME/.Xmodmap
 
@@ -48,6 +48,7 @@ alias ...="cd ../.."
 
 alias c="clear"
 alias q="exit"
+alias t="kitty &"
 alias ka="killall"
 
 alias ll="ls -l"
