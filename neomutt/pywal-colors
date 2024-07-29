@@ -12,7 +12,7 @@ mono underline underline
 mono indicator reverse
 mono error bold
 color normal default default
-color indicator brightyellow default # currently selected message. default makes bar clear, disabled arrow to save space.
+color indicator brightyellow black
 color sidebar_highlight red default
 color sidebar_divider brightblack black
 color sidebar_flagged red black
@@ -24,7 +24,7 @@ color message cyan default
 color markers red white
 color attachment white default
 color search brightmagenta default
-color status brightyellow black
+color status green default
 color hdrdefault brightgreen default
 color quoted green default
 color quoted1 blue default

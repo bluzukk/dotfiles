@@ -17,7 +17,7 @@ fi
 ###############################################################
 export VISUAL=leafpad;
 export EDITOR=nvim;
-xdg-settings set default-web-browser firefox.desktop
+# xdg-settings set default-web-browser firefox.desktop
 
 xset r rate 222 85
 setxkbmap -option caps:swapescape
@@ -38,6 +38,14 @@ lf () {
             fi
         fi
     fi
+}
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
 }
 
 ###############################################################

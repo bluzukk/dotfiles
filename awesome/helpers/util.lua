@@ -86,8 +86,6 @@ function helpers.useless_gaps_resize(thatmuch, s, t)
 	awful.layout.arrange(scr)
 end
 
-----------------------------------------------------------
--- Mark focused client with border while "cycling"
 local function hideborder()
 	local screen = awful.screen.focused()
 	local clients = screen.selected_tag:clients()
@@ -115,7 +113,7 @@ function helpers.showborder()
 		c.border_color = beautiful.border_color
 	end
 	if client.focus then
-		client.focus.border_color = beautiful.accent_color
+		client.focus.border_color = beautiful.mauve
 	end
 	border_timer:start()
 end

@@ -6,6 +6,7 @@
 --   evil::mail_main  : Check my mails (Main Account)                        --
 -------------------------------------------------------------------------------
 local awful = require("awful")
+local notify = require("helpers.notify")
 
 local cmd_mail_ims = [[ bash -c "~/Sync/Rice/_private/checkmail-ims.sh" ]]
 local cmd_mail = [[ bash -c "~/Sync/Rice/_private/checkmail-uni.sh" ]]

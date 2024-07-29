@@ -1,0 +1,14 @@
+#!/bin/bash
+temp() {
+  python -c 'import json; import sys; print(json.load(sys.stdin)["main"]["temp"])'
+}
+condition() {
+  python -c 'import json; import sys; print(json.load(sys.stdin)["weather"][0]["description"])'
+}
+
+TEMP=$(curl -sf "http://api.openweathermap.org/data/2.5/weather?q=$2&units=metric&appid=$1" | temp)
+CONDITION=$(curl -sf "http://api.openweathermap.org/data/2.5/weather?q=$2&units=metric&appid=$1" | condition)
+
+echo $2
+echo $TEMP
+echo $CONDITION
