@@ -136,7 +136,7 @@ source <(fzf --zsh)
 # CONDA
 ################################################################
 
-# source ~/anaconda3/bin/activate
+# source ~/miniconda3/bin/activate
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 # __conda_setup="$('/home/bluzuk/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"

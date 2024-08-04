@@ -270,6 +270,7 @@ return {
         "shellcheck",
         "shfmt",
         "flake8",
+        "ltex-lsp",
       },
     },
   },
