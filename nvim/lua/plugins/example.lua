@@ -270,9 +270,16 @@ return {
         "shellcheck",
         "shfmt",
         "flake8",
-        "ltex-lsp",
+        "ltex-ls",
       },
     },
+  },
+
+  {
+    "vyfor/cord.nvim",
+    build = "./build",
+    event = "VeryLazy",
+    opts = {},
   },
 
   -- Use <tab> for completion and snippets (supertab)
