@@ -5,11 +5,3 @@
 + **File Manager**: [**lf**](https://github.com/gokcehan/lf)
 + **Editor**: [**Neovim**](https://github.com/neovim/neovim/)
 + **Mail Client**: [**NeoMutt**](https://github.com/neomutt/neomutt)
-
-## Todo General
-* Maybe switch from lf to yazi in future
-* Clean Readme
-
-## Todo AwesomeWM
-* Change color when hover over widgets
-* Clean code
