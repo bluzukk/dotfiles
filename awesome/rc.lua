@@ -53,7 +53,6 @@ require("keybinds")
 PROMPT = require("prompt")
 VOLUME = require("volume")
 
-
 awful.spawn.with_shell("xcompmgr")
 awful.spawn.with_shell("~/.config/awesome/scripts/startup")
 awful.spawn.with_shell(string.format("sleep 1; redshift -l %s:%s", LATITUDE, LONGTIUIDE))

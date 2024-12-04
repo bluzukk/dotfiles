@@ -1,8 +1,0 @@
-#!/bin/bash
-host_ip=$(getent ahosts "1.1.1.1" | awk '{print $1; exit}')
-DEV=$(ip route get "$host_ip" | grep -Po '(?<=(dev ))(\S+)')
-
-LINE=$(grep $DEV /proc/net/dev | sed s/.*://)
-RECEIVED=$(echo $LINE | awk '{print $1}')
-
-echo $RECEIVED

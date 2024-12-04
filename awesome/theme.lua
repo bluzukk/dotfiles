@@ -11,7 +11,7 @@ theme.terminal = "kitty"
 theme.shell = "zsh"
 theme.browser = "firefox"
 theme.editor = "nvim"
-theme.wallpaper = "~/.config/awesome/wall2.png"
+theme.wallpaper = "~/.config/awesome/wall.png"
 
 theme.mail_ims = theme.terminal .. " -e neomutt -F ~/Sync/Rice/_private/mail-muttrcIMS"
 theme.mail_st = theme.terminal .. " -e neomutt -F ~/Sync/Rice/_private/mail-muttrcUni"

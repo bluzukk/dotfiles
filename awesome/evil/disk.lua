@@ -3,8 +3,6 @@
 -------------------------------------------------------------------------------
 -- Provides:                                                                 --
 --   evil::disk_free   : Free space on main storage disk                     --
---   evil::disk_total  : (TODO) Total space on main storage disk             --
---   evil::disk_info   : (TODO) Info about filesystem                        --
 -------------------------------------------------------------------------------
 local awful = require("awful")
 

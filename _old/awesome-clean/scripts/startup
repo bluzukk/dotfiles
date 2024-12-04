@@ -1,8 +1,0 @@
-#!/bin/bash
-nitrogen --restore
-nitrogen --set-zoom-fill ~/.config/awesome/wall.png --head=1
-
-killall picom
-picom &
-setxkbmap de
-xrdb ~/.Xresources
