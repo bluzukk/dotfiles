@@ -1,17 +1,13 @@
--- In your plugin files, you can:
--- * add extra plugins
--- * disable/enabled LazyVim plugins
--- * override the configuration of LazyVim plugins
 return {
   -- add gruvbox
   -- { "ellisonleao/gruvbox.nvim" },
   -- { "nekonako/xresources-nvim" },
   -- { "EdenEast/nightfox.nvim" },
   -- { "folke/tokyonight.nvim" },
-  { "Shadorain/shadotheme" },
+  -- { "Shadorain/shadotheme" },
   -- { "Mofiqul/dracula.nvim" },
-  { "rebelot/kanagawa.nvim" },
-  { "oxfist/night-owl.nvim" },
+  -- { "rebelot/kanagawa.nvim" },
+  -- { "oxfist/night-owl.nvim" },
   {
     "catppuccin/nvim",
     lazy = false,
@@ -20,12 +16,12 @@ return {
       vim.cmd([[colorscheme catppuccin-mocha]])
     end,
   },
-  {
-    "LazyVim/LazyVim",
-    -- opts = {
-    --   colorscheme = "xresources",
-    -- },
-  },
+  -- {
+  --   "LazyVim/LazyVim",
+  -- opts = {
+  --   colorscheme = "xresources",
+  -- },
+  -- },
 
   -- change trouble config
   {
@@ -79,9 +75,10 @@ return {
   --   opts = {
   --     defaults = {
   --       layout_strategy = "horizontal",
-  --       layout_config = { prompt_position = "top" },
+  --       layout_config = { prompt_position = "bottom" },
   --       sorting_strategy = "ascending",
-  --       winblend = 0,
+  --       layout_results.title = '',
+  --       winblend = 1,
   --     },
   --   },
   -- },
@@ -117,11 +114,24 @@ return {
     dependencies = {
       "jose-elias-alvarez/typescript.nvim",
       init = function()
-        require("lazyvim.util").lsp.on_attach(function(_, buffer)
-          -- stylua: ignore
-          vim.keymap.set("n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
-          vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
-        end)
+        -- require("lazyvim.util").lsp.on_attach(function(_, buffer)
+        --   -- stylua: ignore
+        --   vim.keymap.set("n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
+        --   vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
+        -- end)
+        require("lspconfig").ltex.setup({
+          -- filetypes = { "vimwiki", "markdown", "md", "pandoc", "vimwiki.markdown.pandoc" },
+          flags = { debounce_text_changes = 1000 },
+          settings = {
+            ltex = {
+              -- language = "en"
+              language = "de-DE",
+              -- checkFrequency = "edit",
+              -- completionEnabled = true,
+            },
+          },
+          on_attach = on_attach,
+        })
       end,
     },
     ---@class PluginLspOpts
@@ -225,14 +235,25 @@ return {
   -- since `vim.tbl_deep_extend`, can only merge tables and not lists, the code above
   -- would overwrite `ensure_installed` with the new value.
   -- If you'd rather extend the default config, use the code below instead:
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   opts = function(_, opts)
+  --     -- add tsx and treesitter
+  --     vim.list_extend(opts.ensure_installed, {
+  --       "tsx",
+  --       "typescript",
+  --     })
+  --   end,
+  -- },
+
   {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      -- add tsx and treesitter
-      vim.list_extend(opts.ensure_installed, {
-        "tsx",
-        "typescript",
-      })
+    "toppair/peek.nvim",
+    event = { "VeryLazy" },
+    build = "deno task --quiet build:fast",
+    config = function()
+      require("peek").setup()
+      vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
+      vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
     end,
   },
 

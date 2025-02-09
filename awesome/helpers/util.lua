@@ -100,7 +100,7 @@ border_timer = gears.timer({
 	run_once = true,
 	callback = function()
 		hideborder()
-		border_timer:stop()
+		-- border_timer:stop()
 	end,
 })
 
