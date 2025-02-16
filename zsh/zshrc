@@ -40,6 +40,7 @@ alias sr="sudo . lf"
 alias m="mupdf"
 alias vim="nvim"
 alias v="nvim"
+alias ts="~/.software/TS6/TeamSpeak &"
 
 alias rice="cd ~/.dotfiles/"
 # alias neofetch="uwufetch"
