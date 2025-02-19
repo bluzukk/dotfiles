@@ -31,7 +31,7 @@ screen.connect_signal("request::wallpaper", function(s)
 	})
 end)
 
-local private = os.getenv("HOME") .. "/.dotfiles/_private"
+local private = os.getenv("HOME") .. "/Sync/Rice/_private"
 CITY          = helpers.read_line(private .. "/weather-city") or "Tokyo"
 LONGTIUIDE    = helpers.read_line(private .. "/gps-longtiude") or "0"
 LATITUDE      = helpers.read_line(private .. "/gps-latitude") or "0"

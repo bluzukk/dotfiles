@@ -201,18 +201,18 @@ awesome.connect_signal("evil::mail_ims", function(evil)
 end)
 
 --- WEATHER ---
-local city = helpers.read_line(os.getenv("HOME") .. "/Sync/Rice/_private/city") or "Tokyo"
-local weather_widget = createWidget("", 'bash -c "curl wttr.in/' .. city .. '?0QT"')
-awesome.connect_signal("evil::weather_now", function(evil)
-	weather_widget:update(beautiful.accent_color, string.format("%+.0f", evil[2]) .. string.format("°C (%s)", evil[3]))
-end)
+-- local city = helpers.read_line(os.getenv("HOME") .. "/Sync/Rice/_private/city") or "Tokyo"
+-- local weather_widget = createWidget("", 'bash -c "curl wttr.in/' .. city .. '?0QT"')
+-- awesome.connect_signal("evil::weather_now", function(evil)
+-- 	weather_widget:update(beautiful.accent_color, string.format("%+.0f", evil[2]) .. string.format("°C (%s)", evil[3]))
+-- end)
 
 local seperator = wibox.widget.textbox("|")
 local seperator_empty = wibox.widget.textbox(" ")
 
 screen.connect_signal("request::desktop_decoration", function(s)
 	-- Each screen has its own tag table.
-	awful.tag({ " 1 ", " 2 ", " 3 " }, s, awful.layout.suit.tile)
+	awful.tag({ " 1 ", " 2 ", " 3 ", " 4 ", " 5 " }, s, awful.layout.suit.tile)
 
 	s.mytaglist = awful.widget.taglist({
 		screen = s,
@@ -262,8 +262,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
 				layout = wibox.layout.fixed.horizontal,
 				seperator,
 				cpu_widget,
-				seperator,
-				gpu_widget,
+				-- seperator,
+				-- gpu_widget,
 				seperator,
 				ram_widget,
 				seperator,
@@ -271,7 +271,9 @@ screen.connect_signal("request::desktop_decoration", function(s)
 				seperator,
 				net_widget,
 				seperator,
-				weather_widget,
+				-- weather_widget,
+				bat_widget,
+				seperator,
 				clock_widget,
 				seperator_empty,
 				wibox.widget.systray(),

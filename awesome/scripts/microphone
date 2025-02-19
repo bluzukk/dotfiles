@@ -1,2 +1,2 @@
 #!/bin/bash
-awk -F"[][]" '/Mono:/ { print $2 }' <(amixer sget -c 1 Capture)
+awk -F"[][]" '/Left:/ { print $2 }' <(amixer sget Capture)

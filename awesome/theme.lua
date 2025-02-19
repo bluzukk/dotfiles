@@ -7,7 +7,7 @@ local theme = {}
 ---------------------------------------------------------------------------------
 -- Default Apps
 ---------------------------------------------------------------------------------
-theme.terminal = "kitty"
+theme.terminal = "~/.local/kitty.app/bin/kitty"
 theme.shell = "zsh"
 theme.browser = "firefox"
 theme.editor = "nvim"
@@ -70,8 +70,8 @@ theme.border_color_marked = theme.accent_color
 -- theme.tasklist_disable_icon = true
 -- theme.tasklist_bg_focus = theme.bg_color_light
 
-theme.taglist_fg_focus = theme.text
-theme.taglist_bg_focus = theme.bg_color_light
+theme.taglist_fg_focus = theme.bg_color
+theme.taglist_bg_focus = theme.mauve
 theme.taglist_fg_empty = theme.text
 theme.taglist_bg_empty = theme.bg_color
 theme.taglist_fg_occupied = theme.mauve

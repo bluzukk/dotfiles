@@ -3,10 +3,13 @@
 ################################################################
 xset r rate 222 85
 setxkbmap -option caps:swapescape
-xmodmap $HOME/.Xmodmap
+EDITOR=nvim 
+#xmodmap $HOME/.Xmodmap
 # PS1="[%{%F{blue]%}%b%20<...<%~%<<%F{white}]%(!.#.$) "
 PS1="[%{%F{blue]%b%F{white}]%(!.#.$) "
 export PS1="[%F{blue}%}%3~%{%f%}]$ "
+
+
 
 ###############################################################
 # ALIASES
@@ -26,12 +29,15 @@ alias la="ls -a --color=always --group-directories-first"
 alias lla='ls -lah --color=auto --group-directories-first'
 alias grep="grep --color"
 
-# alias install="sudo apt install"
+alias install="sudo apt install"
 # alias update="sudo aptitude update; sudo aptitude update"
-# alias p="sudo pacman"
-# alias up="sudo pacman -Syu"
-# alias orphans="pacman -Qdtq"
-# alias installed="pacman -Qi | egrep '^(Name|Installed)' | cut -f2 -d':' | paste - - | column -t | sort -nrk 2 | grep MiB | less "
+alias update="sudo apt-get update; sudo mintupdate-cli upgrade"
+alias check="mintupdate-cli check"
+
+alias p="sudo pacman"
+alias up="sudo pacman -Syu"
+alias orphans="pacman -Qdtq"
+alias installed="pacman -Qi | egrep '^(Name|Installed)' | cut -f2 -d':' | paste - - | column -t | sort -nrk 2 | grep MiB | less "
 
 alias h="htop"
 alias f="firefox"
@@ -40,13 +46,12 @@ alias sr="sudo . lf"
 alias m="mupdf"
 alias vim="nvim"
 alias v="nvim"
-alias ts="~/.software/TS6/TeamSpeak &"
 
-alias rice="cd ~/.dotfiles/"
+alias rice="cd ~/.dotfiles"
+alias proj="cd ~/Projekte;lf"
 # alias neofetch="uwufetch"
 
 alias bss="nvim ~/.dotfiles/zsh/zshrc"
-alias bs="nvim ~/.dotfiles/_private/linux-aliasrc"
 alias 30min="sudo shutdown -P 30"
 alias 45min="sudo shutdown -P 45"
 
@@ -144,8 +149,8 @@ function yy() {
 # # Tensorflow
 # export TF_CPP_MIN_LOG_LEVEL=3
 
-echo ""
-~/.dotfiles/scripts/bunny
+#echo ""
+#~/Sync/Rice/scripts/bunny
 echo ""
 # zprof
 

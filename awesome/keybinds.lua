@@ -9,7 +9,7 @@ local modkey = cfg.modkey
 local altkey = cfg.altkey
 
 root.buttons(gears.table.join(
-  awful.button({}, 3, function() awful.spawn(cfg.terminal .. " " .. cfg.shell) end),
+  awful.button({}, 3, function() awful.spawn(cfg.terminal) end),
   awful.button({}, 4, awful.tag.viewnext),
   awful.button({}, 5, awful.tag.viewprev),
   awful.button({ modkey }, 4, function() helpers.useless_gaps_resize(-10) end),
@@ -20,7 +20,8 @@ globalkeys = gears.table.join(
   awful.key({ modkey, "Control" }, "r", awesome.restart),
   awful.key({ modkey, "Shift" }, "q", awesome.quit),
   awful.key({ modkey }, "t", function() awful.spawn(cfg.browser) end),
-  awful.key({ modkey }, "Return", function() awful.spawn(cfg.terminal .. " " .. cfg.shell) end),
+  awful.key({ modkey }, "x", function() awful.spawn("xsecurelock") end),
+  awful.key({ modkey }, "Return", function() awful.spawn(cfg.terminal) end),
   awful.key({ modkey }, "F1", function() awful.spawn(cfg.mail_ims) end),
   awful.key({ modkey }, "F2", function() awful.spawn(cfg.mail_st) end),
   awful.key({ modkey }, "space", function() PROMPT.launch() end),
@@ -46,32 +47,32 @@ globalkeys = gears.table.join(
   awful.key({ modkey }, "dead_circumflex", function() awful.screen.focus_relative(1) end),
   awful.key({}, "XF86AudioRaiseVolume",
     function()
-      os.execute("amixer -q sset -c 1 Master 3%+")
+      os.execute("amixer -q sset Master 3%+")
       awesome.emit_signal("volume::redraw_needed")
     end),
   awful.key({}, "XF86AudioLowerVolume",
     function()
-      os.execute("amixer -q sset -c 1 Master 3%-")
+      os.execute("amixer -q sset Master 3%-")
       awesome.emit_signal("volume::redraw_needed")
     end),
   awful.key({ altkey }, "XF86AudioRaiseVolume",
     function()
-      os.execute("amixer -q sset -c 1 Capture 3%+")
+      os.execute("amixer -q sset Capture 3%+")
       awesome.emit_signal("microphone::redraw_needed")
     end),
   awful.key({ altkey }, "XF86AudioLowerVolume",
     function()
-      os.execute("amixer -q sset -c 1 Capture 3%-")
+      os.execute("amixer -q sset Capture 3%-")
       awesome.emit_signal("microphone::redraw_needed")
     end),
   awful.key({ altkey }, "Up",
     function()
-      os.execute("amixer -q sset -c 1 Master 3%+")
+      os.execute("amixer -q sset Master 3%+")
       awesome.emit_signal("volume::redraw_needed")
     end),
   awful.key({ altkey }, "Down",
     function()
-      os.execute("amixer -q sset -c 1 Master 3%-")
+      os.execute("amixer -q sset Master 3%-")
       awesome.emit_signal("volume::redraw_needed")
     end),
   awful.key({ altkey }, "m", function() os.execute("amixer -q set -c 1 Master toggle") end),
@@ -79,7 +80,7 @@ globalkeys = gears.table.join(
   awful.key({}, "XF86MonBrightnessDown", function() os.execute("xbacklight -dec 2") end)
 )
 
-for i = 1, 3 do
+for i = 1, 5 do
   globalkeys = gears.table.join(
     globalkeys,
     awful.key({ modkey }, "#" .. i + 9, function()
