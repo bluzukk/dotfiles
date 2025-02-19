@@ -95,21 +95,48 @@ end)
 
 local cpu_widget = createWidget("CPU", [[bash -c "ps -Ao pcpu,comm,pid --sort=-pcpu | head -n 30"]])
 awesome.connect_signal("evil::cpu", function(evil_cpu_util, evil_cpu_temp)
-	if evil_cpu_temp > 60 then
+	if evil_cpu_temp > 65 then
 		cpu_widget:update(beautiful.red, evil_cpu_util .. "% " .. evil_cpu_temp .. "°C")
-	elseif evil_cpu_temp > 50 then
+	elseif evil_cpu_temp > 60 then
 		cpu_widget:update(beautiful.peach, evil_cpu_util .. "% " .. evil_cpu_temp .. "°C")
 	else
 		cpu_widget:update(beautiful.text, evil_cpu_util .. "% " .. evil_cpu_temp .. "°C")
 	end
 end)
 
+-- local update_widget = createWidget("UPDATE", [[bash -c "mintupdate-cli list"]])
+-- awesome.connect_signal("evil::update", function(update_available)
+--   if update_available then
+--     update_widget:update(beautiful.red, "Updates available")
+--   else
+--     update_widget:update(beautiful.text, "No updates available")
+--   end
+-- end)
+
+local CMD_UPDATE = beautiful.terminal .. " --hold mintupdate-cli list && sudo mintupdate-cli upgrade"
+-- local CMD_UPDATE = beautiful.terminal .. [[ -e echo "Available update:"; mintupdate-cli list; sudo mintupdate-cli upgrade]] 
+local update_widget = wibox.widget.textbox()
+update_widget.visible = false
+update_widget:connect_signal("button::press", function()
+	awful.spawn(CMD_UPDATE)
+	update_widget.visible = false
+end)
+awesome.connect_signal("evil::update", function(evil)
+	if evil == true then
+    update_widget.visible = true
+		update_widget:set_markup(markup(beautiful.red, "Update(s) Available"))
+	else
+		update_widget.visible = false
+	end
+end)
+
+
 local gpu_widget = createWidget("GPU", CMD_GPU)
 awesome.connect_signal("evil::gpu", function(evil_gpu_util, evil_gpu_temp)
 	if evil_gpu_temp > 0 then
-		if evil_gpu_temp > 60 then
+		if evil_gpu_temp > 65 then
 			gpu_widget:update(beautiful.red, evil_gpu_util .. "% " .. evil_gpu_temp .. "°C")
-		elseif evil_gpu_temp > 50 then
+		elseif evil_gpu_temp > 55 then
 			gpu_widget:update(beautiful.peach, evil_gpu_util .. "% " .. evil_gpu_temp .. "°C")
 		else
 			gpu_widget:update(beautiful.text, evil_gpu_util .. "% " .. evil_gpu_temp .. "°C")
@@ -257,7 +284,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
 				mail_ims,
 				mail_main,
 			},
-			s.mytasklist, -- Middle widget
+			-- s.mytasklist, -- Middle widget
+      update_widget,
 			{ -- Right widgets
 				layout = wibox.layout.fixed.horizontal,
 				seperator,

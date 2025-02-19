@@ -45,6 +45,7 @@ require("evil.ram")
 require("evil.mail")
 require("evil.bat")
 require("evil.weather")
+require("evil.update")
 
 require("panel")
 require("clients")

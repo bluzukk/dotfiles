@@ -31,8 +31,8 @@ alias grep="grep --color"
 
 alias install="sudo apt install"
 # alias update="sudo aptitude update; sudo aptitude update"
-alias update="sudo apt-get update; sudo mintupdate-cli upgrade"
-alias check="mintupdate-cli check"
+# alias update="mintupdate-cli list; sudo mintupdate-cli upgrade"
+alias check="mintupdate-cli list"
 
 alias p="sudo pacman"
 alias up="sudo pacman -Syu"
@@ -155,5 +155,6 @@ echo ""
 # zprof
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ ":$PATH:" == *:/home/$USER/.scripts/* ]] || PATH="$PATH:/home/$USER/.scripts"
 
 bindkey -e
