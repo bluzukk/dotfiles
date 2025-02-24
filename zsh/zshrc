@@ -49,6 +49,7 @@ alias v="nvim"
 
 alias rice="cd ~/.dotfiles"
 alias proj="cd ~/Projekte;lf"
+alias dl="cd ~/Downloads/"
 # alias neofetch="uwufetch"
 
 alias bss="nvim ~/.dotfiles/zsh/zshrc"

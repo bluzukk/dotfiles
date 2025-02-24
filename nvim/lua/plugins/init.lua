@@ -22,6 +22,7 @@ return {
   --   colorscheme = "xresources",
   -- },
   -- },
+  { "nvim-tree/nvim-web-devicons", opts = {} },
 
   -- change trouble config
   {

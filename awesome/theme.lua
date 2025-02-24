@@ -20,8 +20,8 @@ theme.mail_st = theme.terminal .. " -e neomutt -F ~/Sync/Rice/_private/mail-mutt
 theme.modkey = "Mod4"
 theme.altkey = "Mod1"
 
-theme.font_name = "Cascadia Code"
-theme.font = "Cascadia Code 15"
+theme.font_name = "CaskaydiaCove NF"
+theme.font = "CaskaydiaCove NF 15"
 
 theme.useless_gap = dpi(12)
 theme.size_hint_honor = false
@@ -48,6 +48,11 @@ theme.bg_color_light = "#202135"
 -- theme.bg_color_light = "#1E1E2E"
 -- theme.bg_color = "#202135"
 
+theme.color_critical = theme.red
+theme.color_warn = theme.peach
+theme.color_high = theme.yellow
+theme.color_normal = theme.green
+
 -- Default BG colors
 theme.bg_normal = theme.bg_color
 theme.bg_focus = theme.bg_color
@@ -67,8 +72,9 @@ theme.border_color_normal = theme.bg_color
 theme.border_color_active = theme.bg_color
 theme.border_color_marked = theme.accent_color
 
--- theme.tasklist_disable_icon = true
--- theme.tasklist_bg_focus = theme.bg_color_light
+theme.tasklist_disable_icon = true
+theme.tasklist_bg_focus = theme.bg_color_light
+theme.tasklist_fg_focus = theme.green
 
 theme.taglist_fg_focus = theme.bg_color
 theme.taglist_bg_focus = theme.mauve

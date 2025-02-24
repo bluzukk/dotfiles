@@ -100,7 +100,7 @@ awesome.connect_signal("evil::cpu", function(evil_cpu_util, evil_cpu_temp)
 	elseif evil_cpu_temp > 60 then
 		cpu_widget:update(beautiful.peach, evil_cpu_util .. "% " .. evil_cpu_temp .. "°C")
 	else
-		cpu_widget:update(beautiful.text, evil_cpu_util .. "% " .. evil_cpu_temp .. "°C")
+		cpu_widget:update(beautiful.green, evil_cpu_util .. "% " .. evil_cpu_temp .. "°C")
 	end
 end)
 
@@ -116,11 +116,11 @@ end)
 local CMD_UPDATE = beautiful.terminal .. " --hold mintupdate-cli list && sudo mintupdate-cli upgrade"
 -- local CMD_UPDATE = beautiful.terminal .. [[ -e echo "Available update:"; mintupdate-cli list; sudo mintupdate-cli upgrade]] 
 local update_widget = wibox.widget.textbox()
-update_widget.visible = false
-update_widget:connect_signal("button::press", function()
-	awful.spawn(CMD_UPDATE)
-	update_widget.visible = false
-end)
+-- update_widget.visible = false
+-- update_widget:connect_signal("button::press", function()
+-- 	awful.spawn(CMD_UPDATE)
+-- 	update_widget.visible = false
+-- end)
 awesome.connect_signal("evil::update", function(evil)
 	if evil == true then
     update_widget.visible = true
@@ -139,7 +139,7 @@ awesome.connect_signal("evil::gpu", function(evil_gpu_util, evil_gpu_temp)
 		elseif evil_gpu_temp > 55 then
 			gpu_widget:update(beautiful.peach, evil_gpu_util .. "% " .. evil_gpu_temp .. "°C")
 		else
-			gpu_widget:update(beautiful.text, evil_gpu_util .. "% " .. evil_gpu_temp .. "°C")
+			gpu_widget:update(beautiful.green, evil_gpu_util .. "% " .. evil_gpu_temp .. "°C")
 		end
 		gpu_widget.visible = true
 	else
@@ -149,10 +149,14 @@ end)
 
 local ram_widget = createWidget("MEM", CMD_PROC_MEM)
 awesome.connect_signal("evil::ram", function(evil)
-	local color = beautiful.text
+	local color = beautiful.color_normal
 	local val = string.format("%.0f", evil)
 	if evil > 25000 then
 		color = beautiful.color_critical
+  elseif evil > 10000 then
+    color = beautiful.color_warn
+  elseif evil > 5000 then
+    color = beautiful.color_high
 	end
 	ram_widget:update(color, val .. "mb")
 end)
@@ -234,12 +238,13 @@ end)
 -- 	weather_widget:update(beautiful.accent_color, string.format("%+.0f", evil[2]) .. string.format("°C (%s)", evil[3]))
 -- end)
 
-local seperator = wibox.widget.textbox("|")
+-- local seperator = wibox.widget.textbox("|")
+local seperator = wibox.widget.textbox(" ")
 local seperator_empty = wibox.widget.textbox(" ")
 
 screen.connect_signal("request::desktop_decoration", function(s)
 	-- Each screen has its own tag table.
-	awful.tag({ " 1 ", " 2 ", " 3 ", " 4 ", " 5 " }, s, awful.layout.suit.tile)
+	awful.tag({ " 1 ", " 2 ", " 3 "}, s, awful.layout.suit.tile)
 
 	s.mytaglist = awful.widget.taglist({
 		screen = s,
@@ -268,6 +273,21 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		},
 	})
 
+      -- Create a tasklist widget
+  s.mytasklist = awful.widget.tasklist {
+    screen  = s,
+    filter  = awful.widget.tasklist.filter.currenttags,
+    buttons = {
+      awful.button({ }, 1, function (c)
+        c:activate { context = "tasklist", action = "toggle_minimization" }
+        end),
+      awful.button({ }, 3, function() awful.menu.client_list { theme = { width = 250 } } end),
+      awful.button({ }, 4, function() awful.client.focus.byidx(-1) end),
+      awful.button({ }, 5, function() awful.client.focus.byidx( 1) end),
+    }
+  }
+
+
 	-- Create the wibox
 	s.mywibox = awful.wibar({
 		position = "top",
@@ -284,10 +304,10 @@ screen.connect_signal("request::desktop_decoration", function(s)
 				mail_ims,
 				mail_main,
 			},
-			-- s.mytasklist, -- Middle widget
-      update_widget,
+			s.mytasklist, -- Middle widget
 			{ -- Right widgets
 				layout = wibox.layout.fixed.horizontal,
+        update_widget,
 				seperator,
 				cpu_widget,
 				-- seperator,
