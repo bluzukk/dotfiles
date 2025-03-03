@@ -2,18 +2,40 @@
 # A Linux Shell script to collect network information.
 
 echo ""
-echo "---------------------------------------"
+echo "-----------------------------------"
 ls -1 --color=never /sys/class/net |
-  while IFS= read -r line
+  while IFS= read -r line 
   do
+    ip="$(ip addr show scope global | grep $line | awk '$1 ~ /^inet/ {print $2}')"
     state="$(cat /sys/class/net/$line/operstate)"
     rx="$(cat /sys/class/net/$line/statistics/rx_bytes)"
     rx="$(expr $rx / 1024 / 1024)"
+    tx="$(cat /sys/class/net/$line/statistics/tx_bytes)"
+    tx="$(expr $tx / 1024 / 1024)"
     if [ "$state" = "up" ]; then
       # echo "$line | $state =) |" | column -t
-      printf "  %-10s %-7s =)  Down:$rx'mb\n" $line $state
-    else
-      printf "  %-10s %-7s =(  Down:$rx'mb\n" $line $state
+      printf "%-10s [UP] %-.30s \n" $line $ip
     fi
   done
-echo "---------------------------------------"
+echo "-----------------------------------"
+
+
+# echo ""
+# ls -1 --color=never /sys/class/net |
+#   while IFS= read -r line
+#   do
+#     echo $line
+#     ip4="$(ip addr show scope global | grep $line | awk '$1 ~ /^inet/ {print $2}')"
+#     state="$(cat /sys/class/net/$line/operstate)"
+#     rx="$(cat /sys/class/net/$line/statistics/rx_bytes)"
+#     rx="$(expr $rx / 1024 / 1024)"
+#     tx="$(cat /sys/class/net/$line/statistics/tx_bytes)"
+#     tx="$(expr $tx / 1024 / 1024)"
+#     if [ "$state" = "up" ]; then
+#       # echo "$line | $state =) |" | column -t
+#       printf "  %-10s %-7s =) Up:$tx'mb Down:$rx'mb $ip4)\n" $line $state
+#     else
+#       printf "  %-10s %-7s =( Up:$tx'mb Down:$rx'mb\n" $line $state
+#     fi
+#   done
+# echo "---------------------------------------"
