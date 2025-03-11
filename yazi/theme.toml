@@ -1,0 +1,34 @@
+[manager]
+border_symbol = " "
+
+[status]
+sep_left = { open="", close=""}
+sep_right = { open="", close=""}
+
+mode_normal = { fg = "#282828", bg = "#a89984", bold = true }
+mode_select = { fg = "#282828", bg = "#fe8019", bold = true }
+mode_unset = { fg = "#282828", bg = "#b8bb26", bold = true }
+
+# Progress
+progress_label = { fg = "#ebdbb2", bold = true }
+progress_normal = { fg = "#504945", bg = "#3c3836" }
+progress_error = { fg = "#fb4934", bg = "#3c3836" }
+
+# Permissions
+permissions_t = { fg = "#504945" }
+permissions_r = { fg = "#b8bb26" }
+permissions_w = { fg = "#fb4934" }
+permissions_x = { fg = "#b8bb26" }
+permissions_s = { fg = "#665c54" }
+
+[icon]
+globs = []
+dirs  = []
+files = []
+exts  = []
+conds = []
+
+# [flavor]
+# dark = "dracula"
+# dark = "catppuccin-mocha"
+
