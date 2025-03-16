@@ -8,6 +8,8 @@ local theme = {}
 -- Default Apps
 ---------------------------------------------------------------------------------
 theme.terminal = "~/.local/kitty.app/bin/kitty"
+theme.terminal = "kitty"
+
 theme.shell = "zsh"
 theme.browser = "firefox"
 theme.editor = "nvim"

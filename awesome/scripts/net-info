@@ -20,6 +20,9 @@ ls -1 --color=never /sys/class/net |
 echo "-----------------------------------"
 
 
+echo "Public IP4: $(curl -4 ifconfig.me 2>/dev/null)" 
+echo "Public IP6: $(curl -6 ifconfig.me 2>/dev/null)" 
+
 # echo ""
 # ls -1 --color=never /sys/class/net |
 #   while IFS= read -r line

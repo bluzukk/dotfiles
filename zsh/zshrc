@@ -3,12 +3,11 @@
 ################################################################
 xset r rate 222 85
 setxkbmap -option caps:swapescape
-EDITOR=nvim 
+export EDITOR=nvim
 #xmodmap $HOME/.Xmodmap
 # PS1="[%{%F{blue]%}%b%20<...<%~%<<%F{white}]%(!.#.$) "
-PS1="[%{%F{blue]%b%F{white}]%(!.#.$) "
+# PS1="[%{%F{blue]%b%F{white}]%(!.#.$) "
 export PS1="[%F{blue}%}%3~%{%f%}]$ "
-
 
 
 ###############################################################
@@ -41,14 +40,14 @@ alias installed="pacman -Qi | egrep '^(Name|Installed)' | cut -f2 -d':' | paste 
 
 alias h="htop"
 alias f="firefox"
-alias r="lf"
+alias r="y"
 alias sr="sudo . lf"
 alias m="mupdf"
 alias vim="nvim"
 alias v="nvim"
 
 alias rice="cd ~/.dotfiles"
-alias proj="cd ~/Projekte;lf"
+alias proj="cd ~/Projekte;y"
 alias dl="cd ~/Downloads/"
 # alias neofetch="uwufetch"
 
@@ -106,7 +105,7 @@ zplug load
 ###############################################################
 # LF working directory and image preview (by ueberzug)
 ###############################################################
-lf () {
+function lf() {
     tmp="$(mktemp)"
     command ~/.config/lf/lfrun -last-dir-path="$tmp" "$@"
     if [ -f "$tmp" ]; then
@@ -119,10 +118,10 @@ lf () {
         fi
     fi
 }
-function yy() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
 		builtin cd -- "$cwd"
 	fi
 	rm -f -- "$tmp"
@@ -156,6 +155,9 @@ echo ""
 # zprof
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[[ ":$PATH:" == *:/home/$USER/.scripts/* ]] || PATH="$PATH:/home/$USER/.scripts"
+
+export PATH="$PATH:/home/$USER/.scripts"
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+export PATH="$PATH:/opt/yazi"
 
 bindkey -e

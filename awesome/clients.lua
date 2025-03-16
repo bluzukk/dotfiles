@@ -1,15 +1,13 @@
--- stylua: ignore start
 local awful   = require("awful")
 local cfg     = require("beautiful")
 local gears   = require("gears")
 local helpers = require("helpers.util")
 local modkey  = cfg.modkey
 
+
 clientkeys = gears.table.join(
 	awful.key({ modkey }, "f", function(c)
 		c.fullscreen = not c.fullscreen
-		if c.fullscreen and c.class == "kitty" then c.opacity = 1
-		elseif c.fullscreen == false and c.class == "kitty" then c.opacity = 0.975 end
 	end),
 
 	awful.key({ modkey }, "q", function(c) c:kill() end),
@@ -30,17 +28,12 @@ clientbuttons = gears.table.join(
 		awful.mouse.client.resize(c)
 	end),
 	awful.button({ modkey }, 4, function() helpers.useless_gaps_resize(-10) end),
-	awful.button({ modkey }, 5, function() helpers.useless_gaps_resize(10) end)
-	-- awful.button({ modkey }, 1, function(c)
-	-- 	c:emit_signal("request::activate", "mouse_click", { raise = true })
-	-- 	awful.mouse.client.move(c)
-	-- c.floating = true
-	-- end)
-)
+	awful.button({ modkey }, 5, function() helpers.useless_gaps_resize(10) end))
+
 
 awful.rules.rules = {
-	-- All clients will match this rule.
 	{
+	-- All clients will match this rule.
 		rule = {},
 		properties = {
 			border_width = cfg.border_width,
@@ -57,16 +50,12 @@ awful.rules.rules = {
 	{
 		rule_any = { type = { "normal", "dialog" } },
 		properties = { titlebars_enabled = true },
-	},
-	{
-		rule = { class = "kitty" },
-		properties = { opacity = 0.975 },
-	},
+	}
 }
 
+-- Prevent clients from being unreachable after screen count changes.
 client.connect_signal("manage", function(c)
 	if awesome.startup and not c.size_hints.user_position and not c.size_hints.program_position then
-		-- Prevent clients from being unreachable after screen count changes.
 		awful.placement.no_offscreen(c)
 	end
 end)

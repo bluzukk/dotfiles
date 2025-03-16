@@ -18,6 +18,7 @@ end)
 
 beautiful.init("~/.config/awesome/theme.lua")
 
+
 screen.connect_signal("request::wallpaper", function(s)
 	awful.wallpaper({
 		screen = s,

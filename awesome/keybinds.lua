@@ -1,4 +1,3 @@
--- stylua: ignore start
 local awful   = require("awful")
 local cfg     = require("beautiful")
 local gears   = require("gears")
@@ -9,7 +8,7 @@ local modkey = cfg.modkey
 local altkey = cfg.altkey
 
 root.buttons(gears.table.join(
-  awful.button({}, 3, function() awful.spawn(cfg.terminal) end),
+  awful.button({}, 3, function() awful.menu.client_list { theme = { width = 250, height = 50 }} end),
   awful.button({}, 4, awful.tag.viewnext),
   awful.button({}, 5, awful.tag.viewprev),
   awful.button({ modkey }, 4, function() helpers.useless_gaps_resize(-10) end),
@@ -80,7 +79,7 @@ globalkeys = gears.table.join(
   awful.key({}, "XF86MonBrightnessDown", function() os.execute("xbacklight -dec 2") end)
 )
 
-for i = 1, 5 do
+for i = 1, 3 do
   globalkeys = gears.table.join(
     globalkeys,
     awful.key({ modkey }, "#" .. i + 9, function()

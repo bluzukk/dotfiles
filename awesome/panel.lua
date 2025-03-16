@@ -4,13 +4,13 @@ local wibox = require("wibox")
 local dpi = require("beautiful").xresources.apply_dpi
 local markup = require("helpers.markup")
 local naughty = require("naughty")
-local helpers = require("helpers.util")
 
-local CMD_PROC_MEM = [[ bash -c "ps -Ao pmem,comm,pid --sort=-pmem | head -n 30" ]]
-local CMD_GPU = [[ nvidia-smi  ]]
-local CMD_NET = [[ bash -c ". ~/.config/awesome/scripts/net-info" ]]
-local CMD_BAT = [[ acpi  ]]
-local CMD_FILE_SYSTEM = [[ df --output=target,pcent,avail,used /home /tmp -h  ]]
+local CMD_CPU  = [[bash -c "ps -Ao pcpu,comm,pid --sort=-pcpu | head -n 30"]]
+local CMD_MEM  = [[ bash -c "ps -Ao pmem,comm,pid --sort=-pmem | head -n 30" ]]
+local CMD_GPU  = [[ nvidia-smi  ]]
+local CMD_NET  = [[ bash -c ". ~/.config/awesome/scripts/net-info" ]]
+local CMD_BAT  = [[ acpi  ]]
+local CMD_DISK = [[ df --output=target,pcent,avail,used /home /tmp -h  ]]
 
 local notification
 local function notification_hide()
@@ -76,24 +76,15 @@ local function createWidget(name, onclick_cmd)
 	return container
 end
 
+
 local clock_widget = createWidget("Clock", "")
-awful.widget.watch("date +'%R'", 1, function(_, stdout)
-	local day = os.date("%A")
-	local day_map = {
-		["Monday"] = "Mowonday",
-		["Tuesday"] = "Tuwesday",
-		["Wednesday"] = "Wudnesday",
-		["Thursday"] = "Thuwsday",
-		["Friday"] = "Fiwday",
-		["Saturday"] = "Satuwday",
-		["Sunday"] = "Suwnday",
-	}
+awful.widget.watch([[date +'%a %b %d, %R']], 10, function(_, stout)
 	clock_widget:get_children_by_id("text")[1].markup =
-		markup(beautiful.mauve, day_map[day] .. ", " .. stdout:gsub("\n", ""))
-	-- markup(beautiful.main_color, stdout:gsub("\n", ""))
+		markup(beautiful.mauve, stout)
 end)
 
-local cpu_widget = createWidget("CPU", [[bash -c "ps -Ao pcpu,comm,pid --sort=-pcpu | head -n 30"]])
+
+local cpu_widget = createWidget("CPU", CMD_CPU)
 awesome.connect_signal("evil::cpu", function(evil_cpu_util, evil_cpu_temp)
 	if evil_cpu_temp > 65 then
 		cpu_widget:update(beautiful.red, evil_cpu_util .. "% " .. evil_cpu_temp .. "°C")
@@ -104,23 +95,8 @@ awesome.connect_signal("evil::cpu", function(evil_cpu_util, evil_cpu_temp)
 	end
 end)
 
--- local update_widget = createWidget("UPDATE", [[bash -c "mintupdate-cli list"]])
--- awesome.connect_signal("evil::update", function(update_available)
---   if update_available then
---     update_widget:update(beautiful.red, "Updates available")
---   else
---     update_widget:update(beautiful.text, "No updates available")
---   end
--- end)
 
-local CMD_UPDATE = beautiful.terminal .. " --hold mintupdate-cli list && sudo mintupdate-cli upgrade"
--- local CMD_UPDATE = beautiful.terminal .. [[ -e echo "Available update:"; mintupdate-cli list; sudo mintupdate-cli upgrade]] 
 local update_widget = wibox.widget.textbox()
--- update_widget.visible = false
--- update_widget:connect_signal("button::press", function()
--- 	awful.spawn(CMD_UPDATE)
--- 	update_widget.visible = false
--- end)
 awesome.connect_signal("evil::update", function(evil)
 	if evil == true then
     update_widget.visible = true
@@ -147,7 +123,7 @@ awesome.connect_signal("evil::gpu", function(evil_gpu_util, evil_gpu_temp)
 	end
 end)
 
-local ram_widget = createWidget("MEM", CMD_PROC_MEM)
+local ram_widget = createWidget("MEM", CMD_MEM)
 awesome.connect_signal("evil::ram", function(evil)
 	local color = beautiful.color_normal
 	local val = string.format("%.0f", evil)
@@ -161,7 +137,7 @@ awesome.connect_signal("evil::ram", function(evil)
 	ram_widget:update(color, val .. "mb")
 end)
 
-local disk_widget = createWidget("FS", CMD_FILE_SYSTEM)
+local disk_widget = createWidget("FS", CMD_DISK)
 awesome.connect_signal("evil::disk_free", function(evil)
 	disk_widget:update(beautiful.text, evil .. "gb")
 end)
@@ -194,6 +170,14 @@ awesome.connect_signal("evil::net_now", function(evil)
 		end
 	end
 end)
+
+local netw_widget = createWidget("NETWORK", CMD_NET)
+awesome.connect_signal("evil::net_ip4", function(evil)
+	if evil then
+			netw_widget:update(beautiful.text, evil)
+	end
+end)
+
 
 --- MAIL ---
 local CMD_MAIL_IMS = beautiful.terminal .. " -e neomutt -F ~/Sync/Rice/_private/mail-muttrcIMS"
@@ -233,14 +217,13 @@ end)
 
 --- WEATHER ---
 -- local city = helpers.read_line(os.getenv("HOME") .. "/Sync/Rice/_private/city") or "Tokyo"
--- local weather_widget = createWidget("", 'bash -c "curl wttr.in/' .. city .. '?0QT"')
+-- local weather_widget = createWidget("", "")
 -- awesome.connect_signal("evil::weather_now", function(evil)
 -- 	weather_widget:update(beautiful.accent_color, string.format("%+.0f", evil[2]) .. string.format("°C (%s)", evil[3]))
 -- end)
 
 -- local seperator = wibox.widget.textbox("|")
 local seperator = wibox.widget.textbox(" ")
-local seperator_empty = wibox.widget.textbox(" ")
 
 screen.connect_signal("request::desktop_decoration", function(s)
 	-- Each screen has its own tag table.
@@ -273,21 +256,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		},
 	})
 
-      -- Create a tasklist widget
-  s.mytasklist = awful.widget.tasklist {
-    screen  = s,
-    filter  = awful.widget.tasklist.filter.currenttags,
-    buttons = {
-      awful.button({ }, 1, function (c)
-        c:activate { context = "tasklist", action = "toggle_minimization" }
-        end),
-      awful.button({ }, 3, function() awful.menu.client_list { theme = { width = 250 } } end),
-      awful.button({ }, 4, function() awful.client.focus.byidx(-1) end),
-      awful.button({ }, 5, function() awful.client.focus.byidx( 1) end),
-    }
-  }
-
-
 	-- Create the wibox
 	s.mywibox = awful.wibar({
 		position = "top",
@@ -298,32 +266,23 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			layout = wibox.layout.align.horizontal,
 			{ -- Left widgets
 				layout = wibox.layout.fixed.horizontal,
-				seperator_empty,
-				s.mytaglist,
-				seperator_empty,
+				seperator,
 				mail_ims,
 				mail_main,
 			},
-			s.mytasklist, -- Middle widget
+				s.mytaglist,
 			{ -- Right widgets
 				layout = wibox.layout.fixed.horizontal,
-        update_widget,
-				seperator,
-				cpu_widget,
-				-- seperator,
-				-- gpu_widget,
-				seperator,
-				ram_widget,
-				seperator,
-				disk_widget,
-				seperator,
-				net_widget,
-				seperator,
+        update_widget, seperator,
+				cpu_widget, seperator,
+				gpu_widget, seperator,
+				ram_widget, seperator,
+				disk_widget, seperator,
+				net_widget, seperator,
+        netw_widget, seperator,
 				-- weather_widget,
-				bat_widget,
-				seperator,
-				clock_widget,
-				seperator_empty,
+				bat_widget, seperator,
+				clock_widget, seperator,
 				wibox.widget.systray(),
 			},
 		},
