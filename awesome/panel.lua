@@ -4,12 +4,13 @@ local wibox = require("wibox")
 local dpi = require("beautiful").xresources.apply_dpi
 local markup = require("helpers.markup")
 local naughty = require("naughty")
+local helpers = require("helpers.util")
 
-local CMD_CPU  = [[bash -c "ps -Ao pcpu,comm,pid --sort=-pcpu | head -n 30"]]
+local CMD_CPU  = [[ bash -c "ps -Ao pcpu,comm,pid --sort=-pcpu | head -n 30" ]]
 local CMD_MEM  = [[ bash -c "ps -Ao pmem,comm,pid --sort=-pmem | head -n 30" ]]
 local CMD_GPU  = [[ nvidia-smi  ]]
 local CMD_NET  = [[ bash -c ". ~/.config/awesome/scripts/net-info" ]]
-local CMD_BAT  = [[ acpi  ]]
+local CMD_BAT  = [[ acpi ]]
 local CMD_DISK = [[ df --output=target,pcent,avail,used /home /tmp -h  ]]
 
 local notification
@@ -22,7 +23,7 @@ end
 local function notification_show(str, bg_color)
 	naughty.destroy(notification)
 	notification = naughty.notify({
-		font = beautiful.font_name .. " 16",
+		font = beautiful.font_name .. " 15",
 		fg = beautiful.text,
 		bg = bg_color,
 		title = "",
@@ -41,8 +42,8 @@ local function createWidget(name, onclick_cmd)
 			},
 			widget = wibox.container.margin,
 			margins = {
-				left = dpi(5),
-				right = dpi(5),
+				left = dpi(10),
+				right = dpi(10),
 			},
 			id = "margins",
 		},
@@ -91,7 +92,7 @@ awesome.connect_signal("evil::cpu", function(evil_cpu_util, evil_cpu_temp)
 	elseif evil_cpu_temp > 60 then
 		cpu_widget:update(beautiful.peach, evil_cpu_util .. "% " .. evil_cpu_temp .. "°C")
 	else
-		cpu_widget:update(beautiful.green, evil_cpu_util .. "% " .. evil_cpu_temp .. "°C")
+		cpu_widget:update(beautiful.text, evil_cpu_util .. "% " .. evil_cpu_temp .. "°C")
 	end
 end)
 
@@ -115,7 +116,7 @@ awesome.connect_signal("evil::gpu", function(evil_gpu_util, evil_gpu_temp)
 		elseif evil_gpu_temp > 55 then
 			gpu_widget:update(beautiful.peach, evil_gpu_util .. "% " .. evil_gpu_temp .. "°C")
 		else
-			gpu_widget:update(beautiful.green, evil_gpu_util .. "% " .. evil_gpu_temp .. "°C")
+			gpu_widget:update(beautiful.text, evil_gpu_util .. "% " .. evil_gpu_temp .. "°C")
 		end
 		gpu_widget.visible = true
 	else
@@ -125,13 +126,13 @@ end)
 
 local ram_widget = createWidget("MEM", CMD_MEM)
 awesome.connect_signal("evil::ram", function(evil)
-	local color = beautiful.color_normal
+	local color = beautiful.text
 	local val = string.format("%.0f", evil)
 	if evil > 25000 then
 		color = beautiful.color_critical
-  elseif evil > 10000 then
+  elseif evil > 15000 then
     color = beautiful.color_warn
-  elseif evil > 5000 then
+  elseif evil > 10000 then
     color = beautiful.color_high
 	end
 	ram_widget:update(color, val .. "mb")
@@ -216,14 +217,12 @@ awesome.connect_signal("evil::mail_ims", function(evil)
 end)
 
 --- WEATHER ---
--- local city = helpers.read_line(os.getenv("HOME") .. "/Sync/Rice/_private/city") or "Tokyo"
--- local weather_widget = createWidget("", "")
--- awesome.connect_signal("evil::weather_now", function(evil)
--- 	weather_widget:update(beautiful.accent_color, string.format("%+.0f", evil[2]) .. string.format("°C (%s)", evil[3]))
--- end)
+local weather_widget = createWidget("WEATHER", "")
+awesome.connect_signal("evil::weather_now", function(evil)
+	weather_widget:update(beautiful.accent_color, string.format("%+.0f", evil[2]) .. string.format("°C (%s)", evil[3]))
+end)
 
--- local seperator = wibox.widget.textbox("|")
-local seperator = wibox.widget.textbox(" ")
+local separator = wibox.widget.textbox(" ")
 
 screen.connect_signal("request::desktop_decoration", function(s)
 	-- Each screen has its own tag table.
@@ -264,25 +263,27 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		border_width = 0,
 		widget = {
 			layout = wibox.layout.align.horizontal,
+      expand = "none",
 			{ -- Left widgets
 				layout = wibox.layout.fixed.horizontal,
-				seperator,
+				s.mytaglist,
+				separator,
 				mail_ims,
 				mail_main,
+        -- netw_widget,
 			},
-				s.mytaglist,
+      separator,
 			{ -- Right widgets
 				layout = wibox.layout.fixed.horizontal,
-        update_widget, seperator,
-				cpu_widget, seperator,
-				gpu_widget, seperator,
-				ram_widget, seperator,
-				disk_widget, seperator,
-				net_widget, seperator,
-        netw_widget, seperator,
+        update_widget,
+				cpu_widget,
+				gpu_widget,
+				ram_widget,
+				disk_widget,
+        net_widget,
 				-- weather_widget,
-				bat_widget, seperator,
-				clock_widget, seperator,
+				bat_widget,
+				clock_widget,
 				wibox.widget.systray(),
 			},
 		},

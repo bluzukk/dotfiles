@@ -18,7 +18,6 @@ end)
 
 beautiful.init("~/.config/awesome/theme.lua")
 
-
 screen.connect_signal("request::wallpaper", function(s)
 	awful.wallpaper({
 		screen = s,
@@ -32,7 +31,7 @@ screen.connect_signal("request::wallpaper", function(s)
 	})
 end)
 
-local private = os.getenv("HOME") .. "/Sync/Rice/_private"
+local private = os.getenv("HOME") .. "/.dotfiles/_private"
 CITY          = helpers.read_line(private .. "/weather-city") or "Tokyo"
 LONGTIUIDE    = helpers.read_line(private .. "/gps-longtiude") or "0"
 LATITUDE      = helpers.read_line(private .. "/gps-latitude") or "0"
@@ -45,8 +44,8 @@ require("evil.disk")
 require("evil.ram")
 require("evil.mail")
 require("evil.bat")
-require("evil.weather")
-require("evil.update")
+-- require("evil.weather")
+-- require("evil.update")
 
 require("panel")
 require("clients")
@@ -55,7 +54,6 @@ require("keybinds")
 PROMPT = require("prompt")
 VOLUME = require("volume")
 
-awful.spawn.with_shell("xcompmgr")
 awful.spawn.with_shell("~/.config/awesome/scripts/startup")
 awful.spawn.with_shell(string.format("sleep 1; redshift -l %s:%s", LATITUDE, LONGTIUIDE))
 
