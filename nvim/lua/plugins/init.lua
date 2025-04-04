@@ -16,7 +16,7 @@ return {
       vim.cmd([[colorscheme catppuccin-mocha]])
     end,
   },
-  -- {
+  -- {       
   --   "LazyVim/LazyVim",
   -- opts = {
   --   colorscheme = "xresources",
@@ -33,6 +33,14 @@ return {
 
   -- disable trouble
   -- { "folke/trouble.nvim", enabled = false },
+  -- { "ntpeters/vim-better-whitespace",
+  --     config = function()
+  --       vim.cmd([[set nowrap]])
+  --       better_whitespace_enabled=1
+  --       strip_whitespace_on_save=1
+  --   end,
+  -- },
+
 
   {
     "lervag/vimtex",

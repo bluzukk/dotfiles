@@ -10,7 +10,10 @@ map("i", "jk", "<ESC>")
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 
 vim.g.vimtex_view_method = "zathura"
-vim.g.vimtex_compiler_method = "latexrun"
+-- vim.g.vimtex_compiler_method = "latexrun"
+-- vim.g.vimtex_compiler_method = "xelatex"
+-- vim.g.vimtex_compiler_latexmk= "xelatex"
+
 
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
@@ -40,7 +43,7 @@ vim.keymap.set({ "n", "v", "i" }, "<F1>", "<cmd>Neotree<CR>")
 -- vim.keymap.set("n", "<F5>", "<cmd>ZenMode<CR>")
 
 -- xd
-vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")
+vim.keymap.set({"n", "i"}, "<C-s>", "<cmd>w<CR>")
 vim.keymap.set("n", "<F12>", "<cmd>Mason<CR>")
 vim.keymap.set("n", "<F11>", "<cmd>Masonlog<CR>")
 

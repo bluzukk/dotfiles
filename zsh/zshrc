@@ -29,8 +29,7 @@ alias lla='ls -lah --color=auto --group-directories-first'
 alias grep="grep --color"
 
 alias install="sudo apt install"
-# alias update="sudo aptitude update; sudo aptitude update"
-# alias update="mintupdate-cli list; sudo mintupdate-cli upgrade"
+alias update="sudo apt update && sudo apt upgrade && sudo apt autoremove"
 alias check="mintupdate-cli list"
 
 alias p="sudo pacman"
@@ -118,13 +117,14 @@ function lf() {
         fi
     fi
 }
+
 function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    builtin cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
 }
 
 ################################################################
