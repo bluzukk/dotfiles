@@ -15,7 +15,7 @@ cmd("set nowrap")
 cmd("set formatoptions-=t")
 
 
-cmd("autocmd BufWritePost *.md make")
+-- cmd("autocmd BufWritePost *.md make")
 
 -- Remove trailing space on save
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
