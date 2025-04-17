@@ -10,7 +10,7 @@ local theme = {}
 theme.terminal = "~/.local/kitty.app/bin/kitty"
 
 theme.shell = "zsh"
-theme.browser = "firefox"
+theme.browser = "librewolf"
 theme.editor = "nvim"
 theme.wallpaper = "~/.config/awesome/wall.png"
 

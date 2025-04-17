@@ -55,6 +55,7 @@ PROMPT = require("prompt")
 VOLUME = require("volume")
 
 awful.spawn.with_shell("~/.config/awesome/scripts/startup")
+awful.spawn.with_shell([[xautolock -time 5 -locker "xsecurelock"]])
 awful.spawn.with_shell(string.format("sleep 1; redshift -l %s:%s", LATITUDE, LONGTIUIDE))
 
 gears.timer({ timeout = 600, autostart = true, callback = function() collectgarbage() end })
