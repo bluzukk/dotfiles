@@ -1,8 +1,13 @@
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+  startx
+fi
+
 ###############################################################
 # BASICS
 ################################################################
 xset r rate 222 85
 setxkbmap -option caps:swapescape
+xdg-settings set default-web-browser librewolf.desktop
 export EDITOR=nvim
 #xmodmap $HOME/.Xmodmap
 # PS1="[%{%F{blue]%}%b%20<...<%~%<<%F{white}]%(!.#.$) "
@@ -38,10 +43,11 @@ alias orphans="pacman -Qdtq"
 alias installed="pacman -Qi | egrep '^(Name|Installed)' | cut -f2 -d':' | paste - - | column -t | sort -nrk 2 | grep MiB | less "
 
 alias h="htop"
-alias f="firefox"
+alias f="librewolf &"
 alias r="y"
 alias sr="sudo . lf"
-alias m="mupdf"
+alias m="mupdf &"
+alias z="zathura &"
 alias vim="nvim"
 alias v="nvim"
 
@@ -79,7 +85,8 @@ HISTFILE=~/.zsh_history
 
 
 # zplug - manage plugins
-source /usr/share/zplug/init.zsh
+source ~/.zplug/init.zsh
+# source /usr/share/zplug/init.zsh
 # zplug "plugins/git", from:oh-my-zsh
 # zplug "plugins/sudo", from:oh-my-zsh
 # zplug "plugins/command-not-found", from:oh-my-zsh
@@ -154,7 +161,8 @@ function y() {
 echo ""
 # zprof
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PATH="$PATH:/home/$USER/.scripts"
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
