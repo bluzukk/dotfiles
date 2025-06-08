@@ -2,6 +2,6 @@
 + **Font**: [**Cascadia-Code**](https://github.com/microsoft/cascadia-code)
 + **Terminal**: [**kitty**](https://sw.kovidgoyal.net/kitty/)
 + **Shell**: [**zsh**](https://wiki.archlinux.org/index.php/Zsh)
-+ **File Manager**: [**lf**](https://github.com/gokcehan/lf)
++ **File Manager**: [**yazi**](https://github.com/sxyazi/yazi)
 + **Editor**: [**Neovim**](https://github.com/neovim/neovim/)
 + **Mail Client**: [**NeoMutt**](https://github.com/neomutt/neomutt)
